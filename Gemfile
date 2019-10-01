@@ -45,6 +45,7 @@ group :development, :test do
   gem 'annotate', '~> 2.7', '>= 2.7.1'
   gem 'bcrypt'
   gem 'jquery-rails'
+  gem 'rails-ujs'
 end
 
 group :development do
