@@ -36,6 +36,10 @@ gem "rubyzip", ">= 1.3.0"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'bcrypt'
+gem 'jquery-rails'
+gem 'rails-ujs'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -43,9 +47,6 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry-rails'
   gem 'annotate', '~> 2.7', '>= 2.7.1'
-  gem 'bcrypt'
-  gem 'jquery-rails'
-  gem 'rails-ujs'
 end
 
 group :development do
