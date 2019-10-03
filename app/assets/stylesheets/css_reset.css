@@ -25,10 +25,11 @@ time, mark, audio, video {
     font-size:100%;
     vertical-align:baseline;
     background:transparent;
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
 body {
-    line-height:1;
+    line-height:1.75;
 }
 
 article,aside,details,figcaption,figure,

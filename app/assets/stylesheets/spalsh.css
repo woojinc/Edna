@@ -1,0 +1,127 @@
+.splash-container {
+    font-family: 'Roboto', sans-serif;
+    /* display: flex; */
+}
+
+.splash-logo {
+    display: block;
+    height: 22px;
+    width: 112px;
+}
+
+.splash-main-nav {
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding: 0 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: box-shadow 225ms;
+}
+
+.splash-main-nav-scrolled {
+    box-shadow: 0 1px 2px 0 rgba(36,50,66,.15);
+}
+
+.splash-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 50px;
+    max-width: 85%;
+    margin: 56px auto 0;
+}
+
+.splash-hero-content > h1 {
+    font-weight: 200;
+}
+.splash-hero-content > h3 {
+    font-weight: 200;
+    color: #646F79;
+}
+
+button, .login-submit {
+    display: inline-block;
+    background-color: #796eff;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 500;
+    height: 36px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color .15s, color .15s ease-in-out;
+}
+
+button:hover {
+    background-color: #635ac7;
+}
+
+.login-button {
+    background-color: #fff;
+    color: #646F79;
+}
+
+.splash-hero-content > button {
+    font-size: 1.2em;
+    font-weight: 500;
+    height: 50px;
+    padding: 0 24px;
+}
+
+.splash-video {
+    margin: 50px auto;
+    width: 80%;
+}
+
+.splash-video > video {
+    width: 100%;
+}
+
+.splash-video-textblocks {
+    display: flex;
+    width: 80%;
+    align-content: space-between;
+    margin: 50px auto;
+}
+
+.splash-video-textblock {
+    margin: 0 20px;
+}
+
+.splash-video-textblock > .textblock-title {
+    font-size: 22px;
+}
+
+
+.splash-footer{
+    background-color: #151b26;
+}
+
+.splash-footer-lang-links{
+    display: flex;
+    justify-content: center;
+    background-color: #222b37;
+    padding: 25px 0;
+    
+}
+
+.splash-footer i{
+    color: white;
+    font-size: 40px;
+    opacity: .6;
+    transition: opacity 225ms;
+}
+
+.splash-footer i:hover {
+    opacity: 1;
+}
+

@@ -30,3 +30,19 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-size: 2.5em;
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 16px;
+}
+
