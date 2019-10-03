@@ -1,10 +1,11 @@
 import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
+import { receiveErrors } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import LoginFromContainer from '../session_form/login_form_container';
 import SignupFromContainer from '../session_form/signup_form_container';
 
-const Modal = ({ modal, closeModal }) => {
+const Modal = ({ modal, closeModal, receiveErrors }) => {
     if ( !modal ) {
         return null;
     }
@@ -21,6 +22,8 @@ const Modal = ({ modal, closeModal }) => {
         default:
             return null;
     }
+    // Resets errors at the beggining of a new modal
+    receiveErrors([]);
 
     return (
         <div className="modal-background" onClick={closeModal}>
@@ -39,6 +42,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        receiveErrors: ( errors ) => dispatch(receiveErrors( errors )),
         closeModal: () => dispatch(closeModal())
     };
 };

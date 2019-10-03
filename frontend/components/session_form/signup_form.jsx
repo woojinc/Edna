@@ -4,7 +4,7 @@ import { merge } from 'lodash';
 class SessionForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             email: "",
             password: ""
         };
@@ -21,7 +21,7 @@ class SessionForm extends React.Component {
         };
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         const user = merge({}, this.state);
         this.props.processForm(user);
@@ -30,7 +30,7 @@ class SessionForm extends React.Component {
     demoLogin(e) {
         e.preventDefault();
         const demoUser = {
-            email: "user1@user.com",
+            email: "demo@user.com",
             password: "password"
         };
         this.props.processForm(demoUser)
@@ -48,27 +48,18 @@ class SessionForm extends React.Component {
         );
     }
 
-    session_login_form() {
-
-    }
-
     render() {
         return (
             <div>
                 <form className="login-form-container" onSubmit={this.handleSubmit}>
-                    <button 
-                        className="close-button" 
-                        type="button" 
-                        onClick={this.props.closeModal}>    
-                            <i className="fas fa-times"></i>
-                    </button>
+                    <button className="close-button" type="button" onClick={this.props.closeModal}><i className="fas fa-times"></i></button>
                     <h1 className="login-header-text">{this.props.formType}</h1>
                     {this.renderErrors()}
                     <div className="login-form">
                         <label>
                             Email Address
                             <br />
-                            <input 
+                            <input
                                 type="email"
                                 value={this.state.email}
                                 onChange={this.handleChange('email')}
@@ -79,7 +70,7 @@ class SessionForm extends React.Component {
                         <label>
                             Password
                             <br />
-                            <input 
+                            <input
                                 type="password"
                                 value={this.state.password}
                                 onChange={this.handleChange('password')}
@@ -87,21 +78,25 @@ class SessionForm extends React.Component {
                             />
                         </label>
                         <br />
-                        <input 
+                        <input
                             className="login-submit"
                             type="submit"
                             value={this.props.formType}
-                            />
+                        />
                         <br />
-                        <button 
-                            className="login-demo-submit" 
-                            type="button" 
-                            onClick={this.demoLogin}>Demo</button>
+                        <button
+                            className="login-demo-submit"
+                            type="button"
+                            onClick={this.demoLogin}
+                        >Demo</button>
                         <div className="forgot-password">
                             <a href="">Forgot password?</a>
                         </div>
                         <div className="redirect-to-signup">
-                            <span>{ this.props.otherForm }</span>
+                            <span>Don't have an account? </span>
+                            <span>
+                                <a href="">Sign Up</a>
+                            </span>
                         </div>
                     </div>
                 </form>
