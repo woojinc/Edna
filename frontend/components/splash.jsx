@@ -28,26 +28,44 @@ const Splash = ({ openModal }) => {
             <div className="splash-hero-content">
                 <h1>The way you work isn't working</h1>
                 <h3>Ditch the chaos of endless email, sprawling spreadsheets, and not-so-sticky notes. Asana is all you need to manage work—without the anxiety.</h3>
-                <button className="hero-content-signup-button" onClick={() => openModal('signup')}>Try for free</button>
+                <button className="hero-content-signup-button signup-button" onClick={() => openModal('signup')}>Try for free</button>
             </div>
 
-            <div className="splash-video">
-                <video src={window.splashVideo} autoPlay loop muted></video>
-            </div>
+            <div className="splash-section-1">
+                <div className="splash-video">
+                    <video src={window.splashVideo} autoPlay loop muted></video>
+                </div>
 
-            <div className="splash-video-textblocks">
-                <div className="splash-video-textblock block-1">
-                    <p className="textblock-title">Get organized</p>
-                    <p className="textblock-body">Plan and structure work in a way that’s best for you. Set priorities and deadlines. Share details and assign tasks. All in one place.</p>
+                <div className="video-background">
+                    <img src={window.videoBackground} alt=""/>
                 </div>
-                <div className="splash-video-textblock block-2">
-                    <p className="textblock-title">Stay on track</p>
-                    <p className="textblock-body">Follow projects and tasks through every stage. You know where work stands and can keep everyone aligned on goals.</p>
+
+
+                <div className="splash-video-text">
+                    <div className="video-front-img">
+                        <div className="video-left-person">
+                            <img src={window.videoLeftPerson} alt="" />
+                        </div>
+                        <div className="video-right-person">
+                            <img src={window.videoRightPerson} alt="" />
+                        </div>
+                    </div>
+                    <div className="splash-video-textblocks">
+                        <div className="splash-video-textblock block-1">
+                            <p className="textblock-title">Get organized</p>
+                            <p className="textblock-body">Plan and structure work in a way that’s best for you. Set priorities and deadlines. Share details and assign tasks. All in one place.</p>
+                        </div>
+                        <div className="splash-video-textblock block-2">
+                            <p className="textblock-title">Stay on track</p>
+                            <p className="textblock-body">Follow projects and tasks through every stage. You know where work stands and can keep everyone aligned on goals.</p>
+                        </div>
+                        <div className="splash-video-textblock block-3">
+                            <p className="textblock-title">Hit deadlines</p>
+                            <p className="textblock-body">Create visual project plans to see how every step maps out over time. Pinpoint risks. Eliminate roadblocks. Even when plans change.</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="splash-video-textblock block-3">
-                    <p className="textblock-title">Hit deadlines</p>
-                    <p className="textblock-body">Create visual project plans to see how every step maps out over time. Pinpoint risks. Eliminate roadblocks. Even when plans change.</p>
-                </div>
+
             </div>
 
             <footer className="splash-footer">

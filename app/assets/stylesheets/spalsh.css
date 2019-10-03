@@ -1,3 +1,7 @@
+div {
+    border: 1px red solid;
+    box-sizing: border-box;
+}
 .splash-container {
     font-family: 'Roboto', sans-serif;
     /* display: flex; */
@@ -20,6 +24,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 5;
     transition: box-shadow 225ms;
 }
 
@@ -34,7 +39,7 @@
     text-align: center;
     padding-top: 50px;
     max-width: 85%;
-    margin: 56px auto 0;
+    margin: 56px auto 56px;
 }
 
 .splash-hero-content > h1 {
@@ -45,7 +50,7 @@
     color: #646F79;
 }
 
-button, .login-submit {
+button, .login-submit, .login-demo-submit {
     display: inline-block;
     background-color: #796eff;
     border-radius: 3px;
@@ -61,13 +66,25 @@ button, .login-submit {
     transition: background-color .15s, color .15s ease-in-out;
 }
 
-button:hover {
+button:hover, .login-submit:hover, .login-demo-submit:hover {
     background-color: #635ac7;
 }
 
 .login-button {
     background-color: #fff;
     color: #646F79;
+    transition: color .15s ease-in-out;
+}
+
+.login-button:hover {
+    background-color: #fff;
+    color: #635ac7;
+}
+
+.splash-section-1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .splash-hero-content > button {
@@ -78,23 +95,67 @@ button:hover {
 }
 
 .splash-video {
-    margin: 50px auto;
-    width: 80%;
+    position: relative;
+    margin: 0 auto;
+    width: 70%;
+    z-index: 2;
 }
 
 .splash-video > video {
     width: 100%;
 }
 
+.video-background {
+    position: absolute;
+    top: 100px;
+}
+
+.video-background > img {
+    width: 100%;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.video-front-img {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+
+    margin-left: auto;
+    margin-right: auto;
+    top: -7vw;
+    left: 0;
+    right: 0;
+
+    width: 90%;
+
+    z-index: 2;
+}
+
+.video-left-person > img, .video-right-person > img{
+    height: 17vw;
+}
+
+.splash-video-text {
+    position: relative;
+    background: linear-gradient(180deg, #edf1f2 0, #f6f8f9);
+    margin-top: -80px;
+    padding-top: 160px;
+    padding-bottom: 160px;
+}
+
 .splash-video-textblocks {
     display: flex;
-    width: 80%;
+    width: 90%;
+    max-width: calc(230px * 3);
     align-content: space-between;
-    margin: 50px auto;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #edf1f2 0, #f6f8f9);
 }
 
 .splash-video-textblock {
     margin: 0 20px;
+    cursor: pointer;
 }
 
 .splash-video-textblock > .textblock-title {

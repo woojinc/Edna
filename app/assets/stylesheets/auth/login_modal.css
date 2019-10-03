@@ -1,3 +1,6 @@
+.modal-background {
+    overflow: scroll;
+}
 
 .modal-child .login-form-container {
     display: flex;
@@ -19,6 +22,21 @@
     flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
+}
+
+.close-button {
+    display: float;
+    margin-left: 100%;
+    font-size: 2em;
+    background-color: transparent;
+    color: #b7bfc6;
+    transition: .15s;
+    right: 0;
+}
+
+.close-button:hover {
+    background-color: transparent;
+    color: #9ca6af;
 }
 
 .login-form > label {
@@ -53,12 +71,31 @@
     text-align: center;
 }
 
-.login-form > .redirect-to-signup button {
+.login-form > .redirect-to-signup a {
     background-color: transparent;
+    text-decoration: none;
     color: #796eff;
     font-weight: bold;
 }
 
+.login-form > .redirect-to-signup a:hover {
+    border-bottom: 2px solid #796eff;
+}
+
 .login-form > * {
     margin-top: 1em;
+}
+
+.forgot-password > a {
+    color: #9ca6af;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+}
+
+.forgot-password > a:hover {
+    /* text-decoration: underline; */
+    /* font-weight: bold; */
+    /* border: 2px; */
+    border-bottom: 2px solid #9ca6af;
 }
