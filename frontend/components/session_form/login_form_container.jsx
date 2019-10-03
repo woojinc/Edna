@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch) => {
                 </button>
             </div>
         ),
-        closeModal: () => dispatch(closeModal())
+        closeModal: () => dispatch(closeModal()),
+        processDemoLogin: (user) => dispatch(login(user)),
     };
 };
 

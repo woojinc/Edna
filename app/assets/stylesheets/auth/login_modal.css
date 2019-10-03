@@ -40,6 +40,10 @@
     color: #9ca6af;
 }
 
+.login-header-text {
+    font-weight: 300;
+}
+
 .errors {
     list-style: none;
     font-size: 1.5em;
