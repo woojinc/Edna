@@ -4,7 +4,7 @@ import { merge } from 'lodash';
 class SessionForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             email: "",
             password: ""
         };
@@ -21,7 +21,7 @@ class SessionForm extends React.Component {
         };
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         const user = merge({}, this.state);
         this.props.processForm(user);
@@ -30,7 +30,7 @@ class SessionForm extends React.Component {
     demoLogin(e) {
         e.preventDefault();
         const demoUser = {
-            email: "user1@user.com",
+            email: "demo@user.com",
             password: "password"
         };
         this.props.processDemoLogin(demoUser)
@@ -46,10 +46,6 @@ class SessionForm extends React.Component {
                 ))}
             </ul>
         );
-    }
-
-    session_login_form() {
-
     }
 
     render() {
