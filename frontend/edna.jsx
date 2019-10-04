@@ -5,6 +5,13 @@ import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
 
+//Test
+//Util
+// import * as APIProjectUtils from './util/project_api_util';
+
+//Actions
+import * as ProjectActions from './actions/project_actions';
+
 document.addEventListener('DOMContentLoaded', () => {
     const rootEl = document.getElementById("root");
 
@@ -22,9 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         store = configureStore();
     }
+    // window.store = store;
 
     window.getState = store.getState;
-    window.getDispatch = store.getDispatch;
+    window.dispatch = store.dispatch;
+    // Testing APIProjectUtils on Window
+    // window.getProject = APIProjectUtils.getProject;
+    // window.createProject = APIProjectUtils.createProject;
+    // window.updateProject = APIProjectUtils.updateProject;
     
+    // Testing ProjectActions on Window
+    window.fetchAllProjects = ProjectActions.fetchAllProjects;
+    window.fetchProject = ProjectActions.fetchProject;
+    window.createProject = ProjectActions.fetchProject;
+    window.updateProject = ProjectActions.updateProject;
+    window.deleteProject = ProjectActions.deleteProject;
+
     ReactDOM.render(<Root store={store} />, rootEl);
 })

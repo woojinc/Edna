@@ -10,7 +10,7 @@ import {
 
 import Modal from './modal/modal';
 import Splash from './splash';
-import Home from './home/home_container';
+import HomeContainer from './home/home_container';
 import GreetingContainer from './greeting/greeting_container';
 import LoginFormContainer from './session_form/login_form_container';
 import SgnupFormContainer from './session_form/signup_form_container';
@@ -20,7 +20,7 @@ const App = () => {
         <div>
             <Modal />
             <AuthRoute exact path="/" component={ Splash } />
-            <ProtectedRoute path="/home" component={ Home } />
+            <ProtectedRoute path="/home" component={ HomeContainer } />
             {/* <header> */}
                 {/* <h1>Edna E Mode App</h1> */}
                 {/* <GreetingContainer /> */}

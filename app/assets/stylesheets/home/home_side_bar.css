@@ -1,0 +1,23 @@
+.home-side-bar{
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width: 244px;
+    height: 100vh; /* temp */
+    background-color: #151b26;
+    color: #d5dce0;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+.side-bar-header {
+    display: flex;
+    height: 36px;
+    margin: 20px 0;
+    box-sizing: border-box;
+}
+
+.side-bar-nav-link {
+    font-size: 1em;
+    box-sizing: border-box;
+}

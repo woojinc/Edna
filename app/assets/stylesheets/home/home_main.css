@@ -1,0 +1,10 @@
+.home-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+
+/* .home-main div {
+    border: 1px solid red;
+} */

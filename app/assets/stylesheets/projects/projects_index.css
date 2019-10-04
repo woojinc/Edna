@@ -1,0 +1,19 @@
+.home-project-index-view{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-index-title {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 3px 0 rgba(21,27,38,.15);
+}
+
+.project-index-title > h3 {
+    margin: 10px 0;
+} 
+
+.project-index-items {
+    display: flex;
+    flex-wrap: wrap;
+}
