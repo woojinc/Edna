@@ -9,8 +9,8 @@
 
 .splash-logo {
     display: block;
-    height: 22px;
-    width: 112px;
+    height: 40px;
+    /* width: 112px; */
 }
 
 .splash-main-nav {
@@ -49,8 +49,10 @@
     font-weight: 200;
     color: #646F79;
 }
-
-button, .login-submit, .login-demo-submit {
+.login-button,
+.signup-button,
+.login-submit, 
+.login-demo-submit {
     display: inline-block;
     background-color: #796eff;
     border-radius: 3px;
@@ -66,7 +68,10 @@ button, .login-submit, .login-demo-submit {
     transition: background-color .15s, color .15s ease-in-out;
 }
 
-button:hover, .login-submit:hover, .login-demo-submit:hover {
+.login-button,
+.signup-button,
+.login-submit:hover, 
+.login-demo-submit:hover {
     background-color: #635ac7;
 }
 

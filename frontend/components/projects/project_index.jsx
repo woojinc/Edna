@@ -2,6 +2,7 @@ import React from 'react';
 import {
     Switch,
     Route,
+    Link,
 } from 'react-router-dom';
 import {
     AuthRoute,
@@ -12,10 +13,6 @@ import Modal from '../modal/modal';
 import ProjectIndexItemContainer from './project_index_item_container';
 
 class ProjectIndex extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     // this.state = this.props;
-    // }
 
     componentDidMount(){
         this.props.fetchAllProjects();
@@ -30,17 +27,17 @@ class ProjectIndex extends React.Component {
         const projectItems = projects.map(project => {
             return (
                 <ProjectIndexItemContainer 
-                    key={ project.id + 1 } 
+                    key={ project.id } 
                     project={ project } 
                     createProject={ false } /> 
             );
         });
 
         const createProjectItem = (
-            <ProjectIndexItemContainer 
-                key={ 0 } 
-                project={ createProject } 
-                createProject={ true } />
+                <ProjectIndexItemContainer 
+                    key={ -1 } 
+                    project={ createProject } 
+                    createProject={ true } />
         );
 
         return (

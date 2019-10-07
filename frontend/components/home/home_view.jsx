@@ -10,6 +10,7 @@ import {
 
 // import HomeViewContainer from './home_view_container';
 import ProjectIndexContainer from '../projects/project_index_container';
+import ProjectShowContainer from '../projects/proejct_show_container';
 
 import Modal from '../modal/modal';
 import GreetingContainer from '../greeting/greeting_container';
@@ -20,7 +21,11 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home-page-view">
-                <ProjectIndexContainer />
+                <Switch>
+                    <ProtectedRoute exact path="/home" component={ProjectIndexContainer} />
+                    <ProtectedRoute exact path="/projects" component={ProjectIndexContainer} />
+                    <ProtectedRoute exact path="/projects/:projectId" component={ProjectShowContainer} />
+                </Switch>
             </div>
         );
     };

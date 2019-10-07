@@ -26,9 +26,10 @@
 
 .modal-child {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 h1 {
@@ -46,3 +47,14 @@ h3 {
   margin-bottom: 16px;
 }
 
+button {
+  border: none;
+}
+
+.coming-soon {
+    display: none !important;
+}
+
+*:focus {
+    outline: none;
+}

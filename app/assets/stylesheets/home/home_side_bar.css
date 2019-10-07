@@ -12,12 +12,60 @@
 
 .side-bar-header {
     display: flex;
+    flex-direction: column;
     height: 36px;
+    width: 100%;
     margin: 20px 0;
     box-sizing: border-box;
 }
 
+.side-bar-logo {
+    display: flex;
+    box-sizing: border-box;
+    height: 100%
+
+}
+
+.side-bar-logo-img {
+    height: 75%;
+    width: auto;
+    padding: 0 10px;
+}
+
 .side-bar-nav-link {
+    display: flex;
+    flex-direction: column;
     font-size: 1em;
     box-sizing: border-box;
+    border-bottom: 1px solid #273240;
+    padding: 0 0 10px 0;
 }
+
+.side-bar-nav-link > a {
+    cursor: pointer;
+    padding: 0 10px 0 15px;
+}
+
+.side-bar-nav-link > a > div {
+    text-decoration: none;
+    color: #cbd4db;
+}
+
+.side-bar-nav-link > a > div > i {
+    width: 20px;
+    text-align: center;
+}
+
+.side-bar-nav-link > a:hover {
+    cursor: pointer;
+    background-color: rgba(255,255,255,.08);
+}
+
+.side-bar-content > div {
+    border-bottom: 1px solid #273240;
+    padding: 10px;
+}
+
+/* .side-bar-nav-link div {
+    color: #cbd4db;
+} */

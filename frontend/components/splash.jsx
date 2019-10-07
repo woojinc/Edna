@@ -18,7 +18,7 @@ const Splash = ({ openModal }) => {
     return (
         <div className="splash-container">
             <header className="splash-main-nav">
-                <a href="/"><img className="splash-logo" src={window.asanaLogo} alt="logo"/></a>
+                <a href="/"><img className="splash-logo" src={window.ednaLogoRed} alt="logo"/></a>
                 <nav className="splash-login-signup">
                     <button className="login-button" onClick={() => openModal('login')}>Log In</button>
                     <button className="signup-button" onClick={() => openModal('signup')}>Try for free</button>

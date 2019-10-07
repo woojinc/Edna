@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Link,
     Switch,
     Route,
 } from 'react-router-dom';
@@ -9,6 +10,7 @@ import {
 } from '../../util/route_util';
 
 import HomeViewContainer from './home_view_container';
+import HomeTopbarContainer from './home_topbar_container';
 
 import Modal from '../modal/modal';
 import GreetingContainer from '../greeting/greeting_container';
@@ -20,19 +22,48 @@ class Home extends React.Component {
         return (
             <div className="home-main">
                 <div className="home-side-bar">
-                    <div className="side-bar-header">[Logo] nav-bar-link</div>
-                    <div className="side-bar-nav-link">nav-bar-link</div>
+                    <div className="side-bar-header">
+                        <div className="side-bar-logo">
+                                <img className="side-bar-logo-img" src={window.ednaLogoWhite} alt="logo" />
+                        </div>
+                    </div>
+                    <div className="side-bar-nav-link">
+                            <Link to={{
+                                pathname: "/home",
+                                state: {
+                                    goingTo: 'Home'
+                                }
+                            }}>
+                                <div className="nav-link-home">
+                                    <i className="fas fa-home"></i> Home
+                                </div>
+                            </Link>
+                            <Link to={{
+                                pathname: "/projects",
+                                state: {
+                                    goingTo: 'Projects'
+                                }
+                            }}>
+                                <div className="nav-link-projects">
+                                    <i className="far fa-clipboard"></i> My Projects
+                                </div>
+                            </Link>
+                    </div>
                     <div className="side-bar-content">
-                        <div className="side-bar-favorite">side-bar-favorite</div>
-                        <div className="side-bar-reports">side-bar-reports</div>
-                        <div className="side-bar-teamlists">side-bar-teamlists</div>
-                        <div className="side-bar-invite">side-bar-invite</div>
+                        <div className="side-bar-favorite coming-soon">side-bar-favorite</div>
+                        <div className="side-bar-reports coming-soon">side-bar-reports</div>
+                        <div className="side-bar-workspaces coming-soon">side-bar-workspaces</div>
+                        <div className="side-bar-teamlists coming-soon">side-bar-teamlists</div>
+                        <div className="side-bar-invite coming-soon">side-bar-invite</div>
                     </div>
                 </div>
 
                 <div className="home-view">
                     <div className="home-view-top">
-                        <div className="home-view-top-bar">Top Bar</div>
+                        <Switch>
+                            <ProtectedRoute exact path="/:root" component={ HomeTopbarContainer } />
+                            <ProtectedRoute exact path="/:root/:id" component={ HomeTopbarContainer } />
+                        </Switch>
                     </div>
 
                     <div className="home-page-view-container">

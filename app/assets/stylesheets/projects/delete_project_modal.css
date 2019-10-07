@@ -1,0 +1,79 @@
+.modal-child .delete-project-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 580px;
+    border-radius: 3px;
+    background-color: #f6f8f9;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.delete-project-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    padding: 10px 30px;
+    border-bottom: 1px solid #e8ecee;
+    box-sizing: border-box;
+}
+
+.delete-project-modal-header > h3 {
+    margin: 0;
+}
+
+.delete-project-modal-header > .close-button {
+    font-size: 1.5em;
+}
+
+.delete-project-modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 30px;
+    font-size: inherit;
+    box-sizing: border-box;
+}
+
+.delete-project-modal-content > ul {
+    padding-left: 40px;
+}
+
+.delete-project-modal-buttons {
+    display: flex;
+    width: 100%;
+    padding: 30px 30px;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+.delete-project-modal-buttons > .close-delete-project-button, 
+.delete-project-modal-buttons > .delete-project-button {
+    /* width: 150px; */
+    height: 30px;
+    padding: 0 9px;
+    margin: 0 5px;
+    /* border: 1px solid #ff5263; */
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer;    
+}
+
+.delete-project-modal-buttons > .close-delete-project-button{
+    border: 1px solid #9ca6af;
+    background-color: #ffffff;
+    color: #6f7782;
+}
+
+.delete-project-modal-buttons > .delete-project-button {
+    border-radius: 4px;
+    background-color: #ff5263;
+    text-align: center;
+    color: #ffffff;
+    font: inherit;
+    font-size: 0.9em;
+    cursor: pointer; 
+    line-height: 31px;   
+}

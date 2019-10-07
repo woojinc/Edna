@@ -1,9 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { closeModal } from '../../actions/modal_actions';
 import { receiveErrors } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import LoginFromContainer from '../session_form/login_form_container';
 import SignupFromContainer from '../session_form/signup_form_container';
+import DeleteProjectModalContainer from '../projects/delete_project_modal_container';
+import EditProjectModalContainer from '../projects/edit_project_modal_container';
 
 const Modal = ({ modal, closeModal, receiveErrors }) => {
     if ( !modal ) {
@@ -13,17 +16,28 @@ const Modal = ({ modal, closeModal, receiveErrors }) => {
     switch (modal) {
         case 'login': {
             component = <LoginFromContainer />;
+            // Resets errors at the beggining of a new modal
+            receiveErrors([]);
             break;
         }
         case 'signup': {
             component = <SignupFromContainer />;
+            // Resets errors at the beggining of a new modal
+            receiveErrors([]);
+            break;
+        }
+        case 'deleteProject': {
+            component = <DeleteProjectModalContainer />;
+            break;
+        }
+        case 'editProject': {
+            component = <EditProjectModalContainer />;
             break;
         }
         default:
             return null;
     }
-    // Resets errors at the beggining of a new modal
-    receiveErrors([]);
+    
 
     return (
         <div className="modal-background" onClick={closeModal}>
@@ -47,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Modal));

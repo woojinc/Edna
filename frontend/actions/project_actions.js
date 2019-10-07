@@ -1,5 +1,7 @@
 import * as APIProjectUtils from '../util/project_api_util';
 
+import { closeModal } from '../actions/modal_actions';
+
 export const GET_ALL_PROJECTS = "GET_ALL_PROJECTS";
 export const GET_PROJECT = "GET_PROJECT";
 export const DELETE_PROJECT = "DELETE_PROJECT";
@@ -20,7 +22,7 @@ export const getProject = ( project ) => {
 
 export const removeProject = ( projectId ) => {
     return {
-        type: GET_PROJECT,
+        type: DELETE_PROJECT,
         projectId
     }
 };
@@ -42,10 +44,12 @@ export const createProject = project => dispatch => (
 
 export const updateProject = project => dispatch => (
     APIProjectUtils.updateProject( project )
-        .then( project => dispatch(getProject( project )))
+        .then(project => dispatch(getProject(project)))
+        .then(() => dispatch(closeModal()))
 );
 
-export const deleteProject = id => dispatch => (
-    APIProjectUtils.deleteProject( id )
+export const deleteProject = id => dispatch => {
+    return APIProjectUtils.deleteProject( id )
         .then( project => dispatch(removeProject( id )))
-);
+        .then( () => dispatch(closeModal()))
+};

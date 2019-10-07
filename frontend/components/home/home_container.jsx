@@ -5,6 +5,7 @@ import { openModal } from '../../actions/modal_actions';
 import Home from './home';
 
 const mapStateToProps = (state, ownProps) => {
+    // debugger
     const { session, entities: { users } } = state;
     return {
         currentUser: users[session.id]

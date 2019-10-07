@@ -25,16 +25,22 @@
     width: 100%;
 }
 
+.go-back-arrow-button,
 .close-button {
-    display: float;
-    margin-left: 100%;
     font-size: 2em;
     background-color: transparent;
     color: #b7bfc6;
     transition: .15s;
+    cursor: pointer;
+}
+
+.login-form-container > .close-button {
+    display: float;
+    margin-left: 100%;
     right: 0;
 }
 
+.go-back-arrow-button:hover,
 .close-button:hover {
     background-color: transparent;
     color: #9ca6af;
@@ -88,6 +94,7 @@
 }
 
 .login-form > .redirect-to-signup button {
+    font-size: 1em;
     background-color: transparent;
     text-decoration: none;
     color: #796eff;

@@ -1,8 +1,9 @@
 class Api::ProjectsController < ApplicationController
     def index
-        @projects = Project.all;
+        # @projects = Project.all;
+        @projects = current_user.projects;
         render "api/projects/index"
-        # current_user.projects;
+        # current_user.work_spaces.projects;
     end
 
     def create
