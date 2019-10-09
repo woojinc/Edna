@@ -24,5 +24,21 @@ class Section < ApplicationRecord
 
     has_many :tasks
 
+    def self.orderedList(section)
+        @sections = section.project.sections
+        section_hash = {}
+
+        @sections.each do |section|
+            section_hash[section.id] = section 
+        end
+        
+        orderedList = [section_hash[section_hash.keys.sort.first]]
+
+        until orderedList.last.next_section_id == nil do
+            orderedList.push(section_hash[orderedList.last.next_section_id])
+        end
+
+        orderedList
+    end
 
 end

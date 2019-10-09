@@ -41,66 +41,63 @@ class SectionIndex extends React.Component {
 
         const { currentUser, sections, fetchAllSections, project, projectId } = this.props;
 
-        const createSection = {
-            name: "Add New Section"
-        }
+        // const nullSection = sections[0];
 
-        const nullSection = sections[0];
+        // const unsortedSections = sections.slice(1);
 
-        const unsortedSections = sections.slice(1);
+        // let sortedSections = [nullSection];
+        // // let sectionItems = [];
 
-        let sortedSections = [nullSection];
-        let sectionItems = [];
-
-        for (let i = 0; i < unsortedSections.length; i++) {
-            const nextSectionId = sortedSections[i].next_section_id
-            sortedSections.push(
-                sections.find(section => section.id === nextSectionId)
-            );
-        }
+        // for (let i = 0; i < unsortedSections.length; i++) {
+        //     const nextSectionId = sortedSections[i].next_section_id
+        //     sortedSections.push(
+        //         sections.find(section => section.id === nextSectionId)
+        //     );
+        // };
         
-        for (let i = 0; i < sortedSections.length; i ++) {
-            const currentSection = sortedSections[i];
+        // for (let i = 0; i < sortedSections.length; i ++) {
+        //     const currentSection = sortedSections[i];
 
-            const prevSection = currentSection.prev_section_id ? 
-                ( sortedSections[currentSection.prev_section_id] ) : (null);
+        //     const prevSection = currentSection.prev_section_id ? 
+        //         ( sortedSections[currentSection.prev_section_id] ) : (null);
 
-            const nextSection = currentSection.next_section_id ?
-                ( sortedSections[currentSection.next_section_id] ) : (null);
+        //     const nextSection = currentSection.next_section_id ?
+        //         ( sortedSections[currentSection.next_section_id] ) : (null);
 
-            const sectionItem = <SectionIndexItemContainer
-                key={currentSection.id}
-                prevSection={prevSection}
-                section={currentSection}
-                nextSection={nextSection}
-                projectId={projectId}
-                createSectionItem={false} />
+        //     const sectionItem = <SectionIndexItemContainer
+        //         key={currentSection.id}
+        //         prevSection={prevSection}
+        //         section={currentSection}
+        //         nextSection={nextSection}
+        //         projectId={projectId}
+        //         createSectionItem={false} />
 
-            sectionItems.push(sectionItem);
-        }
+        //     sectionItems.push(sectionItem);
+        // }
         // debugger
         // const sortedSectionsLastId = sortedSections[sortedSections.length - 1].id
 
         // console.log(sortedSections);
         // console.log(sortedSectionsLastId);
+        const sectionItems = sections.map(section => {
+            return (
+                <SectionIndexItemContainer
+                    key={section.id}
+                    section={section}
+                    createSectionItem={false} />
+            );
+        });
 
-        // const sectionItems = sections.map(section => {
-        //     return (
-        //         <SectionIndexItemContainer
-        //             key={section.id}
-        //             section={section}
-        //             // prevId={null}
-        //             projectId={projectId}
-        //             createSectionItem={false} />
-        //     );
-        // });
+        const createSection = {
+            name: "Add New Section",
+            project_id: projectId,
+            prev_section_id: sections[sections.length - 1].id,
+        }
 
         const createSectionItem = (
             <SectionIndexItemContainer
                 key={-1}
-                prevSection={sortedSections[sortedSections.length-1]}
                 section={createSection}
-                projectId={projectId}
                 createSectionItem={true} />
         );
         
@@ -115,6 +112,14 @@ class SectionIndex extends React.Component {
                     {/* </DragDropContext> */}
                     {/* {sectionItems} */}
                     {createSectionItem}
+                    {/* <SectionIndexItemContainer
+                        key={-1}
+                        section={{
+                            name: "Add New Section",
+                            project_id: projectId,
+                            prev_section_id: sections[sections.length - 1].id,
+                        }}
+                        createSectionItem={true} /> */}
                 </div>
             </div>
         );

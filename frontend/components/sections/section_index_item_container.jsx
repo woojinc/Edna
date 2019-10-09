@@ -11,7 +11,7 @@ import {
 class SectionIndexItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.section
+        this.state = this.props.section;
         this.handleCreateSection = this.handleCreateSection.bind(this);
         this.handleOpenSection = this.handleOpenSection.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
@@ -19,13 +19,19 @@ class SectionIndexItem extends React.Component {
     }
 
     handleCreateSection(){
-        // debugger
-        this.props.createSection({section :{
+        debugger
+        this.props.createSection({
             name: "New Section", 
-            project_id: this.props.projectId,
-            prev_section_id: this.props.prevSection.id,
+            project_id: this.props.section.project_id,
+            prev_section_id: this.props.section.prev_section_id,
             // next_section_id: this.props.nextSection.id
-        }, prevSection: this.props.prevSection})
+        })
+        // this.props.createSection({section :{
+        //     name: "New Section", 
+        //     project_id: this.props.projectId,
+        //     prev_section_id: this.props.prevSection.id,
+        //     // next_section_id: this.props.nextSection.id
+        // }, prevSection: this.props.prevSection})
         // .then( newSection => {
         //     console.log(newSection);
         //     debugger
@@ -104,7 +110,8 @@ class SectionIndexItem extends React.Component {
 
 const mapStateToProps = (state, { section, prevSection, nextSection, projectId, createSectionItem}) => {
     return {
-        section, prevSection, nextSection, projectId, createSectionItem
+        // section, prevSection, nextSection, projectId, createSectionItem
+        section, createSectionItem
     }
 }
 

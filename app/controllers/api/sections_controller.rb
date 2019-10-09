@@ -9,12 +9,44 @@ class Api::SectionsController < ApplicationController
     def create
         # @section = current_user.Project.find(params[:project_id]).sections.new(section_params)
         @section = Section.new(section_params)
+
         @section.author_id = current_user.id
         if @section.save
-            render "api/sections/show"
+            unless @section.prev_section_id.nil?
+                @prev_section = Section.find(@section.prev_section_id)
+                @prev_section.update(:next_section_id => @section.id)
+            end
+            unless @section.next_section_id.nil?
+                @next_section = Section.find(@section.next_section_id)
+                @next_section.update(:prev_section_id => @section.id)
+            end
+            @sections = Section.orderedList(@section)
+            render "api/sections/index"
         else
             render json: @section.errors.full_messages, status: 400
         end
+    end
+
+    def update_sections_order
+        # create array of sections that needs to be updated
+        @section = Section.find(params[:id])
+        order_arr = [@section]
+        unless params[:prev_section_id].nil?
+            @prev_section = Section.find(params[:prev_section_id])
+            order_arr.push(@prev_section)
+        end
+        unless params[:next_section_id].nil?
+            @next_section = Section.find(params[:next_section_id])
+            order_arr.push(@next_section)
+        end
+        
+        # handles the actual update of prev/next_section ids here
+        update_related_sections
+
+    end
+
+    def update_related_sectionse
+        @prev_section.next_id = @section.next_id if @prev_section
     end
 
     def show
@@ -49,6 +81,12 @@ class Api::SectionsController < ApplicationController
 
     private
     def section_params
-        params.require(:section).permit(:name, :description, :null_section, :project_id, :prev_section_id, :next_section_id, :author_id)
+        params.require(:section)
+        .permit(:name, :description, :null_section, :project_id, 
+        :prev_section_id, :next_section_id, :author_id)
     end    
+
+    def update_related_sections
+
+    end
 end

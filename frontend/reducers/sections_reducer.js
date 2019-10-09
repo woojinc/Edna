@@ -1,5 +1,6 @@
 import {
     GET_ALL_SECTIONS,
+    GET_UPDATED_SECTIONS,
     GET_SECTION,
     DELETE_SECTION
 } from '../actions/section_actions';
@@ -12,6 +13,16 @@ export default (state = {}, action) => {
             const sections = action.sections;
             // console.log(sections);
             return merge({}, sections);
+        }
+        case GET_UPDATED_SECTIONS: {
+            const sections = action.sections
+            debugger
+            let newState = merge({}, state)
+            for(let i = 0; i < sections.length; i++) {
+                const section = sections[i]
+                newState = merge({}, newState, { [section.id]: section })
+            }
+            return newState;
         }
         case GET_SECTION: {
             const section = action.section;

@@ -3,12 +3,20 @@ import * as APISectionUtils from '../util/section_api_util';
 import { closeModal } from '../actions/modal_actions';
 
 export const GET_ALL_SECTIONS = "GET_ALL_SECTIONS";
+export const GET_UPDATED_SECTIONS = "GET_UPDATED_SECTIONS";
 export const GET_SECTION = "GET_SECTION";
 export const DELETE_SECTION = "DELETE_SECTION";
 
 export const getAllSections = (sections) => {
     return {
         type: GET_ALL_SECTIONS,
+        sections
+    }
+};
+
+export const getUpdatedSections = (sections) => {
+    return {
+        type: GET_UPDATED_SECTIONS,
         sections
     }
 };
@@ -37,18 +45,23 @@ export const fetchSection = id => dispatch => (
         .then(section => dispatch(getSection(section)))
 ); 
 
-export const createSection = ({section, prevSection}) => dispatch => {
-    // APISectionUtils.createSection(section)
-    //     .then(section => dispatch(getSection(section)))\
-    console.log(section)
+export const createSection = (section) => dispatch => {
     return APISectionUtils.createSection(section)
-        .then(section => {
-            prevSection.next_section_id = section.id;
-            dispatch(updateSection(prevSection));
-            dispatch(getSection(section));
-        })
-        // .then(section => dispatch(getSection(section)));
+        .then(sections => dispatch(getAllSections(sections)));
 };
+
+// export const createSection = ({section, prevSection}) => dispatch => {
+//     // APISectionUtils.createSection(section)
+//     //     .then(section => dispatch(getSection(section)))\
+//     console.log(section)
+//     return APISectionUtils.createSection(section)
+//         .then(section => {
+//             prevSection.next_section_id = section.id;
+//             dispatch(updateSection(prevSection));
+//             dispatch(getSection(section));
+//         })
+//         // .then(section => dispatch(getSection(section)));
+// };
 
 export const updateSection = section => dispatch => (
     APISectionUtils.updateSection(section)
