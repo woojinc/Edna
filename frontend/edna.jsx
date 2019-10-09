@@ -8,9 +8,10 @@ import configureStore from './store/store';
 //Test
 //Util
 // import * as APIProjectUtils from './util/project_api_util';
+import * as APISectionUtils from './util/section_api_util';
 
 //Actions
-import * as ProjectActions from './actions/project_actions';
+// import * as ProjectActions from './actions/project_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
     const rootEl = document.getElementById("root");
@@ -33,17 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState;
     window.dispatch = store.dispatch;
-    // Testing APIProjectUtils on Window
+    // // Testing APIProjectUtils on Window
     // window.getProject = APIProjectUtils.getProject;
     // window.createProject = APIProjectUtils.createProject;
     // window.updateProject = APIProjectUtils.updateProject;
+
+    // // Testing APISectionUtils on Window
+    window.getAllSections = APISectionUtils.getAllSections;
+    window.getSection = APISectionUtils.getSection;
+    window.createSection = APISectionUtils.createSection;
+    window.updateSection = APISectionUtils.updateSection;
     
     // Testing ProjectActions on Window
-    window.fetchAllProjects = ProjectActions.fetchAllProjects;
-    window.fetchProject = ProjectActions.fetchProject;
-    window.createProject = ProjectActions.fetchProject;
-    window.updateProject = ProjectActions.updateProject;
-    window.deleteProject = ProjectActions.deleteProject;
+    // window.fetchAllProjects = ProjectActions.fetchAllProjects;
+    // window.fetchProject = ProjectActions.fetchProject;
+    // window.createProject = ProjectActions.fetchProject;
+    // window.updateProject = ProjectActions.updateProject;
+    // window.deleteProject = ProjectActions.deleteProject;
 
     ReactDOM.render(<Root store={store} />, rootEl);
 })

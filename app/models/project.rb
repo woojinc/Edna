@@ -15,9 +15,13 @@
 class Project < ApplicationRecord
     validates :title, presence: true
 
-    belongs_to :user,
-        primary_key: :id,
-        foreign_key: :author_id,
-        class_name: 'User';
+    belongs_to :author,
+        class_name: 'User'
+
+    has_many :sections, dependent: :destroy
+
+    has_many :tasks, dependent: :destroy,
+        through: :sections,
+        source: :tasks
     
 end

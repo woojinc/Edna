@@ -1,0 +1,44 @@
+.home-section-index-ivew {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-index-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+}
+
+.section-index-items > button {
+    width: 100%;
+    cursor: pointer;
+}
+
+.section-index-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    height: 28px;
+    width: 100%;
+    border-top: 1px solid #e8ecee;
+    padding: 0 5px 0 20px;
+}
+
+.section-row > i {
+    margin-right: 10px;
+    transition: color 0.2s;
+}
+
+.section-row > i:hover {
+    color: #25e8c8;
+}
+
+.section-name > input {
+    border: 0;
+}
+
+.section-index-item > div {
+    font-size: inherit;
+}

@@ -13,12 +13,20 @@ import Modal from '../modal/modal';
 import ProjectIndexItemContainer from './project_index_item_container';
 
 class ProjectIndex extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { loaded: false };
+    }
 
     componentDidMount(){
-        this.props.fetchAllProjects();
+        this.props.fetchAllProjects()
+            .then(() => this.setState({ loaded: true }));
     }
 
     render() {
+        if (!this.state.loaded) {
+            return null;
+        }
         const { currentUser, projects, fetchAllProjects } = this.props;
         const createProject = {
             title: "New Project"

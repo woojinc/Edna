@@ -24,9 +24,13 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   has_many :projects,
-      primary_key: :id,
-      foreign_key: :author_id,
-      class_name: 'Project';
+      foreign_key: :author_id
+  has_many :authored_sections,
+      foreign_key: :author_id
+  has_many :authored_tasks,
+      foreign_key: :author_id
+  has_many :assigned_tasks,
+      foreign_key: :assignee_id
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

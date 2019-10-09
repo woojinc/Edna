@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_141759) do
+ActiveRecord::Schema.define(version: 2019_10_08_153141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,36 @@ ActiveRecord::Schema.define(version: 2019_10_04_141759) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["workspace_id"], name: "index_projects_on_workspace_id"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "null_section", default: false
+    t.integer "project_id", null: false
+    t.integer "prev_section_id"
+    t.integer "next_section_id"
+    t.integer "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_sections_on_project_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "completed", default: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "due_date"
+    t.integer "assignee_id"
+    t.integer "author_id", null: false
+    t.integer "section_id"
+    t.integer "prev_task_id"
+    t.integer "next_task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_tasks_on_author_id"
   end
 
   create_table "users", force: :cascade do |t|

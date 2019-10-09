@@ -9,6 +9,13 @@ import {
     updateProject,
     deleteProject
 } from '../../actions/project_actions';
+import {
+    fetchAllSections,
+    fetchSection,
+    createSection,
+    updateSection,
+    deleteSection
+} from '../../actions/section_actions';
 import ProjectShow from './project_show';
 
 // import { selectProject } from '../../reducers/selectors';

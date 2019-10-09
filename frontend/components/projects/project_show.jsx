@@ -11,6 +11,7 @@ import {
 
 // import Modal from '../modal/modal';
 // import ProjectIndexItemContainer from './project_index_item_container';
+import SectionIndexContainer from '../sections/section_index_container';
 
 class ProjectShow extends React.Component {
 
@@ -19,10 +20,11 @@ class ProjectShow extends React.Component {
     }
 
     render() {
-        const { project } = this.props
+        const { project, projectId } = this.props
         return (
             <div>
                 {project.title}
+                <SectionIndexContainer project={project} projectId={projectId}/>
             </div>
         );
     };
