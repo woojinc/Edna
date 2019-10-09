@@ -8,6 +8,7 @@ import {
     AuthRoute,
     ProtectedRoute,
 } from '../../util/route_util';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Modal from '../modal/modal';
 import SectionIndexItemContainer from './section_index_item_container';
@@ -25,14 +26,13 @@ class SectionIndex extends React.Component {
             .then(() => this.setState({ loaded: true }));
     }
 
-    // componentDidUpdate(prevProps) {
-    //     console.log(isEqual(prevProps.sections, this.props.sections));
-    //     if (!isEqual(prevProps.sections, this.props.sections)) {
-    //         this.props.fetchAllSections(this.props.projectId)
-    //             .then(() => this.setState({ loaded: true }));
-    //     }
-    // }
-
+    componentDidUpdate(prevProps) {
+        console.log(prevProps.sections.length !== this.props.sections.length);
+        debugger
+        if (prevProps.sections.length !== this.props.sections.length) {
+            this.props.fetchAllSections(this.props.projectId);
+        }
+    }
 
     render() {
         if (!this.state.loaded) {
@@ -47,36 +47,59 @@ class SectionIndex extends React.Component {
 
         const nullSection = sections[0];
 
-        // const unsortedSections = sections.slice(1);
+        const unsortedSections = sections.slice(1);
 
         let sortedSections = [nullSection];
-        
-        for (let i = 0; i < sections.length - 1; i ++) {
-            const nextSectionId = sortedSections[i].next_id
-            sortedSections.push(sections[nextSectionId]);
-        }
-        debugger
-        const sortedSectionsLastId = sortedSections[sortedSections.length - 1].id
+        let sectionItems = [];
 
-        console.log(sortedSections);
-        console.log(sortedSectionsLastId);
-
-        const sectionItems = sections.map(section => {
-            return (
-                <SectionIndexItemContainer
-                    key={section.id}
-                    section={section}
-                    prevId={null}
-                    projectId={projectId}
-                    createSectionItem={false} />
+        for (let i = 0; i < unsortedSections.length; i++) {
+            const nextSectionId = sortedSections[i].next_section_id
+            sortedSections.push(
+                sections.find(section => section.id === nextSectionId)
             );
-        });
+        }
+        
+        for (let i = 0; i < sortedSections.length; i ++) {
+            const currentSection = sortedSections[i];
+
+            const prevSection = currentSection.prev_section_id ? 
+                ( sortedSections[currentSection.prev_section_id] ) : (null);
+
+            const nextSection = currentSection.next_section_id ?
+                ( sortedSections[currentSection.next_section_id] ) : (null);
+
+            const sectionItem = <SectionIndexItemContainer
+                key={currentSection.id}
+                prevSection={prevSection}
+                section={currentSection}
+                nextSection={nextSection}
+                projectId={projectId}
+                createSectionItem={false} />
+
+            sectionItems.push(sectionItem);
+        }
+        // debugger
+        // const sortedSectionsLastId = sortedSections[sortedSections.length - 1].id
+
+        // console.log(sortedSections);
+        // console.log(sortedSectionsLastId);
+
+        // const sectionItems = sections.map(section => {
+        //     return (
+        //         <SectionIndexItemContainer
+        //             key={section.id}
+        //             section={section}
+        //             // prevId={null}
+        //             projectId={projectId}
+        //             createSectionItem={false} />
+        //     );
+        // });
 
         const createSectionItem = (
             <SectionIndexItemContainer
                 key={-1}
+                prevSection={sortedSections[sortedSections.length-1]}
                 section={createSection}
-                prevId={sortedSectionsLastId}
                 projectId={projectId}
                 createSectionItem={true} />
         );
@@ -87,7 +110,10 @@ class SectionIndex extends React.Component {
                     <h3>Sections</h3>
                 </div>
                 <div className="section-index-items">
-                    {sectionItems}
+                    {/* <DragDropContext onDragEnd={this.onDragEnd}> */}
+                        {sectionItems}
+                    {/* </DragDropContext> */}
+                    {/* {sectionItems} */}
                     {createSectionItem}
                 </div>
             </div>

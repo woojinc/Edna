@@ -19,22 +19,30 @@ class SectionIndexItem extends React.Component {
     }
 
     handleCreateSection(){
-        debugger
-        this.props.createSection({
+        // debugger
+        this.props.createSection({section :{
             name: "New Section", 
             project_id: this.props.projectId,
-            prev_section_id: this.props.prevId,
-            next_section_id: this.props.nextId
-        })
-        .then( newSection => { const newSectionId = newSection.id });
-        console.log(newSectionId);
-        debugger
-        this.props.fetchSection(this.props.prevId)
-        .then( prevSection => { let prevSectionState = prevSection.section }); 
-        debugger
-        prevSectionState.next_section_id = newSection.id;
-        this.props.updateSection(prevSectionState);
-        debugger
+            prev_section_id: this.props.prevSection.id,
+            // next_section_id: this.props.nextSection.id
+        }, prevSection: this.props.prevSection})
+        // .then( newSection => {
+        //     console.log(newSection);
+        //     debugger
+        //     this.props.prevSection.next_section_id = newSection.id;
+        //     dispatch(this.props.updateSection(this.props.prevSection));
+        // });
+        // debugger
+        // .then( newSection => { const newSectionId = newSection.id })
+        // .then( )
+        // console.log(newSectionId);
+        // debugger
+        // this.props.fetchSection(this.props.prevId)
+        // .then( prevSection => { let prevSectionState = prevSection.section }); 
+        // debugger
+        // prevSectionState.next_section_id = newSection.id;
+        // this.props.updateSection(prevSectionState);
+        // debugger
     }
 
     handleOpenSection(){
@@ -94,9 +102,9 @@ class SectionIndexItem extends React.Component {
     }
 };
 
-const mapStateToProps = (state, {section, prevId, nextId, projectId, createSectionItem}) => {
+const mapStateToProps = (state, { section, prevSection, nextSection, projectId, createSectionItem}) => {
     return {
-        section, prevId, nextId, projectId, createSectionItem
+        section, prevSection, nextSection, projectId, createSectionItem
     }
 }
 

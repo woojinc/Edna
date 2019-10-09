@@ -14,7 +14,7 @@ export default (state = {}, action) => {
             return merge({}, sections);
         }
         case GET_SECTION: {
-            const section = action.section
+            const section = action.section;
             return merge({}, state, { [section.id]: section });
         }
         case DELETE_SECTION: {

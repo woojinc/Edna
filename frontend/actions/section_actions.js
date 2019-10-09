@@ -35,12 +35,20 @@ export const fetchAllSections = (projectId) => dispatch => (
 export const fetchSection = id => dispatch => (
     APISectionUtils.getSection(id)
         .then(section => dispatch(getSection(section)))
-);
+); 
 
-export const createSection = (section) => dispatch => (
-    APISectionUtils.createSection(section)
-        .then(section => dispatch(getSection(section)))
-);
+export const createSection = ({section, prevSection}) => dispatch => {
+    // APISectionUtils.createSection(section)
+    //     .then(section => dispatch(getSection(section)))\
+    console.log(section)
+    return APISectionUtils.createSection(section)
+        .then(section => {
+            prevSection.next_section_id = section.id;
+            dispatch(updateSection(prevSection));
+            dispatch(getSection(section));
+        })
+        // .then(section => dispatch(getSection(section)));
+};
 
 export const updateSection = section => dispatch => (
     APISectionUtils.updateSection(section)
