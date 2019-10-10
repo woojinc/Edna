@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
 
-    helper_method :current_user, :logged_in?, :ordered_list_ids, :ordered_list_ids_with_sections
+    helper_method :current_user, 
+        :logged_in?, 
+        :ordered_list_ids, 
+        :ordered_list_ids_with_sections,
+        :ordered_tasks_list_ids,
+        :ordered_tasks_list_ids_with_tasks
 
     def current_user
         return nil unless session[:session_token]
@@ -69,6 +74,52 @@ class ApplicationController < ActionController::Base
 
         until section_hash[ordered_list_ids.last].next_section_id == nil do
             ordered_list_ids.push(section_hash[ordered_list_ids.last].next_section_id)
+        end
+        
+        # debugger
+        ordered_list_ids
+    end
+
+    # This is used to create ordered_list_ids for sections under project item
+    def ordered_tasks_list_ids(section)
+        # @sections = section.project.sections
+        @tasks = section.tasks
+        # debugger
+        task_hash = {}
+        head = nil
+
+        @tasks.each do |task|
+            task_hash[task.id] = task 
+            head = task if task.prev_task_id == nil
+        end
+        
+        ordered_list_ids = [head.id]
+
+        until task_hash[ordered_list_ids.last].next_task_id == nil do
+            ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
+        end
+        
+        # debugger
+        ordered_list_ids
+    end
+
+    # This is used to create ordered_list_ids for tasks under project item
+    def ordered_tasks_list_ids_with_tasks(tasks)
+        # @tasks = task.project.tasks
+        # @tasks = project.tasks
+        # debugger
+        task_hash = {}
+        head = nil
+
+        tasks.each do |task|
+            task_hash[task.id] = task 
+            head = task if task.prev_task_id == nil
+        end
+        
+        ordered_list_ids = [head.id]
+
+        until task_hash[ordered_list_ids.last].next_task_id == nil do
+            ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
         end
         
         # debugger

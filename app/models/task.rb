@@ -24,6 +24,46 @@ class Task < ApplicationRecord
     belongs_to :section
     belongs_to :author,
         class_name: 'User'    
-    belongs_to :assignee,
+    belongs_to :assignee, optional: :true,
         class_name: 'User'    
+
+    def self.ordered_list(task)
+        @tasks = task.section.tasks
+        # debugger
+        task_hash = {}
+        head = nil
+
+        @tasks.each do |task|
+            task_hash[task.id] = task 
+            head = task if task.prev_task_id == nil
+        end
+        
+        ordered_list = [head]
+
+        until ordered_list.last.next_task_id == nil do
+            ordered_list.push(task_hash[ordered_list.last.next_task_id])
+        end
+    
+        ordered_list
+    end
+
+    def self.ordered_list_ids(task)
+        @tasks = task.section.tasks
+        task_hash = {}
+        head = nil
+
+        @tasks.each do |task|
+            task_hash[task.id] = task 
+            head = task if task.prev_task_id == nil
+        end
+        
+        ordered_list_ids = [head.id]
+
+        until task_hash[ordered_list_ids.last].next_task_id == nil do
+            ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
+        end
+
+        # debugger
+        ordered_list_ids
+    end
 end
