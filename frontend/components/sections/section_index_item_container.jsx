@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { 
     createSection,
     updateSection, 
     fetchSection,
-} from '../../actions/section_actions'
+} from '../../actions/section_actions';
+import { Draggable } from 'react-beautiful-dnd';
 
 class SectionIndexItem extends React.Component {
     constructor(props) {
@@ -19,12 +20,12 @@ class SectionIndexItem extends React.Component {
     }
 
     handleCreateSection(){
-        debugger
+        // debugger
         this.props.createSection({
             name: "New Section", 
             project_id: this.props.section.project_id,
             prev_section_id: this.props.section.prev_section_id,
-            // next_section_id: this.props.nextSection.id
+            next_section_id: this.props.section.nextSection.id
         })
         // this.props.createSection({section :{
         //     name: "New Section", 
@@ -71,7 +72,7 @@ class SectionIndexItem extends React.Component {
     render() {
         const { section, projectId, createSectionItem } = this.props;
         const sectionItem = createSectionItem ? (
-            <button onClick={this.handleCreateSection}>
+            (<button onClick={this.handleCreateSection}>
                 <div className="section-index-item">
                     <div className="section-row create-section">
                         <i className="fas fa-plus"></i>
@@ -82,9 +83,11 @@ class SectionIndexItem extends React.Component {
                     <div className="section-subname">
                     </div>
                 </div >
-            </button>
+            </button>)
         ) : (
-            <button onClick={this.handleOpenSection}>
+            (
+            // button breaks dnd
+            // <button onClick={this.handleOpenSection}>
                 <div className="section-index-item" >
                     <div className="section-row">
                         <i className="far fa-check-circle"></i>
@@ -100,10 +103,31 @@ class SectionIndexItem extends React.Component {
                     <div className="section-subname">
                     </div>
                 </div >
-            </button>
+            // </button>
+            
+            )
         );
+        // const sectionItem = section.name;
+        // console.log(this.props.index);
+        // console.log(sectionItem);
+        debugger
         return (
             sectionItem
+            // createSectionItem ? (
+            // <Draggable draggableId ={this.props.section.id} index={this.props.index}>
+            //     {(provided)=>(
+            //         <div
+            //             {...provided.draggableProps}    
+            //             {...provided.dragHandleProps}    
+            //             ref={provided.innerRef}
+            //         >
+            //             {sectionItem}
+            //         </div>
+            //     )}
+            // </Draggable>
+            // ) : (
+                // { sectionItem }
+            // )
         )
     }
 };
@@ -123,4 +147,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SectionIndexItem);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SectionIndexItem));

@@ -16,7 +16,6 @@ export default (state = {}, action) => {
         }
         case GET_UPDATED_SECTIONS: {
             const sections = action.sections
-            debugger
             let newState = merge({}, state)
             for(let i = 0; i < sections.length; i++) {
                 const section = sections[i]

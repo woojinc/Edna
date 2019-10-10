@@ -10,7 +10,7 @@ import {
     deleteSection
 } from '../../actions/section_actions';
 import SectionIndex from './section_index';
-
+import { withRouter } from 'react-router-dom';
 import { selectSection } from '../../reducers/selectors';
 
 const mapStateToProps = (state, ownProps) => {
@@ -35,8 +35,8 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(SectionIndex);
+)(SectionIndex));
 

@@ -8,7 +8,8 @@ import {
     AuthRoute,
     ProtectedRoute,
 } from '../../util/route_util';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { Droppable, DragDropContext } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 
 import Modal from '../modal/modal';
 import SectionIndexItemContainer from './section_index_item_container';
@@ -19,6 +20,9 @@ class SectionIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = { loaded: false };
+
+        this.sectionItems = this.sectionItems.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
     }
 
     componentDidMount() {
@@ -27,11 +31,97 @@ class SectionIndex extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps.sections.length !== this.props.sections.length);
-        debugger
+        // console.log(prevProps.sections.length !== this.props.sections.length);
+        // debugger
         if (prevProps.sections.length !== this.props.sections.length) {
             this.props.fetchAllSections(this.props.projectId);
         }
+    }
+
+    sectionItems() {
+        const sections = this.props.sections.map(section => {
+            console.log(section.id);
+            return (
+                <Draggable draggableId={section.id} index={section.id} key={section.id}>
+                    {provided => { return (
+                        <div
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                        >
+                            <Droppable droppableId={section.id}>
+                                {(provided) => (
+                                    <div
+                                    ref={provided.innerRef}
+                                    {...provided.dragHandleProps}
+                                    {...provided.droppableProps}>
+                                        <SectionIndexItemContainer
+                                            index={section.id}
+                                            section={section}
+                                            createSectionItem={false} />
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </div>
+                    )}}
+                </Draggable>
+        )});
+        return sections;
+    }
+
+    onDragEnd(result) {
+        // Sample result
+        // result = {
+        //     draggableId: 'task-1',
+        //     type: 'TYPE',
+        //     reason: 'DROP',
+        //     source: {
+        //         droppableId: 'column-1',
+        //         index: 0,
+        //     },
+        //     destination: {
+        //         droppableId: 'column-1',
+        //         index: 1,
+        //     },
+        // }
+        const { 
+            destination, 
+            source, 
+            draggableId, reason 
+        } = result;
+        console.log(destination.index);
+        console.log(source.index);
+
+            if(!destination) {
+                return; // no destination then exit
+            }
+
+            if (
+                destination.droppableId === source.droppableId &&
+                destination.index === source.index
+            ) {
+                return; // when dragged to start location, exit
+            }
+
+            const section = this.state.sections[source.droppableId];
+            const newSectionIds = Array.from(sections.sectionIds);
+            newSectionIds.splice(source.index, 1);
+            newSectionIds.splice(destination.index, 0, draggableId);
+
+            const newSection = {
+                ...section,
+                sectionIds: newSectionIds,
+            };
+
+            const newState = {
+                ...this.state,
+                section:{
+                    ...this.state.sections,
+                    [newSection.id]: newSection,
+                },
+            };
+            // this.setState(newState);
     }
 
     render() {
@@ -79,14 +169,15 @@ class SectionIndex extends React.Component {
 
         // console.log(sortedSections);
         // console.log(sortedSectionsLastId);
-        const sectionItems = sections.map(section => {
-            return (
-                <SectionIndexItemContainer
-                    key={section.id}
-                    section={section}
-                    createSectionItem={false} />
-            );
-        });
+
+        // const sectionItems = sections.map(section => {
+            // return (
+            //     <SectionIndexItemContainer
+            //         key={section.id}
+            //         section={section}
+            //         createSectionItem={false} />
+            // );
+        // });
 
         const createSection = {
             name: "Add New Section",
@@ -99,7 +190,7 @@ class SectionIndex extends React.Component {
                 key={-1}
                 section={createSection}
                 createSectionItem={true} />
-        );
+        )
         
         return (
             <div className="home-section-index-view">
@@ -107,19 +198,48 @@ class SectionIndex extends React.Component {
                     <h3>Sections</h3>
                 </div>
                 <div className="section-index-items">
-                    {/* <DragDropContext onDragEnd={this.onDragEnd}> */}
-                        {sectionItems}
-                    {/* </DragDropContext> */}
-                    {/* {sectionItems} */}
-                    {createSectionItem}
-                    {/* <SectionIndexItemContainer
-                        key={-1}
-                        section={{
-                            name: "Add New Section",
-                            project_id: projectId,
-                            prev_section_id: sections[sections.length - 1].id,
-                        }}
-                        createSectionItem={true} /> */}
+                    <DragDropContext onDragEnd={this.onDrangEnd}>
+                        <Droppable 
+                            droppableId="all-sections" 
+                            direction="vertical" 
+                            // type="row"
+                        >
+                            { provided => {
+                                return (
+                                    <div
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                    >
+                                        {this.sectionItems()}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            }
+                        </Droppable>
+                    </DragDropContext>
+                    {/* <Droppable droppableId={this.props.section.id}>
+                        {(provided) => (
+                            <div
+                                innerRef = {provided.innerRef} 
+                                {...provided.droppableProps}>
+                                {sectionItems}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable> */}
+                    {/* <Draggable draggableId={this.props.project.id} index={this.props.index}>
+                        {(provided) => (
+                            <div
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                ref={provided.innerRef}
+                            >
+                                {this.sectionItems()}
+                            </div>
+                        )}
+
+                    </Draggable> */}
+                    {/* {createSectionItem} */}
                 </div>
             </div>
         );
