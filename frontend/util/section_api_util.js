@@ -38,3 +38,13 @@ export const deleteSection = (id) => {
         url: `api/sections/${id}`,
     });
 };
+
+export const updateSectionOrder = (moveOpInfo) => {
+    return $.ajax({
+        method: 'PATCH',
+        url: `/api/projects/${moveOpInfo.projectId}/sections/${moveOpInfo.movingSectionId}/update_sections_order`,
+        data: {
+            moveOpInfo
+        }
+    })
+}

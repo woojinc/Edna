@@ -20,7 +20,7 @@ class Api::SectionsController < ApplicationController
                 @next_section = Section.find(@section.next_section_id)
                 @next_section.update(:prev_section_id => @section.id)
             end
-            @sections = Section.orderedList(@section)
+            @sections = Section.ordered_list(@section)
             render "api/sections/index"
         else
             render json: @section.errors.full_messages, status: 400
@@ -28,25 +28,121 @@ class Api::SectionsController < ApplicationController
     end
 
     def update_sections_order
-        # create array of sections that needs to be updated
-        @section = Section.find(params[:id])
-        order_arr = [@section]
-        unless params[:prev_section_id].nil?
-            @prev_section = Section.find(params[:prev_section_id])
-            order_arr.push(@prev_section)
+        updated_order_list = params[:moveOpInfo][:updatedOrderedIds]
+        moving_id = params[:moveOpInfo][:movingSectionId]
+        moveto_idx = params[:moveOpInfo][:moveToIndex].to_i
+
+        @moving = Section.find(moving_id)
+
+        sections_will_be_updated = [@moving]
+
+        # Grab prev and next section for the moving section
+        if !@moving.prev_section_id.nil?
+            @moving_prev = Section.find(@moving.prev_section_id)
+            sections_will_be_updated.push(@moving_prev)
         end
-        unless params[:next_section_id].nil?
-            @next_section = Section.find(params[:next_section_id])
-            order_arr.push(@next_section)
+        if !@moving.next_section_id.nil?
+            @moving_next = Section.find(@moving.next_section_id)
+            sections_will_be_updated.push(@moving_next)
+        end
+
+        # Grab prev and next section for the new position
+        if moveto_idx != 0
+            @moved_prev = Section.find(updated_order_list[moveto_idx - 1])
+            sections_will_be_updated.push(@moved_prev)
+        end
+        if !updated_order_list[moveto_idx + 1].nil?
+            @moved_next = Section.find(updated_order_list[moveto_idx + 1])
+            sections_will_be_updated.push(@moved_next)
+        end
+
+        # Logic for updating the sections inside sections_will_be_updated
+        #update_sections_will_be_updated
+
+        # Change the prev and next section of the moving section
+        if @moving_prev 
+            @moving_prev.next_section_id = @moving.next_section_id 
+        end
+        if @moving_next
+            @moving_next.prev_section_id = @moving.prev_section_id 
+        end
+
+        # Change the prev and next section of the moved section
+        if @moved_prev
+            @moved_prev.next_section_id = @moving.id
+            @moving.prev_section_id = @moved_prev.id
+        else
+            @moving.prev_section_id = nil
+        end
+        if @moved_next
+            @moved_next.prev_section_id = @moving.id
+            @moving.next_section_id = @moved_next.id
+        else
+            @moving.next_section_id = nil
         end
         
-        # handles the actual update of prev/next_section ids here
-        update_related_sections
+        begin            
+            Section.transaction do 
+                sections_will_be_updated.each do |section|
+                    section.save!
+                end
+            end
+            @sections = Section.ordered_list(@moving)
+            # @project = Project.find(params[:moveOpInfo][:projectId])
+            render "api/sections/index"
+            # render "api/projects/show"
+        rescue ActiveRecord::RecordInvalid
+            puts json: ["here we go!!!"]            
+        end
+
+
+
+        # moving_section.prev_id => moveto_section.id
+        # => except when moveto_section.prev_id == nil
+        # ===> moinvg_section.prev_id => nil
+
+        # moving_section.next_id => moveto_section.next_id
+        # => except when moving_section.prev_id == nil
+        # ===> moving_section.next_id => moveto_section.id
+
+        # moveto_section.prev_id => moving_section.prev_id
+        # => only when moveto_section.prev_id => moving_section.id
+        # ===> otherwise, stays the same
+        # there might be more logic...
+
+        # moveto_section.next_id => moving_section.id
 
     end
 
-    def update_related_sectionse
-        @prev_section.next_id = @section.next_id if @prev_section
+    def update_sections_will_be_updated
+        # @moving
+        # @moving_prev
+        # @moving_next
+        # @moved_prev
+        # @moved_next
+
+        # Change the prev and next section of the moving section
+        if @moving_prev 
+            @moving_prev.next_section_id = @moving.next_section_id 
+        end
+        if @moving_next
+            @moving_next.prev_section_id = @moving.prev_section_id 
+        end
+
+        # Change the prev and next section of the moved section
+        if @moved_prev
+            @moved_prev.next_section_id = @moving.id
+            @moving.prev_section_id = @moved_prev.id
+        else
+            @moving.prev_section_id = nil
+        end
+        if @moved_next
+            @moved_next.prev_section_id = @moving.id
+            @moving.next_section_id = @moved_next.id
+        else
+            @moving.next_section_id = nil
+        end
+
     end
 
     def show
@@ -86,7 +182,4 @@ class Api::SectionsController < ApplicationController
         :prev_section_id, :next_section_id, :author_id)
     end    
 
-    def update_related_sections
-
-    end
 end

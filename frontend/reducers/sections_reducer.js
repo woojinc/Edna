@@ -5,12 +5,14 @@ import {
     DELETE_SECTION
 } from '../actions/section_actions';
 import { merge } from 'lodash';
+import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
 
 export default (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
         case GET_ALL_SECTIONS: {
-            const sections = action.sections;
+            debugger
+            const sections = action.sections.sections;
             // console.log(sections);
             return merge({}, sections);
         }
@@ -31,6 +33,9 @@ export default (state = {}, action) => {
             const newState = merge({}, state);
             delete newState[action.sectionId];
             return newState;
+        }
+        case LOGOUT_CURRENT_USER: {
+            return {};
         }
         default:
             return merge({}, state);

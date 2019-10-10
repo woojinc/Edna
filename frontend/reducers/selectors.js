@@ -1,5 +1,9 @@
 export const selectProject = ( { entities: { projects } } ) => {
-    return Object.values(projects);
+    // debugger
+    return Object.keys(projects).map(id => {
+        return projects[id]
+    });
+    // return Object.values(projects);
 }
 
 export const selectSection = ({ entities: { sections } }) => {

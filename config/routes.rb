@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     resource :user, except: [:index, :new, :edit]
     resource :session, only: [:create, :destroy]
     resources :projects, except: [:new, :edit] do
-      resources :sections, only: [:create, :index]
+      resources :sections, only: [:create, :index] do
+        member do
+          patch 'update_sections_order'
+        end
+      end
     end
     resources :sections, only: [:show, :update, :destroy]
   end

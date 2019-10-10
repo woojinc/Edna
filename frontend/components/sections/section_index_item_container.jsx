@@ -19,14 +19,24 @@ class SectionIndexItem extends React.Component {
         this.handleChangeName = this.handleChangeName.bind(this);
     }
 
-    handleCreateSection(){
-        // debugger
+    handleCreateSection(e){
+        e.preventDefault();
+        
         this.props.createSection({
             name: "New Section", 
             project_id: this.props.section.project_id,
             prev_section_id: this.props.section.prev_section_id,
-            next_section_id: this.props.section.nextSection.id
+            // next_section_id: this.props.section.next_section_id
         })
+        // .then( result => {
+        //     // update sections
+        //     debugger
+        //     this.state.sections[result.section.id] = result.sections[];
+        //     // update project backend
+
+        //     // update project state
+        // })
+        // debugger
         // this.props.createSection({section :{
         //     name: "New Section", 
         //     project_id: this.props.projectId,
@@ -63,7 +73,7 @@ class SectionIndexItem extends React.Component {
     }
 
     handleChangeName(e){
-        e.preventDefault();
+        e.stopPropagation();
         if (this.props.section.name !== this.state.name) {
             this.props.updateSection(this.state);
         }
@@ -73,7 +83,7 @@ class SectionIndexItem extends React.Component {
         const { section, projectId, createSectionItem } = this.props;
         const sectionItem = createSectionItem ? (
             (<button onClick={this.handleCreateSection}>
-                <div className="section-index-item">
+                <div className="section-index-item" >
                     <div className="section-row create-section">
                         <i className="fas fa-plus"></i>
                     </div >
@@ -110,23 +120,24 @@ class SectionIndexItem extends React.Component {
         // const sectionItem = section.name;
         // console.log(this.props.index);
         // console.log(sectionItem);
-        debugger
+        // debugger
         return (
             sectionItem
+            
             // createSectionItem ? (
-            // <Draggable draggableId ={this.props.section.id} index={this.props.index}>
-            //     {(provided)=>(
-            //         <div
-            //             {...provided.draggableProps}    
-            //             {...provided.dragHandleProps}    
-            //             ref={provided.innerRef}
-            //         >
-            //             {sectionItem}
-            //         </div>
-            //     )}
-            // </Draggable>
+            //     sectionItem
             // ) : (
-                // { sectionItem }
+            //         <Draggable draggableId={-this.props.section.id} index={this.props.index}>
+            //             {(provided) => (
+            //                 <div
+            //                     {...provided.draggableProps}
+            //                     {...provided.dragHandleProps}
+            //                     ref={provided.innerRef}
+            //                 >
+            //                     {sectionItem}
+            //                 </div>
+            //             )}
+            //         </Draggable>
             // )
         )
     }

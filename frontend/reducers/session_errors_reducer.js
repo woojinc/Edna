@@ -1,6 +1,7 @@
 import {
     RECEIVE_SESSION_ERRORS,
     RECEIVE_CURRENT_USER,
+    LOGOUT_CURRENT_USER,
 } from '../actions/session_actions';
 import { merge } from 'lodash';
 
@@ -12,6 +13,9 @@ export default ( state = [], action ) => {
             return action.errors;
         }
         case RECEIVE_CURRENT_USER: {
+            return [];
+        }
+        case LOGOUT_CURRENT_USER: {
             return [];
         }
         default:

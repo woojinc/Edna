@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    helper_method :current_user, :logged_in?
+    helper_method :current_user, :logged_in?, :ordered_list_ids, :ordered_list_ids_with_sections
 
     def current_user
         return nil unless session[:session_token]
@@ -27,6 +27,52 @@ class ApplicationController < ActionController::Base
     end
 
     def require_logged_in
+    end
+
+    # This is used to create ordered_list_ids for sections under project item
+    def ordered_list_ids(project)
+        # @sections = section.project.sections
+        @sections = project.sections
+        # debugger
+        section_hash = {}
+        head = nil
+
+        @sections.each do |section|
+            section_hash[section.id] = section 
+            head = section if section.prev_section_id == nil
+        end
+        
+        ordered_list_ids = [head.id]
+
+        until section_hash[ordered_list_ids.last].next_section_id == nil do
+            ordered_list_ids.push(section_hash[ordered_list_ids.last].next_section_id)
+        end
+        
+        # debugger
+        ordered_list_ids
+    end
+
+    # This is used to create ordered_list_ids for sections under project item
+    def ordered_list_ids_with_sections(sections)
+        # @sections = section.project.sections
+        # @sections = project.sections
+        # debugger
+        section_hash = {}
+        head = nil
+
+        sections.each do |section|
+            section_hash[section.id] = section 
+            head = section if section.prev_section_id == nil
+        end
+        
+        ordered_list_ids = [head.id]
+
+        until section_hash[ordered_list_ids.last].next_section_id == nil do
+            ordered_list_ids.push(section_hash[ordered_list_ids.last].next_section_id)
+        end
+        
+        # debugger
+        ordered_list_ids
     end
 
 end

@@ -3,6 +3,7 @@ import * as APISectionUtils from '../util/section_api_util';
 import { closeModal } from '../actions/modal_actions';
 
 export const GET_ALL_SECTIONS = "GET_ALL_SECTIONS";
+export const GET_NEW_SECTIONS = "GET_NEW_SECTIONS";
 export const GET_UPDATED_SECTIONS = "GET_UPDATED_SECTIONS";
 export const GET_SECTION = "GET_SECTION";
 export const DELETE_SECTION = "DELETE_SECTION";
@@ -10,6 +11,13 @@ export const DELETE_SECTION = "DELETE_SECTION";
 export const getAllSections = (sections) => {
     return {
         type: GET_ALL_SECTIONS,
+        sections
+    }
+};
+
+export const getNewSections = (sections) => {
+    return {
+        type: GET_NEW_SECTIONS,
         sections
     }
 };
@@ -45,10 +53,15 @@ export const fetchSection = id => dispatch => (
         .then(section => dispatch(getSection(section)))
 ); 
 
-export const createSection = (section) => dispatch => {
-    return APISectionUtils.createSection(section)
-        .then(sections => dispatch(getAllSections(sections)));
-};
+export const createSection = section => dispatch => (
+    APISectionUtils.createSection(section)
+        .then(sections => dispatch(getAllSections(sections)))
+);
+// THIS WORKS!!! DON'T REMOVE UNTIL YOU FIGURE THIS OUT!!!
+// export const createSection = section => dispatch => (
+//     APISectionUtils.createSection(section)
+//         .then(sections => dispatch(getAllSections(sections)))
+// );
 
 // export const createSection = ({section, prevSection}) => dispatch => {
 //     // APISectionUtils.createSection(section)
@@ -73,4 +86,9 @@ export const deleteSection = id => dispatch => {
     return APISectionUtils.deleteSection(id)
         .then(section => dispatch(removeSection(id)))
         // .then(() => dispatch(closeModal()))
+};
+
+export const updateSectionOrder = moveOpInfo => dispatch => {
+    return APISectionUtils.updateSectionOrder(moveOpInfo)
+        .then(sections => dispatch(getAllSections(sections)))
 };
