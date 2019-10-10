@@ -40,7 +40,8 @@ class Api::ProjectsController < ApplicationController
     def destroy
         @project = Project.find(params[:id])
         if @project.destroy
-            render "api/projects/show" # should render workspace?
+            @projects = current_user.projects
+            render "api/projects/index" # should render workspace?
         else
             render json: @project.errors.full_messages, status: 400
         end        
