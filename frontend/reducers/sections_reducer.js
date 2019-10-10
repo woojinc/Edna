@@ -11,7 +11,7 @@ export default (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
         case GET_ALL_SECTIONS: {
-            debugger
+            // debugger
             const sections = action.sections.sections;
             // console.log(sections);
             return merge({}, sections);

@@ -32,12 +32,12 @@ class SectionIndex extends React.Component {
 
     componentDidUpdate(prevProps) {
         // console.log(prevProps.sections.length !== this.props.sections.length);
-        console.log(
-            !isEqual(prevProps.sections,
-            this.props.sections));
-        console.log(
-            !isEqual(prevProps.project.ordered_section_ids,
-            this.props.project.ordered_section_ids));
+        // console.log(
+        //     !isEqual(prevProps.sections,
+        //     this.props.sections));
+        // console.log(
+        //     !isEqual(prevProps.project.ordered_section_ids,
+        //     this.props.project.ordered_section_ids));
         if (!isEqual(prevProps.sections, this.props.sections) ||
             !isEqual(prevProps.project.ordered_section_ids,
                 this.props.project.ordered_section_ids) ) {
@@ -129,9 +129,9 @@ class SectionIndex extends React.Component {
             source, 
             draggableId, reason 
         } = result;
-        console.log(result);
-        console.log(source);
-        console.log(destination);
+        // console.log(result);
+        // console.log(source);
+        // console.log(destination);
 
         if(!destination) {
             return; // no destination then exit
@@ -148,8 +148,8 @@ class SectionIndex extends React.Component {
         const projectId = project.id;
 
         const moveToSectionId = project.ordered_section_ids[destination.index];
-        console.log(sections);
-        console.log(project.ordered_section_ids);
+        // console.log(sections);
+        // console.log(project.ordered_section_ids);
         // retrieve section id from index id and remove from original array
         const movingSectionId = project.ordered_section_ids.splice(source.index, 1)[0]; 
         // retrieve section id from index id and add the destination section id in the right place
@@ -161,11 +161,11 @@ class SectionIndex extends React.Component {
         const newPrevId = updatedOrderedIds[destination.index - 1];
         const newNextId = updatedOrderedIds[destination.index + 1];
         
-        console.log(updatedOrderedIds);
-        console.log(movingSectionId);
-        console.log(moveToIndex);
-        console.log(newPrevId);
-        console.log(newNextId);
+        // console.log(updatedOrderedIds);
+        // console.log(movingSectionId);
+        // console.log(moveToIndex);
+        // console.log(newPrevId);
+        // console.log(newNextId);
 
         const moveOpInfo = {
             projectId,

@@ -11,7 +11,7 @@ export default (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
         case GET_ALL_TASKS: {
-            debugger
+            // debugger
             const tasks = action.tasks.tasks;
             // console.log(tasks);
             return merge({}, tasks);

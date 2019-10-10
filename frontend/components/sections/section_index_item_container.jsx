@@ -75,7 +75,9 @@ class SectionIndexItem extends React.Component {
     handleChangeName(e){
         e.stopPropagation();
         if (this.props.section.name !== this.state.name) {
-            this.props.updateSection(this.state);
+            const updatedSection = this.props.section;
+            updatedSection.name = this.state.name;
+            this.props.updateSection(updatedSection);
         }
     }
 
