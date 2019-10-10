@@ -171,7 +171,7 @@ def index
     private
     def task_params
         params.require(:task)
-        .permit(:name, :description, :completed, ,:start_date, :end_date, :due_date,
+        .permit(:name, :description, :completed, :start_date, :end_date, :due_date,
         :assignee_id, :author_id, :section_id, :prev_task_id, :next_task_id)
     end    
 
