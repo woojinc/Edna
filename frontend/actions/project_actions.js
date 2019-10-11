@@ -13,10 +13,12 @@ export const getAllProjects = ( projects ) => {
     }
 };
 
-export const getProject = ( project ) => {
+export const getProject = ({ project, sections, tasks}) => {
     return {
         type: GET_PROJECT,
-        project
+        project,
+        sections,
+        tasks,
     }
 };
 

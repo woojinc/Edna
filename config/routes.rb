@@ -10,14 +10,16 @@ Rails.application.routes.draw do
         member do
           patch 'update_sections_order'
         end
-        resources :tasks, only: [:create, :index] do
-          member do
-            patch 'update_tasks_order'
-          end
+
+      end
+    end
+    resources :sections, only: [:show, :update, :destroy] do
+      resources :tasks, only: [:create, :index] do
+        member do
+          patch 'update_tasks_order'
         end
       end
     end
-    resources :sections, only: [:show, :update, :destroy]
     resources :tasks, only: [:show, :update, :destroy]
   end
 end

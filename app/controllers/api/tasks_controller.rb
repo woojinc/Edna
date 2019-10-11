@@ -1,6 +1,6 @@
 class Api::TasksController < ApplicationController
 def index
-        @tasks = current_user.sections.find(params[:section_id]).tasks
+        @tasks = Section.find(params[:section_id]).project.tasks
         render "api/tasks/index"
     end
 
@@ -17,8 +17,9 @@ def index
                 @next_task = Task.find(@task.next_task_id)
                 @next_task.update(:prev_task_id => @task.id)
             end
-            @tasks = Task.ordered_list(@task)
-            render "api/tasks/index"
+            # @tasks = Task.ordered_list(@task)
+            # render "api/tasks/index"
+            render "api/tasks/show"
         else
             render json: @task.errors.full_messages, status: 400
         end

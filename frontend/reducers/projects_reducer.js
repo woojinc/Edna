@@ -30,14 +30,13 @@ export default (state = {}, action) => {
             return newState;
         }
         case GET_ALL_SECTIONS: {
-            // debugger
-            const projectId = Object.values(action.sections.sections)[0].project_id
-            const sectionIds = Object.keys(action.sections.sections).map(Number);
+            const projectId = Object.values(action.sections)[0].project_id
+            const sectionIds = Object.keys(action.sections).map(Number);
             return merge({}, state, 
                 { 
                     [projectId]: {
                         section_ids: sectionIds,
-                        ordered_section_ids: action.sections.ordered_section_ids,
+                        ordered_section_ids: action.ordered_section_ids,
                     }
             })
         }

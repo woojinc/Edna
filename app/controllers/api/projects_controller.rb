@@ -1,6 +1,5 @@
 class Api::ProjectsController < ApplicationController
     def index
-        # @projects = Project.all;
         @projects = current_user.projects
         render "api/projects/index"
         # current_user.work_spaces.projects;
@@ -20,7 +19,10 @@ class Api::ProjectsController < ApplicationController
     end
 
     def show
-        @project = Project.find(params[:id])
+        # Needs to grab related sections and tasks and render in the show
+        @project = current_user.projects.find(params[:id])
+        @sections = @project.sections.includes(:tasks) if @project
+
         if @project
             render "api/projects/show"
         else

@@ -10,21 +10,31 @@ import {
     deleteSection,
     updateSectionOrder,
 } from '../../actions/section_actions';
+import {
+    fetchAllTasks,
+    fetchTask,
+    createTask,
+    updateTask,
+    deleteTask,
+    updateTaskOrder,
+} from '../../actions/task_actions';
 import SectionIndex from './section_index';
 import { withRouter } from 'react-router-dom';
 import { selectSection } from '../../reducers/selectors';
+import { fetchProject } from '../../actions/project_actions';
 
 const mapStateToProps = (state, ownProps) => {
-    const project = ownProps.project;
-    const projectId = ownProps.projectId;
-    // const sections = selectSection(state);
-    // console.log(sections);
-    const { session, entities: { users, sections } } = state;
+    const { project, projectId } = ownProps;
+    
+    const { session, entities } = state;
+    const { __projects, sections, tasks } = entities;
+
     return {
         project,
         projectId,
-        currentUser: users[session.id],
-        sections: sections,
+        currentUser: session.id,
+        sections,
+        tasks,
     };
 };
 
@@ -32,8 +42,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // logout: () => dispatch(logout()),
         // openModal: (modal) => dispatch(openModal(modal)),
+
+        // Project
+        fetchProject: (projectId) => dispatch(fetchProject(projectId)),
+        // Sections
         updateSectionOrder: (moveOpInfo) => dispatch(updateSectionOrder(moveOpInfo)),
         fetchAllSections: (projectId) => dispatch(fetchAllSections(projectId)),
+        // Tasks
+        fetchAllTasks: (sectionId) => dispatch(fetchAllTasks(sectionId)), 
     };
 };
 

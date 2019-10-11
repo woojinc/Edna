@@ -29,7 +29,7 @@ class Task < ApplicationRecord
 
     def self.ordered_list(task)
         @tasks = task.section.tasks
-        # debugger
+        
         task_hash = {}
         head = nil
 
@@ -63,7 +63,7 @@ class Task < ApplicationRecord
             ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
         end
 
-        # debugger
+        
         ordered_list_ids
     end
 end

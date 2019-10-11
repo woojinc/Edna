@@ -8,10 +8,11 @@ export const GET_UPDATED_SECTIONS = "GET_UPDATED_SECTIONS";
 export const GET_SECTION = "GET_SECTION";
 export const DELETE_SECTION = "DELETE_SECTION";
 
-export const getAllSections = (sections) => {
+export const getAllSections = ({ sections, ordered_section_ids }) => {
     return {
         type: GET_ALL_SECTIONS,
-        sections
+        sections,
+        ordered_section_ids,
     }
 };
 

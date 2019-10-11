@@ -6,15 +6,15 @@ import {
 } from '../actions/section_actions';
 import { merge } from 'lodash';
 import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
+import { GET_PROJECT } from '../actions/project_actions';
 
 export default (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
+        case GET_PROJECT:
         case GET_ALL_SECTIONS: {
-            // debugger
-            const sections = action.sections.sections;
-            // console.log(sections);
-            return merge({}, sections);
+            const sections = action.sections;
+            return merge({}, state, sections);
         }
         case GET_UPDATED_SECTIONS: {
             const sections = action.sections

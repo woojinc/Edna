@@ -19,6 +19,8 @@ import { merge, isEqual } from 'lodash';
 class SectionIndex extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = this.props;
         this.state = { loaded: false };
 
         this.sectionItems = this.sectionItems.bind(this);
@@ -26,18 +28,27 @@ class SectionIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllSections(this.props.projectId)
+        // Things need to happen here: 
+        // 1. Update Sections
+        // 2. Update Tasks for all Sections
+        const { fetchAllSections, fetchAllTasks, fetchProject, projectId  } = this.props;
+
+        fetchProject(projectId)
+            .then(({project, sections, tasks}) => {
+                // fetchAllTasks(Object.keys(sections)[0])
+                // debugger
+                const ordered_section_ids = project.ordered_section_ids;
+                this.setState({
+                    project,
+                    ordered_section_ids,
+                    sections,
+                    tasks
+                });
+            })
             .then(() => this.setState({ loaded: true }));
     }
 
     componentDidUpdate(prevProps) {
-        // console.log(prevProps.sections.length !== this.props.sections.length);
-        // console.log(
-        //     !isEqual(prevProps.sections,
-        //     this.props.sections));
-        // console.log(
-        //     !isEqual(prevProps.project.ordered_section_ids,
-        //     this.props.project.ordered_section_ids));
         if (!isEqual(prevProps.sections, this.props.sections) ||
             !isEqual(prevProps.project.ordered_section_ids,
                 this.props.project.ordered_section_ids) ) {
@@ -46,27 +57,28 @@ class SectionIndex extends React.Component {
     }
 
     sectionItems() {
-        const { project, sections } = this.props;
-        // debugger
-        const sectionItems = project.ordered_section_ids.map((sectionIds, index) => {
+        // const { project } = this.props;
+        const { sections, tasks, ordered_section_ids } = this.state;
+        const sectionItems = ordered_section_ids.map((sectionId, index) => {
             // console.log(section.id);
             return (
-                <Draggable draggableId={sectionIds} index={index} key={sectionIds}>
+                <Draggable draggableId={sectionId} index={index} key={sectionId}>
                     {provided => { return (
                         <div
                             {...provided.draggableProps}
                             ref={provided.innerRef}
                             {...provided.dragHandleProps}
                         >
-                            <Droppable droppableId={sectionIds}>
+                            <Droppable droppableId={sectionId}>
                                 {(provided) => (
                                     <div
                                     ref={provided.innerRef}
                                     {...provided.dragHandleProps}
                                     {...provided.droppableProps}>
                                         <SectionIndexItemContainer
-                                            index={sectionIds}
-                                            section={sections[sectionIds]}
+                                            index={sectionId}
+                                            section={sections[sectionId]}
+                                            tasks={tasks}
                                             createSectionItem={false} />
                                         {provided.placeholder}
                                     </div>
@@ -77,36 +89,6 @@ class SectionIndex extends React.Component {
                 </Draggable>
         )});
         return sectionItems;
-        // This works for dragging!!! DO NOT REMOVE UNTIL ABOVE WORKS
-        // const sections = this.props.sections.map((section, index) => {
-        //     // console.log(section.id);
-        //     return (
-        //         <Draggable draggableId={section.id} index={index} key={section.id}>
-        //             {provided => { return (
-        //                 <div
-        //                     {...provided.draggableProps}
-        //                     ref={provided.innerRef}
-        //                     {...provided.dragHandleProps}
-        //                 >
-        //                     <Droppable droppableId={section.id}>
-        //                         {(provided) => (
-        //                             <div
-        //                             ref={provided.innerRef}
-        //                             {...provided.dragHandleProps}
-        //                             {...provided.droppableProps}>
-        //                                 <SectionIndexItemContainer
-        //                                     index={section.id}
-        //                                     section={section}
-        //                                     createSectionItem={false} />
-        //                                 {provided.placeholder}
-        //                             </div>
-        //                         )}
-        //                     </Droppable>
-        //                 </div>
-        //             )}}
-        //         </Draggable>
-        // )});
-        // return sections;
     }
 
     onDragEnd(result) {
@@ -127,11 +109,13 @@ class SectionIndex extends React.Component {
         const { 
             destination, 
             source, 
-            draggableId, reason 
+            draggableId, 
+            type,
+            reason 
         } = result;
-        // console.log(result);
-        // console.log(source);
-        // console.log(destination);
+        console.log(result);
+        console.log(source);
+        console.log(destination);
 
         if(!destination) {
             return; // no destination then exit
@@ -158,8 +142,13 @@ class SectionIndex extends React.Component {
 
         const updatedOrderedIds = project.ordered_section_ids;
 
-        const newPrevId = updatedOrderedIds[destination.index - 1];
-        const newNextId = updatedOrderedIds[destination.index + 1];
+
+        if (type === 'section') {
+            const newPrevId = updatedOrderedIds[destination.index - 1];
+            const newNextId = updatedOrderedIds[destination.index + 1];
+
+        }
+
         
         // console.log(updatedOrderedIds);
         // console.log(movingSectionId);
@@ -173,6 +162,8 @@ class SectionIndex extends React.Component {
             movingSectionId,
             moveToIndex
         }
+
+
 
         this.props.updateSectionOrder(moveOpInfo);
 
@@ -300,3 +291,36 @@ class SectionIndex extends React.Component {
 };
 
 export default SectionIndex;
+
+
+
+// This works for dragging!!! DO NOT REMOVE UNTIL ABOVE WORKS (It Worked)
+// const sections = this.props.sections.map((section, index) => {
+//     // console.log(section.id);
+//     return (
+//         <Draggable draggableId={section.id} index={index} key={section.id}>
+//             {provided => { return (
+//                 <div
+//                     {...provided.draggableProps}
+//                     ref={provided.innerRef}
+//                     {...provided.dragHandleProps}
+//                 >
+//                     <Droppable droppableId={section.id}>
+//                         {(provided) => (
+//                             <div
+//                             ref={provided.innerRef}
+//                             {...provided.dragHandleProps}
+//                             {...provided.droppableProps}>
+//                                 <SectionIndexItemContainer
+//                                     index={section.id}
+//                                     section={section}
+//                                     createSectionItem={false} />
+//                                 {provided.placeholder}
+//                             </div>
+//                         )}
+//                     </Droppable>
+//                 </div>
+//             )}}
+//         </Draggable>
+// )});
+// return sections;

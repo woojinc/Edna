@@ -1,17 +1,17 @@
 export const createTask = (task) => {
     return $.ajax({
         method: 'POST',
-        url: `api/projects/${task.project_id}/tasks`,
+        url: `api/sections/${task.section_id}/tasks`,
         data: {
             task
         },
     });
 };
 
-export const getAllTasks = (project_id) => {
+export const getAllTasks = (section_id) => {
     return $.ajax({
         method: 'GET',
-        url: `api/projects/${project_id}/tasks`,
+        url: `api/sections/${section_id}/tasks`,
     });
 };
 
@@ -42,7 +42,7 @@ export const deleteTask = (id) => {
 export const updateTaskOrder = (moveOpInfo) => {
     return $.ajax({
         method: 'PATCH',
-        url: `/api/projects/${moveOpInfo.projectId}/sections/${moveOpInfo.movingSectionId}/tasks/${moveOpInfo.movingtaskId}/update_tasks_order`,
+        url: `/api/sections/${moveOpInfo.projectId}/sections/${moveOpInfo.movingSectionId}/tasks/${moveOpInfo.movingtaskId}/update_tasks_order`,
         data: {
             moveOpInfo
         }

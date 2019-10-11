@@ -26,7 +26,7 @@ class Section < ApplicationRecord
 
     def self.ordered_list(section)
         @sections = section.project.sections
-        # debugger
+        
         section_hash = {}
         head = nil
 
@@ -60,7 +60,7 @@ class Section < ApplicationRecord
             ordered_list_ids.push(section_hash[ordered_list_ids.last].next_section_id)
         end
 
-        # debugger
+        
         ordered_list_ids
     end
 
