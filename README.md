@@ -1,24 +1,38 @@
-# README
+# Edna
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Only Super Heros are allowed beyond this point
 
-Things you may want to cover:
+[Edna Live](https://edna-mode.herokuapp.com/) 
 
-* Ruby version
+![](https://media.giphy.com/media/LkfFF5PsPacmRiuJnD/giphy.gif)
 
-* System dependencies
 
-* Configuration
+## Technologies Used
+---
+* React / Redux
+* [React Beautiful DnD](https://github.com/atlassian/react-beautiful-dnd)
+* JavaScript
+* JQuery (AJAX)
+* Ruby on Rails
+* PostgreSQL
+* CSS
+* Webpack
 
-* Database creation
+## Super Feature 
+---
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Super Baby Feature
+---
 
-* Deployment instructions
 
-* ...
+
+## Future Works
+---
+* Add tasks to the sections
+* Implement board and column layout 
+* Create workspace and teams
+
+  * Allow author to assign tasks & sections to team member
+* Optimize back end 
