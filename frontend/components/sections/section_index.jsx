@@ -51,14 +51,16 @@ class SectionIndex extends React.Component {
         const sectionItems = project.ordered_section_ids.map((sectionIds, index) => {
             // console.log(section.id);
             return (
-                <Draggable draggableId={sectionIds} index={index} key={sectionIds}>
+            <div className="section-row-container" key={sectionIds}>
+                {index}
+                <Draggable draggableId={sectionIds} index={index} className="draggable">
                     {provided => { return (
                         <div
                             {...provided.draggableProps}
                             ref={provided.innerRef}
                             {...provided.dragHandleProps}
-                        >
-                            <Droppable droppableId={sectionIds}>
+                        > 
+                             <Droppable droppableId={sectionIds}>
                                 {(provided) => (
                                     <div
                                     ref={provided.innerRef}
@@ -67,7 +69,7 @@ class SectionIndex extends React.Component {
                                         <SectionIndexItemContainer
                                             index={sectionIds}
                                             section={sections[sectionIds]}
-                                            createSectionItem={false} />
+                                            createSectionItem={false}/>
                                         {provided.placeholder}
                                     </div>
                                 )}
@@ -75,6 +77,8 @@ class SectionIndex extends React.Component {
                         </div>
                     )}}
                 </Draggable>
+
+            </div>
         )});
         return sectionItems;
         // This works for dragging!!! DO NOT REMOVE UNTIL ABOVE WORKS
@@ -269,8 +273,8 @@ class SectionIndex extends React.Component {
         
         return (
             <div className="home-section-index-view">
-                <div className="section-index-title">
-                    <h3>Sections</h3>
+                <div className="section-index-header">
+                    Task name
                 </div>
                 <div className="section-index-items">
                     <DragDropContext onDragEnd={this.onDragEnd}>

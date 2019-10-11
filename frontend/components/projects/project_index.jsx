@@ -15,7 +15,25 @@ import ProjectIndexItemContainer from './project_index_item_container';
 class ProjectIndex extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { loaded: false };
+        this.state = { 
+            loaded: false,
+            showProjects: false, 
+        };
+        this.handleShowProject = this.handleShowProject.bind(this);
+        this.handleCloseProject = this.handleCloseProject.bind(this);
+    }
+
+    handleShowProject(e) {
+        e.preventDefault();
+        this.setState({ showProjects: true }, () => {
+            document.addEventListener('click', this.handleCloseProject);
+        });
+    }
+
+    handleCloseProject() {
+        this.setState({ showProjects: false }, () => {
+            document.removeEventListener('click', this.handleCloseProject);
+        });
     }
 
     componentDidMount(){
@@ -50,12 +68,14 @@ class ProjectIndex extends React.Component {
 
         return (
             <div className="home-project-index-view">
-                <div className="project-index-title">
-                    <h3>Projects</h3>
-                </div>
-                <div className="project-index-items">
-                    { createProjectItem }
-                    { projectItems }
+                <div className="project-index-container">
+                    <div className="project-index-title">
+                        <h3>Projects</h3>
+                    </div>
+                    <div className="project-index-items">
+                        { createProjectItem }
+                        { projectItems }
+                    </div>
                 </div>
             </div>
         );

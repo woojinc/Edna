@@ -30,6 +30,7 @@ time, mark, audio, video {
 
 body {
     line-height:1.75;
+    overscroll-behavior: none;
 }
 
 article,aside,details,figcaption,figure,

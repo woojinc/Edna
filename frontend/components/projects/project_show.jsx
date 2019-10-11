@@ -65,7 +65,6 @@ class ProjectShow extends React.Component {
         const { project, projectId } = this.props
         return (
             <div>
-                {project.title}
                 {/* <DragDropContext onDragEnd={this.onDragEnd}>
                     {this.sectionIndex()}
                 </DragDropContext> */}

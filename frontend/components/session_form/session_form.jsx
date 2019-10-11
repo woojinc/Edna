@@ -10,6 +10,7 @@ class SessionForm extends React.Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleForgotPassword = this.handleForgotPassword.bind(this);
         this.demoLogin = this.demoLogin.bind(this);
     }
 
@@ -26,6 +27,12 @@ class SessionForm extends React.Component {
         const user = merge({}, this.state);
         this.props.processForm(user);
     }
+    
+    handleForgotPassword(e) {
+        e.preventDefault();
+        alert("Not Implemented Yet!");
+    }
+
 
     demoLogin(e) {
         e.preventDefault();
@@ -38,13 +45,13 @@ class SessionForm extends React.Component {
 
     renderErrors() {
         return (
-            <ul className="errors">
+            <div className="errors">
                 {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
+                    <div key={`error-${i}`} className="error-text">
                         {error}
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         );
     }
 
@@ -93,8 +100,8 @@ class SessionForm extends React.Component {
                             className="login-demo-submit" 
                             type="button" 
                             onClick={this.demoLogin}>Demo</button>
-                        <div className="forgot-password">
-                            <a href="">Forgot password?</a>
+                        <div className="forgot-password" onClick={this.handleForgotPassword}>
+                            <a>Forgot password?</a>
                         </div>
                         <div className="redirect-to-signup">
                             <span>{ this.props.otherForm }</span>

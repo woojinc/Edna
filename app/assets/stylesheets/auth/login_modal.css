@@ -11,7 +11,7 @@
     width: 75vw;
     border-radius: 3px;
     background-color: #f6f8f9;
-    margin: 0 auto;
+    margin: auto;
     padding: 45px 112px;
     box-sizing: border-box;
     /* box-shadow: 0 20px 30px; */
@@ -51,13 +51,27 @@
 }
 
 .errors {
+    width: 100%;
+}
+
+.error-text {
+border-radius: 4px;
+    line-height: 1.25;
+    /* font-size: 0.5em; */
+    width: 100%;
+    font-size: 1px;
+    font-weight: 400;
+    padding: 15px;
+    text-align: center;
+    background-color: #ffeeef;
     list-style: none;
-    font-size: 1.5em;
-    color: #796eff;
+    font-size: 0.9em;
+    color: #273240;
 }
 
 .login-form > label {
     font-size: 1em;
+    color: #646f79;
 }
 
 .modal-child .login-input {
@@ -69,7 +83,7 @@
     /* transition: border .15s; */
     font-size: 1em;
     padding: 0px 1em;
-    /* margin-top: 1em; */
+    margin-top: 1em;
     box-sizing: border-box;
 }
 
@@ -81,12 +95,18 @@
 .modal-child .login-submit {
     width: 100%;
     height: 50px;
+    margin-top: 50px;
 }
 
 .login-form .login-demo-submit {
     margin: 0 auto;
-    width: 50%;
+    background: linear-gradient(to top right,
+     rgba(255, 82, 99, 0.9) 10%,
+      rgba(255, 115, 129, 0.9) 65%,
+       rgba(252, 189, 1, 0.9) 125%);
+    width: 100%;
     height: 50px;
+    margin-bottom: 50px;
 }
 
 .login-form > .forgot-password, .redirect-to-signup {
@@ -99,6 +119,7 @@
     text-decoration: none;
     color: #796eff;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .login-form > .redirect-to-signup button:hover {
@@ -115,6 +136,8 @@
     font-weight: 500;
     text-decoration: none;
     border: none;
+
+    cursor: pointer;
 }
 
 .forgot-password > a:hover {

@@ -1,6 +1,8 @@
-.home-section-index-ivew {
+.home-section-index-view {
     display: flex;
     flex-direction: column;
+    padding: 0 20px 0 15px;
+
 }
 
 .section-index-items {
@@ -15,7 +17,9 @@
     cursor: pointer;
 }
 
-.section-index-item {
+.section-index-header,
+.section-index-item,
+.section-row-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,6 +28,11 @@
     width: 100%;
     border-top: 1px solid #e8ecee;
     padding: 0 5px 0 20px;
+}
+
+.section-row-container{
+    display: flex;
+
 }
 
 .section-row > i {
@@ -41,4 +50,15 @@
 
 .section-index-item > div {
     font-size: inherit;
+    /* width: 100%; */
 }
+
+/* .section-row-container > div,
+.section-row-container > div > div,
+.section-row-container > div > div >div{
+    width: 100%;
+}
+
+.section-index-item {
+    width: 100%;
+} */

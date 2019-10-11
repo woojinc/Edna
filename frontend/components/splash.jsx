@@ -27,7 +27,7 @@ const Splash = ({ openModal }) => {
 
             <div className="splash-hero-content">
                 <h1>The way you work isn't working</h1>
-                <h3>Ditch the chaos of endless email, sprawling spreadsheets, and not-so-sticky notes. Asana is all you need to manage work—without the anxiety.</h3>
+                <h3>Ditch the chaos of endless email, sprawling spreadsheets, and not-so-sticky notes. Edna is all you need to manage work—without the anxiety.</h3>
                 <button className="hero-content-signup-button signup-button" onClick={() => openModal('signup')}>Try for free</button>
             </div>
 
@@ -74,7 +74,13 @@ const Splash = ({ openModal }) => {
 
                 <div className="splash-footer-lang-links">
                     <a href="https://github.com/woojinc/" target="_blank">
-                        <i className="fab fa-github"></i>
+                        <i className="fab fa-github-square"></i>
+                    </a>
+                    <a href="https://github.com/woojinc/" target="_blank">
+                        <i className="fas fa-chalkboard"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/woojin-chae/" target="_blank">
+                        <i className="fab fa-linkedin"></i>
                     </a>
                 </div>
             </footer>
