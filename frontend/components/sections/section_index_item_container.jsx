@@ -85,8 +85,8 @@ class SectionIndexItem extends React.Component {
         const { section, projectId, createSectionItem } = this.props;
         const sectionItem = createSectionItem ? (
             (<button onClick={this.handleCreateSection}>
-                <div className="section-index-item" >
-                    <div className="section-row create-section">
+                <div className="section-index-item create-section" >
+                    <div className="section-row">
                         <i className="fas fa-plus"></i>
                     </div >
                     <div className="section-name">
@@ -109,8 +109,10 @@ class SectionIndexItem extends React.Component {
                             type="text"
                             value={this.state.name}
                             onChange={this.handleChangeNameState()}
+                            // onKeyPress={() => (this.state.width = ((this.state.name.length+1)*8)+'px')}
+                            // style={{width: this.state.width}}
                             onBlur={this.handleChangeName}/>
-                        {this.state.name}
+                        {/* {this.state.name} */}
                     </div>
                     <div className="section-subname">
                     </div>

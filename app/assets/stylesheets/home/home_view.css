@@ -10,3 +10,12 @@
     min-height: 1px;
     position: relative;
 }
+
+.home-page-view-container {
+    margin: 15px 0;
+    height: 100%;
+}
+
+.home-page-view {
+    height: 100%;
+}

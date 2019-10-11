@@ -274,6 +274,9 @@ class SectionIndex extends React.Component {
         return (
             <div className="home-section-index-view">
                 <div className="section-index-header">
+                    <div className="section-index-number">
+                        #
+                    </div>
                     Task name
                 </div>
                 <div className="section-index-items">

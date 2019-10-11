@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     padding: 0 20px 0 15px;
-
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-index-items {
@@ -10,11 +11,22 @@
     flex-direction: column;
     width: 100%;
     align-items: start;
+    box-sizing: border-box;
+}
+
+.section-index-number {
+    padding-right: 20px;
+    box-sizing: border-box;
 }
 
 .section-index-items > button {
     width: 100%;
     cursor: pointer;
+    box-sizing: border-box;
+}
+
+.section-index-items > div{
+    width: 100%;
 }
 
 .section-index-header,
@@ -26,32 +38,60 @@
     font-size: 16px;
     height: 28px;
     width: 100%;
-    border-top: 1px solid #e8ecee;
     padding: 0 5px 0 20px;
+    box-sizing: border-box;
 }
 
-.section-row-container{
-    display: flex;
+.section-index-header,
+.section-row-container,
+.create-section {
+    border-top: 1.2px solid #e8ecee;
+}
 
+.section-row-container {
+    display: flex;
+}
+
+.section-row-container > div {
+    width: 100%;
 }
 
 .section-row > i {
     margin-right: 10px;
     transition: color 0.2s;
+    cursor: auto;
 }
 
 .section-row > i:hover {
     color: #25e8c8;
 }
 
+/* .section-name {
+    width: 100%;
+} */
+
 .section-name > input {
     border: 0;
+    background: transparent;
+    min-width: 20px;
+    width: auto;
+    font-size: 0.8em;
 }
 
 .section-index-item > div {
     font-size: inherit;
     /* width: 100%; */
 }
+
+.section-row-container {
+}
+
+.section-row-container:hover {
+    background-color: #f6f8f9;
+    /* background-color: #edf8ff; */
+}
+
+
 
 /* .section-row-container > div,
 .section-row-container > div > div,
