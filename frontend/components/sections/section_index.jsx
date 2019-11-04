@@ -299,8 +299,8 @@ class SectionIndex extends React.Component {
                             }
                         </Droppable>
                     </DragDropContext>
-                    {createSectionItem}
                 </div>
+                {createSectionItem}
             </div>
         );
     };
