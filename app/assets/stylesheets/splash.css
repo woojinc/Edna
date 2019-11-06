@@ -4,6 +4,7 @@
 } */
 .splash-container {
     font-family: 'Roboto', sans-serif;
+    /* min-width: 640px; */
     /* display: flex; */
 }
 
@@ -19,6 +20,7 @@
     justify-content: space-between;
     align-items: center;
     height: 56px;
+    /* min-width: 640px; */
     padding: 0 16px;
     position: fixed;
     top: 0;
@@ -160,11 +162,13 @@
 
 .splash-video-textblock {
     margin: 0 20px;
+    font-weight: 300;
     cursor: pointer;
 }
 
 .splash-video-textblock > .textblock-title {
     font-size: 22px;
+    padding-bottom: 15px;
 }
 
 
@@ -185,9 +189,21 @@
     font-size: 40px;
     opacity: .6;
     transition: opacity 225ms;
+    padding: 0 20px;
 }
 
 .splash-footer i:hover {
     opacity: 1;
 }
 
+@media (max-width: 700px) {
+    .splash-video-textblocks {
+        flex-direction: column;
+    }
+
+    .splash-video-textblock {
+        padding: 0 40px 40px 40px;
+        /* padding-bottom: 40px; */
+    }
+
+}

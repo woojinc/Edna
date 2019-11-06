@@ -18,7 +18,7 @@ class ProjectIndex extends React.Component {
         this.state = { loaded: false };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchAllProjects()
             .then(() => this.setState({ loaded: true }));
     }
@@ -34,28 +34,30 @@ class ProjectIndex extends React.Component {
 
         const projectItems = projects.map(project => {
             return (
-                <ProjectIndexItemContainer 
-                    key={ project.id } 
-                    project={ project } 
-                    createProject={ false } /> 
+                <ProjectIndexItemContainer
+                    key={project.id}
+                    project={project}
+                    createProject={false} />
             );
         });
 
         const createProjectItem = (
-                <ProjectIndexItemContainer 
-                    key={ -1 } 
-                    project={ createProject } 
-                    createProject={ true } />
+            <ProjectIndexItemContainer
+                key={-1}
+                project={createProject}
+                createProject={true} />
         );
 
         return (
             <div className="home-project-index-view">
-                <div className="project-index-title">
-                    <h3>Projects</h3>
-                </div>
-                <div className="project-index-items">
-                    { createProjectItem }
-                    { projectItems }
+                <div className="project-index-container">
+                    <div className="project-index-title">
+                        <h3>Projects</h3>
+                    </div>
+                    <div className="project-index-items">
+                        {createProjectItem}
+                        {projectItems}
+                    </div>
                 </div>
             </div>
         );

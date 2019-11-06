@@ -15,6 +15,7 @@
 }
 
 .project-index-item:hover {
+    background-color: #f6f8f9;
     transform: translate3d(0, -5px, 0);
 }
 

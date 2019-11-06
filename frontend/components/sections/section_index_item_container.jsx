@@ -87,8 +87,8 @@ class SectionIndexItem extends React.Component {
         const { section, projectId, createSectionItem } = this.props;
         const sectionItem = createSectionItem ? (
             (<button onClick={this.handleCreateSection}>
-                <div className="section-index-item" >
-                    <div className="section-row create-section">
+                <div className="section-index-item create-section" >
+                    <div className="section-row">
                         <i className="fas fa-plus"></i>
                     </div >
                     <div className="section-name">

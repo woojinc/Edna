@@ -17,6 +17,8 @@
 
 .home-view-top-bar-title {
     left: 0;
+    font-size: 1.2em;
+    font-weight: 400;
     text-transform: capitalize;
     display: flex;
 }

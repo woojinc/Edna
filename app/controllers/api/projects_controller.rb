@@ -8,10 +8,10 @@ class Api::ProjectsController < ApplicationController
     def create
         @project = Project.new(project_params)
         if @project.save
-            @section = @project.sections.create(
+            @sections = [].push(@project.sections.create(
                 name: "(no section)", 
                 null_section: true,
-                author_id: current_user.id)
+                author_id: current_user.id))
             render "api/projects/show"
         else
             render json: @project.errors.full_messages, status: 400

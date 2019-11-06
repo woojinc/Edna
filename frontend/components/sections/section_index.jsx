@@ -31,10 +31,10 @@ class SectionIndex extends React.Component {
         // Things need to happen here: 
         // 1. Update Sections
         // 2. Update Tasks for all Sections
-        const { fetchAllSections, fetchAllTasks, fetchProject, projectId  } = this.props;
+        const { fetchAllSections, fetchAllTasks, fetchProject, projectId } = this.props;
 
         fetchProject(projectId)
-            .then(({project, sections, tasks}) => {
+            .then(({ project, sections, tasks }) => {
                 // fetchAllTasks(Object.keys(sections)[0])
                 // debugger
                 const ordered_section_ids = project.ordered_section_ids;
@@ -51,7 +51,7 @@ class SectionIndex extends React.Component {
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.sections, this.props.sections) ||
             !isEqual(prevProps.project.ordered_section_ids,
-                this.props.project.ordered_section_ids) ) {
+                this.props.project.ordered_section_ids)) {
             this.props.fetchAllSections(this.props.projectId);
         }
     }
@@ -59,35 +59,43 @@ class SectionIndex extends React.Component {
     sectionItems() {
         // const { project } = this.props;
         const { sections, tasks, ordered_section_ids } = this.state;
-        const sectionItems = ordered_section_ids.map((sectionId, index) => {
+        const sectionItems = ordered_section_ids.map((sectionIds, index) => {
             // console.log(section.id);
             return (
-                <Draggable draggableId={sectionId} index={index} key={sectionId}>
-                    {provided => { return (
-                        <div
-                            {...provided.draggableProps}
-                            ref={provided.innerRef}
-                            {...provided.dragHandleProps}
-                        >
-                            <Droppable droppableId={sectionId}>
-                                {(provided) => (
-                                    <div
-                                    ref={provided.innerRef}
-                                    {...provided.dragHandleProps}
-                                    {...provided.droppableProps}>
-                                        <SectionIndexItemContainer
-                                            index={sectionId}
-                                            section={sections[sectionId]}
-                                            tasks={tasks}
-                                            createSectionItem={false} />
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </div>
-                    )}}
+
+                <Draggable draggableId={sectionIds} index={index} key={sectionIds}>
+                    {provided => {
+                        return (
+                            <div
+                                {...provided.draggableProps}
+                                ref={provided.innerRef}
+                                {...provided.dragHandleProps}
+                            >
+                                <Droppable droppableId={sectionIds}>
+                                    {(provided) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.dragHandleProps}
+                                            {...provided.droppableProps}>
+                                            <div className="section-row-container" key={sectionIds}>
+                                                {index}
+                                                <SectionIndexItemContainer
+                                                    index={sectionIds}
+                                                    section={sections[sectionIds]}
+                                                    tasks={tasks}
+                                                    createSectionItem={false} />
+
+                                            </div>
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
+                            </div>
+                        )
+                    }}
                 </Draggable>
-        )});
+            )
+        });
         return sectionItems;
     }
 
@@ -106,18 +114,18 @@ class SectionIndex extends React.Component {
         //         index: 1,
         //     },
         // }
-        const { 
-            destination, 
-            source, 
-            draggableId, 
+        const {
+            destination,
+            source,
+            draggableId,
             type,
-            reason 
+            reason
         } = result;
         console.log(result);
         console.log(source);
         console.log(destination);
 
-        if(!destination) {
+        if (!destination) {
             return; // no destination then exit
         }
 
@@ -135,9 +143,9 @@ class SectionIndex extends React.Component {
         // console.log(sections);
         // console.log(project.ordered_section_ids);
         // retrieve section id from index id and remove from original array
-        const movingSectionId = project.ordered_section_ids.splice(source.index, 1)[0]; 
+        const movingSectionId = project.ordered_section_ids.splice(source.index, 1)[0];
         // retrieve section id from index id and add the destination section id in the right place
-        project.ordered_section_ids.splice(destination.index, 0, draggableId); 
+        project.ordered_section_ids.splice(destination.index, 0, draggableId);
         const moveToIndex = destination.index;
 
         const updatedOrderedIds = project.ordered_section_ids;
@@ -149,7 +157,7 @@ class SectionIndex extends React.Component {
 
         }
 
-        
+
         // console.log(updatedOrderedIds);
         // console.log(movingSectionId);
         // console.log(moveToIndex);
@@ -209,7 +217,7 @@ class SectionIndex extends React.Component {
         //         sections.find(section => section.id === nextSectionId)
         //     );
         // };
-        
+
         // for (let i = 0; i < sortedSections.length; i ++) {
         //     const currentSection = sortedSections[i];
 
@@ -236,12 +244,12 @@ class SectionIndex extends React.Component {
         // console.log(sortedSectionsLastId);
 
         // const sectionItems = sections.map(section => {
-            // return (
-            //     <SectionIndexItemContainer
-            //         key={section.id}
-            //         section={section}
-            //         createSectionItem={false} />
-            // );
+        // return (
+        //     <SectionIndexItemContainer
+        //         key={section.id}
+        //         section={section}
+        //         createSectionItem={false} />
+        // );
         // });
 
         const createSection = {
@@ -257,20 +265,23 @@ class SectionIndex extends React.Component {
                 section={createSection}
                 createSectionItem={true} />
         )
-        
+
         return (
             <div className="home-section-index-view">
-                <div className="section-index-title">
-                    <h3>Sections</h3>
+                <div className="section-index-header">
+                    <div className="section-index-number">
+                        #
+                    </div>
+                    Task name
                 </div>
                 <div className="section-index-items">
                     <DragDropContext onDragEnd={this.onDragEnd}>
-                        <Droppable 
-                            droppableId="all-sections" 
-                            direction="vertical" 
+                        <Droppable
+                            droppableId="all-sections"
+                            direction="vertical"
                             type="section"
                         >
-                            { provided => {
+                            {provided => {
                                 return (
                                     <div
                                         {...provided.droppableProps}
@@ -279,7 +290,8 @@ class SectionIndex extends React.Component {
                                         {this.sectionItems()}
                                         {provided.placeholder}
                                     </div>
-                                )}
+                                )
+                            }
                             }
                         </Droppable>
                     </DragDropContext>

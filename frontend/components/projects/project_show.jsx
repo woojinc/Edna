@@ -31,8 +31,6 @@ class ProjectShow extends React.Component {
         const { project, projectId } = this.props
         return (
             <div>
-                {project.title}
-
                 <SectionIndexContainer project={project} projectId={projectId} />
             </div>
         );

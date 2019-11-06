@@ -1,19 +1,30 @@
 .home-project-index-view{
     display: flex;
     flex-direction: column;
+    width: 850px;
+    margin: 0 auto;
+}
+
+.project-index-container {
+    width: 100%;
+    margin: 30px auto;
 }
 
 .project-index-title {
     display: flex;
     align-items: center;
+    padding: 0 20px;
+    border-bottom: 2px solid #e8ecee;
     box-shadow: 0 1px 3px 0 rgba(21,27,38,.15);
 }
 
 .project-index-title > h3 {
     margin: 10px 0;
+    font-size: 1em;
 } 
 
 .project-index-items {
+    padding-top: 15px;
     display: flex;
     flex-wrap: wrap;
 }

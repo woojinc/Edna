@@ -1,6 +1,21 @@
 .home-view{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1; */
+    
+    display: flex;
     min-width: 920px;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 1px;
+    position: relative;
+}
+
+.home-page-view-container {
+    margin: 15px 0;
+    height: 100%;
+}
+
+.home-page-view {
+    height: 100%;
 }
