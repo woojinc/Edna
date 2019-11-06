@@ -58,8 +58,10 @@ class SectionIndex extends React.Component {
 
     sectionItems() {
         // const { project } = this.props;
-        const { sections, tasks, ordered_section_ids } = this.state;
-        const sectionItems = ordered_section_ids.map((sectionIds, index) => {
+        const { project, sections, tasks, ordered_section_ids } = this.props; // this.state vs this.props
+        // console.log("state", this.state);
+        // console.log("ordred_section_ids", ordered_section_ids);
+        const sectionItems = project.ordered_section_ids.map((sectionIds, index) => {
             // console.log(section.id);
             return (
 
