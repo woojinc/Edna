@@ -21,7 +21,7 @@ class TaskIndex extends React.Component {
         // this.state = { loaded: false };
 
         this.taskItems = this.taskItems.bind(this);
-        
+
         this.handleCreateTask = this.handleCreateTask.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -54,19 +54,25 @@ class TaskIndex extends React.Component {
         const taskItems = section.ordered_task_ids.map((taskId, index) => {
             const task = tasks[taskId];
             return (
-                <Draggable 
-                    draggableId={taskId} 
-                    index={index} 
-                    key={taskId}>
-
-                    {provided => {
+                <Draggable
+                    draggableId={taskId}
+                    index={index}
+                    key={"task-" + taskId}>
+                    {(provided, snapshot) => {
                         return (
                             <div
                                 {...provided.draggableProps}
                                 ref={provided.innerRef}
-                                {...provided.dragHandleProps}
+                            // isDragging={snapshot.isDragging}
                             >
-                                {task.name}
+                                <div className="task-row">
+                                    <div className="drag-handle" {...provided.dragHandleProps}>
+                                        <i className="fas fa-grip-vertical"></i>
+                                    </div>
+                                    {index}
+                                    <i className="far fa-check-circle"></i>
+                                    {task.name}
+                                </div >
                             </div>
                         )
                     }}
@@ -88,8 +94,8 @@ class TaskIndex extends React.Component {
             prev_task_id: section.ordered_task_ids[ordered_task_ids.length - 1],
         })
     }
- 
-    render() {        
+
+    render() {
         const { section, sectionId, tasks, fetchAllTasks } = this.props;
 
         // Should I check if tasks are fully populated?
@@ -102,7 +108,7 @@ class TaskIndex extends React.Component {
             <div className="task-index-title">
                 <div className="task-index-items">
                     {this.taskItems()}
-                    <button onClick={this.handleCreateTask}>
+                    {/* <button onClick={this.handleCreateTask}>
                         <div className="section-index-item" >
                             <div className="section-row create-task">
                                 <i className="fas fa-plus"></i>
@@ -113,7 +119,7 @@ class TaskIndex extends React.Component {
                             <div className="task-subname">
                             </div>
                         </div >
-                    </button>
+                    </button> */}
                 </div>
             </div>
         );

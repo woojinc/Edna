@@ -1,4 +1,4 @@
-.home-section-index-view {
+.home-task-index-view {
     display: flex;
     flex-direction: column;
     padding: 0 20px 0 15px;
@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-.section-index-items {
+.task-index-items {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -14,63 +14,63 @@
     box-sizing: border-box;
 }
 
-.section-index-number {
+.task-index-number {
     padding-right: 20px;
     box-sizing: border-box;
 }
 
-.section-index-items > button {
+.task-index-items > button {
     width: 100%;
     cursor: pointer;
     box-sizing: border-box;
 }
 
-.section-index-items > div{
+.task-index-items > div{
     width: 100%;
 }
 
-.section-index-header,
-.section-index-item,
-.section-row-container {
+.task-index-header,
+.task-index-item,
+.task-row-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 16px;
     height: 28px;
     width: 100%;
-    padding: 0 5px 0 0;
+    padding: 0 5px 0 20px;
     box-sizing: border-box;
 }
 
-.section-index-header,
-.section-row-container,
-.create-section {
+.task-index-header,
+.task-row-container,
+.create-task {
     border-top: 1.2px solid #e8ecee;
 }
 
-.section-index-header {
-    padding-left: 20px;
+.task-row-container {
+    display: flex;
 }
 
-.section-row-container > div {
+.task-row-container > div {
     width: 100%;
 }
 
-.section-row > i {
+.task-row > i {
     margin-right: 10px;
     transition: color 0.2s;
     cursor: auto;
 }
 
-.section-row > i:hover {
+.task-row > i:hover {
     color: #25e8c8;
 }
 
-/* .section-name {
+/* .task-name {
     width: 100%;
 } */
 
-.section-name > input {
+.task-name > input {
     border: 0;
     background: transparent;
     min-width: 20px;
@@ -78,50 +78,35 @@
     font-size: 0.8em;
 }
 
-.section-index-item > div {
+.task-index-item > div {
     font-size: inherit;
     /* width: 100%; */
 }
 
-
-.section-row-container {
-    height: fit-content;
+.task-row-container {
 }
 
-.section-row-container:hover {
+.task-row-container:hover {
     background-color: #f6f8f9;
     /* background-color: #edf8ff; */
 }
-/*  */
-.section-task-list {
-    /* display:flex; */
-    flex-grow: 1;
+
+.task-row {
+    display:flex;
 }
 
-.placeholder {
-    height: 1px;
-}
-
-.drag-handle {
-    width: 20px;
-    height: 20px;
-    color: transparent;
-    /* display: none; */
-    /* border-radius: 4px; */
-    /* border: 1px solid black; */
-}
-
-.section-index-item:hover .drag-handle {
+.task-row:hover .drag-handle {
     /* display:block; */
     color: black;
 }
 
-/* .section-row-container > div,
-.section-row-container > div > div,
-.section-row-container > div > div >div{
+
+/* .task-row-container > div,
+.task-row-container > div > div,
+.task-row-container > div > div >div{
     width: 100%;
 }
 
-.section-index-item {
+.task-index-item {
     width: 100%;
 } */

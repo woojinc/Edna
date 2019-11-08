@@ -2,9 +2,9 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { 
+import {
     createSection,
-    updateSection, 
+    updateSection,
     fetchSection,
 } from '../../actions/section_actions';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -21,28 +21,28 @@ class SectionIndexItem extends React.Component {
         this.handleChangeName = this.handleChangeName.bind(this);
     }
 
-    handleCreateSection(e){
+    handleCreateSection(e) {
         e.preventDefault();
-        
+
         this.props.createSection({
-            name: "New Section", 
+            name: "New Section",
             project_id: this.props.section.project_id,
             prev_section_id: this.props.section.prev_section_id,
             // next_section_id: this.props.section.next_section_id
         })
     }
 
-    handleOpenSection(){
+    handleOpenSection() {
         //`/sections/${section.id}`
     }
 
-    handleChangeNameState(){
+    handleChangeNameState() {
         return e => {
-            this.setState({name: e.target.value})
+            this.setState({ name: e.target.value })
         };
     }
 
-    handleChangeName(e){
+    handleChangeName(e) {
         e.stopPropagation();
         if (this.props.section.name !== this.state.name) {
             const updatedSection = this.props.section;
@@ -84,101 +84,137 @@ class SectionIndexItem extends React.Component {
     // }
 
     render() {
+        debugger
         const { section, projectId, createSectionItem } = this.props;
-        const sectionItem = createSectionItem ? (
-            (<button onClick={this.handleCreateSection}>
-                <div className="section-index-item create-section" >
-                    <div className="section-row">
-                        <i className="fas fa-plus"></i>
-                    </div >
-                    <div className="section-name">
-                        Add Section
-                    </div>
-                    <div className="section-subname">
-                    </div>
-                </div >
-            </button>)
-        ) : (
-            (
-            // button breaks dnd
-            // <button onClick={this.handleOpenSection}>
-                <div className="section-index-item" >
-                    <div className="section-row">
-                        <i className="far fa-check-circle"></i>
-                    </div >
-                    <div className="section-name">
-                        <input 
-                            type="text"
-                            value={this.state.name}
-                            onChange={this.handleChangeNameState()}
-                            onBlur={this.handleChangeName}/>
-                        {this.state.name}
-                    </div>
-                    <div className="section-subname">
-                    </div>
-                </div >
-            // </button>
-            
-            )
-        );
+        // const sectionItem = createSectionItem ? (
+        //     (<button onClick={this.handleCreateSection}>
+        //         <div className="section-index-item create-section" >
+        //             <div className="section-row">
+        //                 <i className="fas fa-plus"></i>
+        //             </div >
+        //             <div className="section-name">
+        //                 Add Section
+        //             </div>
+        //             <div className="section-subname">
+        //             </div>
+        //         </div >
+        //     </button>)
+        // ) : (
+        //         (
+        //             // button breaks dnd
+        //             // <button onClick={this.handleOpenSection}>
+        //             <div className="section-index-item" >
+        //                 <div className="section-row">
+        //                     <i className="far fa-check-circle"></i>
+        //                 </div >
+        //                 <div className="section-name">
+        //                     <input
+        //                         type="text"
+        //                         value={this.state.name}
+        //                         onChange={this.handleChangeNameState()}
+        //                         onBlur={this.handleChangeName} />
+        //                     {this.state.name}
+        //                 </div>
+        //                 <div className="section-subname">
+        //                 </div>
+        //             </div >
+        //             // </button>
+
+        //         )
+        //     );
+
         // const sectionItem = section.name;
         // console.log(this.props.index);
         // console.log(sectionItem);
         // debugger
         return (
             // sectionItem
-            
+
             createSectionItem ? (
-                sectionItem
+                // sectionItem
+                <button onClick={this.handleCreateSection}>
+                    <div className="section-index-item create-section" >
+                        <div className="section-row">
+                            <i className="fas fa-plus"></i>
+                        </div >
+                        <div className="section-name">
+                            Add Section
+                        </div>
+                        <div className="section-subname">
+                        </div>
+                    </div >
+                </button>
             ) : (
-                    <div>
-                    {sectionItem}
-                    <Draggable 
-                        draggableId={this.props.section.id} 
-                        index={this.props.index}>
-                            
-                        {(provided) => (
-                            <div
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef} >
-
-                                {/* TaskIndex */}
-                                    <Droppable
-                                        droppableId={this.props.section.id}
-                                        direction="vertical"
-                                        type="task" >
-                                        {provided => {
-                                            return (
-                                                <div
-                                                    {...provided.droppableProps}
-                                                    ref={provided.innerRef}
-                                                >
-                                                    {/* {this.sectionItems()} */}
-                                                    <TaskIndexContainer
-                                                        section={this.props.section}
-                                                        tasks={this.props.tasks} />
-
-                                                    {provided.placeholder}
-                                                </div>
-                                            )
-                                            }
-                                        }
-                                    </Droppable>
-
+                    <div className="section-block">
+                        {/* {sectionItem} */}
+                        <div className="section-index-item" >
+                            <div className="drag-handle">
+                                <i className="fas fa-grip-vertical"></i>
                             </div>
-                        )}
-                    </Draggable>
+
+                            <div className="section-name">
+                                <input
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={this.handleChangeNameState()}
+                                    onBlur={this.handleChangeName} />
+                                {/* {this.state.name} */}
+                            </div>
+                            <div className="section-subname">
+                            </div>
+                        </div>
+                        <div className="section-task-list">
+                            <Draggable
+                                draggableId={"tasks-" + this.props.tasks.id}
+                                index={this.props.index}>
+
+                                {(provided) => (
+                                    <div
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        ref={provided.innerRef} >
+
+                                        {/* TaskIndex */}
+                                        <Droppable
+                                            droppableId={"tasks-" + this.props.tasks.id}
+                                            direction="vertical"
+                                            type="task" >
+                                            {provided => {
+                                                return (
+                                                    <div
+                                                        {...provided.droppableProps}
+                                                        ref={provided.innerRef}
+                                                    >
+                                                        <div>
+
+                                                            {/* {this.sectionItems()} */}
+                                                            <TaskIndexContainer
+                                                                section={this.props.section}
+                                                                tasks={this.props.tasks} />
+                                                        </div>
+                                                        <div className="placeholder">
+                                                            {provided.placeholder}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                            }
+                                        </Droppable>
+                                    </div>
+                                )}
+                            </Draggable>
+                        </div>
+
                     </div>
-            )
+                )
         )
     }
 };
 
-const mapStateToProps = (state, { section, tasks, createSectionItem}) => {
+const mapStateToProps = (state, { section, tasks, createSectionItem }) => {
     return {
         // section, prevSection, nextSection, projectId, createSectionItem
-        section, 
+        section,
         tasks,
         createSectionItem,
     }

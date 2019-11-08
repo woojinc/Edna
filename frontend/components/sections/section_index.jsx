@@ -56,6 +56,7 @@ class SectionIndex extends React.Component {
         }
     }
 
+
     sectionItems() {
         // const { project } = this.props;
         const { project, sections, tasks, ordered_section_ids } = this.props; // this.state vs this.props
@@ -65,7 +66,11 @@ class SectionIndex extends React.Component {
             // console.log(section.id);
             return (
 
-                <Draggable draggableId={sectionIds} index={index} key={sectionIds}>
+                <Draggable
+                    draggableId={sectionIds}
+                    index={index}
+                    key={sectionIds} >
+
                     {provided => {
                         return (
                             <div
@@ -73,14 +78,18 @@ class SectionIndex extends React.Component {
                                 ref={provided.innerRef}
                                 {...provided.dragHandleProps}
                             >
+                                
                                 <Droppable droppableId={sectionIds}>
                                     {(provided) => (
                                         <div
                                             ref={provided.innerRef}
-                                            {...provided.dragHandleProps}
+                                            // {...provided.dragHandleProps}
                                             {...provided.droppableProps}>
-                                            <div className="section-row-container" key={sectionIds}>
-                                                {index}
+                                            <div 
+                                                className="section-row-container" 
+                                                key={sectionIds}>
+                                                {/* {index} */}
+                                                
                                                 <SectionIndexItemContainer
                                                     index={sectionIds}
                                                     section={sections[sectionIds]}
@@ -156,7 +165,8 @@ class SectionIndex extends React.Component {
         if (type === 'section') {
             const newPrevId = updatedOrderedIds[destination.index - 1];
             const newNextId = updatedOrderedIds[destination.index + 1];
-
+        } else if (type === 'task') {
+            console.log("task was moved")
         }
 
 
@@ -276,8 +286,8 @@ class SectionIndex extends React.Component {
                     </div>
                     Task name
                 </div>
-                <div className="section-index-items">
-                    <DragDropContext onDragEnd={this.onDragEnd}>
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <div className="section-index-items">
                         <Droppable
                             droppableId="all-sections"
                             direction="vertical"
@@ -296,9 +306,9 @@ class SectionIndex extends React.Component {
                             }
                             }
                         </Droppable>
-                    </DragDropContext>
-                    {createSectionItem}
-                </div>
+                    </div>
+                </DragDropContext>
+                {createSectionItem}
             </div>
         );
     };
