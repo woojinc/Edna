@@ -78,21 +78,24 @@ class SectionIndex extends React.Component {
                                 ref={provided.innerRef}
                                 {...provided.dragHandleProps}
                             >
-                                
+
                                 <Droppable droppableId={sectionIds}>
                                     {(provided) => (
                                         <div
                                             ref={provided.innerRef}
                                             // {...provided.dragHandleProps}
                                             {...provided.droppableProps}>
-                                            <div 
-                                                className="section-row-container" 
+
+
+                                            <div
+                                                className="section-row-container"
                                                 key={sectionIds}>
                                                 {/* {index} */}
-                                                
+
                                                 <SectionIndexItemContainer
                                                     index={sectionIds}
                                                     section={sections[sectionIds]}
+                                                    dragHandleProps={provided.dragHandleProps}
                                                     tasks={tasks}
                                                     createSectionItem={false} />
 

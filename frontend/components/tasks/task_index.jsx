@@ -19,7 +19,7 @@ class TaskIndex extends React.Component {
     constructor(props) {
         super(props);
         // this.state = { loaded: false };
-
+        // this.state = this.props.task;
         this.taskItems = this.taskItems.bind(this);
 
         this.handleCreateTask = this.handleCreateTask.bind(this);
@@ -71,7 +71,16 @@ class TaskIndex extends React.Component {
                                     </div>
                                     {index}
                                     <i className="far fa-check-circle"></i>
-                                    {task.name}
+                                    <div className="task-name">
+                                        <input
+                                            className="task-name-input"
+                                            type="text"
+                                            value={task.name}
+                                            onChange={this.handleChangeNameState()}
+                                            onBlur={this.handleChangeName} />
+                                        {/* {this.state.name} */}
+                                    </div>
+                                    {/* {task.name} */}
                                 </div >
                             </div>
                         )

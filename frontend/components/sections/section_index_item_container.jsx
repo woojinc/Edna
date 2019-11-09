@@ -127,8 +127,10 @@ class SectionIndexItem extends React.Component {
         // console.log(this.props.index);
         // console.log(sectionItem);
         // debugger
+        const dragHandleProps = this.props.dragHandleProps;
         return (
             // sectionItem
+
 
             createSectionItem ? (
                 // sectionItem
@@ -148,7 +150,7 @@ class SectionIndexItem extends React.Component {
                     <div className="section-block">
                         {/* {sectionItem} */}
                         <div className="section-index-item" >
-                            <div className="drag-handle">
+                            <div className="drag-handle" {...dragHandleProps} >
                                 <i className="fas fa-grip-vertical"></i>
                             </div>
 

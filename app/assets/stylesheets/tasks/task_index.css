@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 13px;
     height: 28px;
     width: 100%;
     padding: 0 5px 0 20px;
@@ -44,6 +44,7 @@
 
 .task-index-header,
 .task-row-container,
+.task-row,
 .create-task {
     border-top: 1.2px solid #e8ecee;
 }
@@ -57,9 +58,10 @@
 }
 
 .task-row > i {
-    margin-right: 10px;
+    margin: 0 20px;
     transition: color 0.2s;
     cursor: auto;
+    line-height: inherit;
 }
 
 .task-row > i:hover {
@@ -70,18 +72,36 @@
     width: 100%;
 } */
 
-.task-name > input {
+/* .task-name > input {
     border: 0;
     background: transparent;
     min-width: 20px;
     width: 300px;
     font-size: 0.8em;
+} */
+
+.task-name > input {
+    border: 0;
+    background: transparent;
+    min-width: 20px;
+    /* width: 100%; */
+    padding: 2px;
+    /* width: 300px; */
+    font-size: 0.8em;
+    /* font-weight: 500; */
 }
 
-.task-index-item > div {
-    font-size: inherit;
-    /* width: 100%; */
+.task-name > input:active,
+.task-name > input:focus {
+    border: 1px solid black;
+    border-radius: 2px;
 }
+
+
+/* .task-index-item > div {
+    font-size: inherit; */
+    /* width: 100%; */
+/* } */
 
 .task-row-container {
 }
@@ -93,6 +113,7 @@
 
 .task-row {
     display:flex;
+    align-content: center;
 }
 
 .task-row:hover .drag-handle {
