@@ -7,6 +7,14 @@ import {
     updateSection,
     fetchSection,
 } from '../../actions/section_actions';
+import {
+    fetchAllTasks,
+    fetchTask,
+    createTask,
+    updateTask,
+    deleteTask,
+    updateTaskOrder,
+} from '../../actions/task_actions';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import TaskIndexContainer from '../tasks/task_index_container';
@@ -15,10 +23,13 @@ class SectionIndexItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.section;
+        // Section
         this.handleCreateSection = this.handleCreateSection.bind(this);
         this.handleOpenSection = this.handleOpenSection.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
+        // Task
+        this.handleCreateTask = this.handleCreateTask.bind(this);
     }
 
     handleCreateSection(e) {
@@ -29,6 +40,29 @@ class SectionIndexItem extends React.Component {
             project_id: this.props.section.project_id,
             prev_section_id: this.props.section.prev_section_id,
             // next_section_id: this.props.section.next_section_id
+        })
+    }
+
+    handleCreateTask(e) {
+        const { section, createTask } = this.props;
+        console.log(section);
+        const orderedTaskIds = section.ordered_task_ids;
+        let nextTaskId;
+        if (orderedTaskIds.length <= 0) {
+            nextTaskId = null
+        } else {
+            // prevTaskId = orderedTaskIds[orderedTaskIds.length - 1];
+            nextTaskId = orderedTaskIds[0];
+        }
+        console.log(nextTaskId)
+
+        e.preventDefault();
+
+        createTask({
+            name: "New Task",
+            section_id: section.id,
+            // Set prev_task_id to the last one on the list
+            next_task_id: nextTaskId,
         })
     }
 
@@ -86,42 +120,7 @@ class SectionIndexItem extends React.Component {
     render() {
         debugger
         const { section, projectId, createSectionItem } = this.props;
-        // const sectionItem = createSectionItem ? (
-        //     (<button onClick={this.handleCreateSection}>
-        //         <div className="section-index-item create-section" >
-        //             <div className="section-row">
-        //                 <i className="fas fa-plus"></i>
-        //             </div >
-        //             <div className="section-name">
-        //                 Add Section
-        //             </div>
-        //             <div className="section-subname">
-        //             </div>
-        //         </div >
-        //     </button>)
-        // ) : (
-        //         (
-        //             // button breaks dnd
-        //             // <button onClick={this.handleOpenSection}>
-        //             <div className="section-index-item" >
-        //                 <div className="section-row">
-        //                     <i className="far fa-check-circle"></i>
-        //                 </div >
-        //                 <div className="section-name">
-        //                     <input
-        //                         type="text"
-        //                         value={this.state.name}
-        //                         onChange={this.handleChangeNameState()}
-        //                         onBlur={this.handleChangeName} />
-        //                     {this.state.name}
-        //                 </div>
-        //                 <div className="section-subname">
-        //                 </div>
-        //             </div >
-        //             // </button>
 
-        //         )
-        //     );
 
         // const sectionItem = section.name;
         // console.log(this.props.index);
@@ -142,13 +141,10 @@ class SectionIndexItem extends React.Component {
                         <div className="section-name">
                             Add Section
                         </div>
-                        <div className="section-subname">
-                        </div>
                     </div >
                 </button>
             ) : (
                     <div className="section-block">
-                        {/* {sectionItem} */}
                         <div className="section-index-item" >
                             <div className="drag-handle" {...dragHandleProps} >
                                 <i className="fas fa-grip-vertical"></i>
@@ -160,15 +156,21 @@ class SectionIndexItem extends React.Component {
                                     value={this.state.name}
                                     onChange={this.handleChangeNameState()}
                                     onBlur={this.handleChangeName} />
-                                {/* {this.state.name} */}
                             </div>
-                            <div className="section-subname">
+                            <div className="add-task">
+                                <div className="add-task-row">
+                                    <button onClick={this.handleCreateTask}>
+                                        <i className="fas fa-plus"></i>
+                                    </button>
+                                </div >
                             </div>
                         </div>
+
                         <div className="section-task-list">
                             <Draggable
                                 draggableId={"tasks-" + this.props.tasks.id}
-                                index={this.props.index}>
+                                index={this.props.index}
+                                key={"tasks-" + this.props.tasks.id} >
 
                                 {(provided) => (
                                     <div
@@ -176,32 +178,9 @@ class SectionIndexItem extends React.Component {
                                         {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
 
-                                        {/* TaskIndex */}
-                                        <Droppable
-                                            droppableId={"tasks-" + this.props.tasks.id}
-                                            direction="vertical"
-                                            type="task" >
-                                            {provided => {
-                                                return (
-                                                    <div
-                                                        {...provided.droppableProps}
-                                                        ref={provided.innerRef}
-                                                    >
-                                                        <div>
-
-                                                            {/* {this.sectionItems()} */}
-                                                            <TaskIndexContainer
-                                                                section={this.props.section}
-                                                                tasks={this.props.tasks} />
-                                                        </div>
-                                                        <div className="placeholder">
-                                                            {provided.placeholder}
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }
-                                            }
-                                        </Droppable>
+                                        <TaskIndexContainer
+                                            section={this.props.section}
+                                            tasks={this.props.tasks} />
                                     </div>
                                 )}
                             </Draggable>
@@ -224,10 +203,51 @@ const mapStateToProps = (state, { section, tasks, createSectionItem }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        // Section
         createSection: (section) => dispatch(createSection(section)),
         updateSection: (section) => dispatch(updateSection(section)),
         fetchSection: (id) => dispatch(fetchSection(id)),
+        // Task
+        createTask: (task) => dispatch(createTask(task)),
     }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SectionIndexItem));
+
+
+// const sectionItem = createSectionItem ? (
+//     (<button onClick={this.handleCreateSection}>
+//         <div className="section-index-item create-section" >
+//             <div className="section-row">
+//                 <i className="fas fa-plus"></i>
+//             </div >
+//             <div className="section-name">
+//                 Add Section
+//             </div>
+//             <div className="section-subname">
+//             </div>
+//         </div >
+//     </button>)
+// ) : (
+//         (
+//             // button breaks dnd
+//             // <button onClick={this.handleOpenSection}>
+//             <div className="section-index-item" >
+//                 <div className="section-row">
+//                     <i className="far fa-check-circle"></i>
+//                 </div >
+//                 <div className="section-name">
+//                     <input
+//                         type="text"
+//                         value={this.state.name}
+//                         onChange={this.handleChangeNameState()}
+//                         onBlur={this.handleChangeName} />
+//                     {this.state.name}
+//                 </div>
+//                 <div className="section-subname">
+//                 </div>
+//             </div >
+//             // </button>
+
+//         )
+//     );

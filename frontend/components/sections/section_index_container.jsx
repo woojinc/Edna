@@ -49,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         updateSectionOrder: (moveOpInfo) => dispatch(updateSectionOrder(moveOpInfo)),
         fetchAllSections: (projectId) => dispatch(fetchAllSections(projectId)),
         // Tasks
+        updateTaskOrder: (moveOpInfo) => dispatch(updateTaskOrder(moveOpInfo)),
         fetchAllTasks: (sectionId) => dispatch(fetchAllTasks(sectionId)), 
     };
 };

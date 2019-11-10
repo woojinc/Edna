@@ -27,7 +27,7 @@ def index
 
     def update_tasks_order
         updated_order_list = params[:moveOpInfo][:updatedOrderedIds]
-        moving_id = params[:moveOpInfo][:movingtaskId]
+        moving_id = params[:moveOpInfo][:movingTaskId]
         moveto_idx = params[:moveOpInfo][:moveToIndex].to_i
 
         @moving = Task.find(moving_id)

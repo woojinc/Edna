@@ -51,44 +51,69 @@ class TaskIndex extends React.Component {
 
         debugger
 
-        const taskItems = section.ordered_task_ids.map((taskId, index) => {
-            const task = tasks[taskId];
-            return (
-                <Draggable
-                    draggableId={taskId}
-                    index={index}
-                    key={"task-" + taskId}>
-                    {(provided, snapshot) => {
+        // const taskItems = section.ordered_task_ids.map((taskId, index) => {
+        //     const task = tasks[taskId];
+        //     console.log("taskId", taskId);
+        //     console.log("index", index);
+        return (
+            <Droppable
+                droppableId={"section-tasks-" + section.id}
+                direction="vertical"
+                type="task"
+            >
+                {provided => {
+                    const draggableTasks = section.ordered_task_ids.map((taskId, index) => {
+                        const task = tasks[taskId];
+                        if (task == undefined) {
+                            console.log("section", section)
+                        }
                         return (
-                            <div
-                                {...provided.draggableProps}
-                                ref={provided.innerRef}
-                            // isDragging={snapshot.isDragging}
+                            <Draggable
+                                draggableId={taskId}
+                                index={index}
+                                key={"task-" + taskId}
                             >
-                                <div className="task-row">
-                                    <div className="drag-handle" {...provided.dragHandleProps}>
-                                        <i className="fas fa-grip-vertical"></i>
-                                    </div>
-                                    {index}
-                                    <i className="far fa-check-circle"></i>
-                                    <div className="task-name">
-                                        <input
-                                            className="task-name-input"
-                                            type="text"
-                                            value={task.name}
-                                            onChange={this.handleChangeNameState()}
-                                            onBlur={this.handleChangeName} />
-                                        {/* {this.state.name} */}
-                                    </div>
-                                    {/* {task.name} */}
-                                </div >
-                            </div>
+                                {(provided, snapshot) => {
+                                    return (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                        // isDragging={snapshot.isDragging}
+                                        >
+                                            <div className="task-row">
+                                                <div className="drag-handle" {...provided.dragHandleProps}>
+                                                    <i className="fas fa-grip-vertical"></i>
+                                                </div>
+                                                {index}
+                                                <i className="far fa-check-circle"></i>
+                                                <div className="task-name">
+                                                    <input
+                                                        className="task-name-input"
+                                                        type="text"
+                                                        value={task.name}
+                                                        onChange={this.handleChangeNameState()}
+                                                        onBlur={this.handleChangeName} />
+                                                </div>
+                                            </div >
+                                        </div>
+                                    )
+                                }}
+                            </Draggable>
                         )
-                    }}
-                </Draggable>
-            )
-        });
-        return taskItems;
+                    })
+                    return (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps} >
+                            {draggableTasks}
+                            {provided.placeholder}
+                        </div>
+                    )
+                }}
+            </Droppable>
+        );
+        // });
+        // return taskItems;
     }
 
     handleCreateTask(e) {
@@ -114,10 +139,22 @@ class TaskIndex extends React.Component {
         }
 
         return (
-            <div className="task-index-title">
-                <div className="task-index-items">
-                    {this.taskItems()}
-                    {/* <button onClick={this.handleCreateTask}>
+            // <div className="task-index-title">
+            //     <div className="task-index-items">
+            <div key={"section-task-" + sectionId}>
+                {this.taskItems()}
+            </div>
+            //     </div>
+            // </div>
+        );
+    };
+};
+
+export default TaskIndex;
+
+
+
+{/* <button onClick={this.handleCreateTask}>
                         <div className="section-index-item" >
                             <div className="section-row create-task">
                                 <i className="fas fa-plus"></i>
@@ -129,16 +166,6 @@ class TaskIndex extends React.Component {
                             </div>
                         </div >
                     </button> */}
-                </div>
-            </div>
-        );
-    };
-};
-
-export default TaskIndex;
-
-
-
 
 
 

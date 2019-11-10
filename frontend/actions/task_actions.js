@@ -71,7 +71,7 @@ export const deleteTask = id => dispatch => {
 };
 
 export const updateTaskOrder = moveOpInfo => dispatch => {
-    return APItaskUtils.updateTaskOrder(moveOpInfo)
+    return APITaskUtils.updateTaskOrder(moveOpInfo)
         .then(tasks => dispatch(getAllTasks(tasks)))
 };
 

@@ -40,9 +40,10 @@ export const deleteTask = (id) => {
 };
 // Probably have to change the below
 export const updateTaskOrder = (moveOpInfo) => {
+    console.log("taks order updated")
     return $.ajax({
         method: 'PATCH',
-        url: `/api/sections/${moveOpInfo.projectId}/sections/${moveOpInfo.movingSectionId}/tasks/${moveOpInfo.movingtaskId}/update_tasks_order`,
+        url: `/api/sections/${moveOpInfo.movingSectionId}/tasks/${moveOpInfo.movingTaskId}/update_tasks_order`,
         data: {
             moveOpInfo
         }
