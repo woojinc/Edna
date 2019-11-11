@@ -8,10 +8,11 @@ export const GET_UPDATED_SECTIONS = "GET_UPDATED_SECTIONS";
 export const GET_SECTION = "GET_SECTION";
 export const DELETE_SECTION = "DELETE_SECTION";
 
-export const getAllSections = (sections) => {
+export const getAllSections = ({ sections, ordered_section_ids }) => {
     return {
         type: GET_ALL_SECTIONS,
-        sections
+        sections,
+        ordered_section_ids,
     }
 };
 
@@ -36,10 +37,13 @@ export const getSection = (section) => {
     }
 };
 
-export const removeSection = (sectionId) => {
+export const removeSection = (projectId, sectionId, { sections, ordered_section_ids }) => {
     return {
         type: DELETE_SECTION,
-        sectionId
+        projectId,
+        sectionId,
+        sections,
+        ordered_section_ids,
     }
 };
 
@@ -82,9 +86,9 @@ export const updateSection = section => dispatch => (
         // .then(() => dispatch(closeModal()))
 );
 
-export const deleteSection = id => dispatch => {
+export const deleteSection = (projectId, id) => dispatch => {
     return APISectionUtils.deleteSection(id)
-        .then(section => dispatch(removeSection(id)))
+        .then(sections => dispatch(removeSection(projectId, id, sections)))
         // .then(() => dispatch(closeModal()))
 };
 

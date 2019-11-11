@@ -5,6 +5,10 @@
     
     display: flex;
     min-width: 920px;
+<<<<<<< HEAD
+=======
+    height: 100vh;
+>>>>>>> sections/tasks
     flex: 1 1 auto;
     flex-direction: column;
     min-height: 1px;
@@ -12,8 +16,14 @@
 }
 
 .home-page-view-container {
+<<<<<<< HEAD
     margin: 15px 0;
     height: 100%;
+=======
+    margin: 15px 0 0 0;
+    height: 100%;
+    overflow: scroll;
+>>>>>>> sections/tasks
 }
 
 .home-page-view {

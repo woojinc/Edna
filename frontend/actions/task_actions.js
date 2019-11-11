@@ -8,10 +8,11 @@ export const GET_UPDATED_TASKS = "GET_UPDATED_TASKS";
 export const GET_TASK = "GET_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
-export const getAlltasks = (tasks) => {
+export const getAllTasks = ({tasks, ordered_task_ids}) => {
     return {
         type: GET_ALL_TASKS,
-        tasks
+        tasks,
+        ordered_task_ids,
     }
 };
 
@@ -36,42 +37,52 @@ export const getTask = (task) => {
     }
 };
 
-export const removeTask = (taskId) => {
+export const removeTask = (sectionId, taskId, { tasks, ordered_task_ids }) => {
     return {
         type: DELETE_TASK,
-        taskId
+        sectionId,
+        taskId,
+        tasks,
+        ordered_task_ids,
     }
 };
+// export const removeTask = (taskId) => {
+//     return {
+//         type: DELETE_TASK,
+//         taskId
+//     }
+// };
 
-export const fetchAllTasks = (projectId) => dispatch => (
-    APItaskUtils.getAllTasks(projectId)
+export const fetchAllTasks = (sectionId) => dispatch => (
+    APITaskUtils.getAllTasks(sectionId)
         .then(tasks => dispatch(getAllTasks(tasks)))
 );
 
 export const fetchTask = id => dispatch => (
-    APItaskUtils.getTask(id)
+    APITaskUtils.getTask(id)
         .then(task => dispatch(getTask(task)))
 );
 
 export const createTask = task => dispatch => (
-    APItaskUtils.createTask(task)
+    APITaskUtils.createTask(task)
         .then(tasks => dispatch(getAllTasks(tasks)))
 );
 
 export const updateTask = task => dispatch => (
-    APItaskUtils.updateTask(task)
+    APITaskUtils.updateTask(task)
         .then(task => dispatch(getTask(task)))
     // .then(() => dispatch(closeModal()))
 );
 
-export const deleteTask = id => dispatch => {
-    return APItaskUtils.deleteTask(id)
-        .then(task => dispatch(removeTask(id)))
+export const deleteTask = (sectionId, id) => dispatch => {
+    return APITaskUtils.deleteTask(id)
+        // .then(tasks => dispatch(getAllTasks(tasks)))    
+        .then(tasks => dispatch(removeTask(sectionId, id, tasks)))
     // .then(() => dispatch(closeModal()))
 };
 
 export const updateTaskOrder = moveOpInfo => dispatch => {
-    return APItaskUtils.updateTaskOrder(moveOpInfo)
+    return APITaskUtils.updateTaskOrder(moveOpInfo)
         .then(tasks => dispatch(getAllTasks(tasks)))
 };
 

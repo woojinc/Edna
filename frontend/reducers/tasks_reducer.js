@@ -6,15 +6,15 @@ import {
 } from '../actions/task_actions';
 import { merge } from 'lodash';
 import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
+import { GET_PROJECT } from '../actions/project_actions';
 
 export default (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
+        case GET_PROJECT:
         case GET_ALL_TASKS: {
-            // debugger
-            const tasks = action.tasks.tasks;
-            // console.log(tasks);
-            return merge({}, tasks);
+            const tasks = action.tasks;
+            return merge({}, state, tasks);
         }
         case GET_UPDATED_TASKS: {
             const tasks = action.tasks

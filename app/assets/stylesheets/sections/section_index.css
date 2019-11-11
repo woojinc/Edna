@@ -35,9 +35,27 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
-    height: 28px;
+    height: 50px;
     width: 100%;
+    padding: 0 5px 0 0;
+    box-sizing: border-box;
+}
+
+
+
+.section-index-header,
+.section-row-container,
+.create-section {
+    border-top: 1.2px solid #e8ecee;
+}
+
+.section-index-header {
+    padding-left: 20px;
+}
+
+.section-row-container > .section-block {
+    width: 100%;
+<<<<<<< HEAD
     padding: 0 5px 0 20px;
     box-sizing: border-box;
 }
@@ -54,6 +72,8 @@
 
 .section-row-container > div {
     width: 100%;
+=======
+>>>>>>> sections/tasks
 }
 
 .section-row > i {
@@ -73,6 +93,7 @@
 .section-name > input {
     border: 0;
     background: transparent;
+<<<<<<< HEAD
     min-width: 20px;
     width: 300px;
     font-size: 0.8em;
@@ -84,14 +105,58 @@
 }
 
 .section-row-container {
+=======
+    min-width: 160px;
+    padding: 5px;
+    /* width: 300px; */
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.section-name > input:active,
+.section-name > input:focus {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+
+.section-row-container {
+    height: fit-content;
+>>>>>>> sections/tasks
 }
 
 .section-row-container:hover {
     background-color: #f6f8f9;
     /* background-color: #edf8ff; */
 }
+<<<<<<< HEAD
 
 
+=======
+/*  */
+.section-task-list {
+    /* display:flex; */
+    flex-grow: 1;
+}
+
+.placeholder {
+    height: 1px;
+}
+
+.drag-handle {
+    width: 20px;
+    height: 20px;
+    color: transparent;
+    /* display: none; */
+    /* border-radius: 4px; */
+    /* border: 1px solid black; */
+}
+
+.section-index-item:hover .drag-handle {
+    /* display:block; */
+    color: black;
+}
+>>>>>>> sections/tasks
 
 /* .section-row-container > div,
 .section-row-container > div > div,

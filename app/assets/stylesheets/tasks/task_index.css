@@ -1,0 +1,133 @@
+.home-task-index-view {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px 0 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.task-index-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+.task-index-number {
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.task-index-items > button {
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.task-index-items > div{
+    width: 100%;
+}
+
+.task-index-header,
+.task-index-item,
+.task-row-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 13px;
+    height: 28px;
+    width: 100%;
+    padding: 0 5px 0 20px;
+    box-sizing: border-box;
+}
+
+.task-index-header,
+.task-row-container,
+.task-row,
+.create-task {
+    border-top: 1.2px solid #e8ecee;
+}
+
+.task-row-container {
+    display: flex;
+}
+
+.task-row-container > div {
+    width: 100%;
+}
+
+.task-row > i {
+    margin: 0 20px;
+    transition: color 0.2s;
+    cursor: auto;
+    line-height: inherit;
+}
+
+.task-row > i:hover {
+    color: #25e8c8;
+}
+
+/* .task-name {
+    width: 100%;
+} */
+
+/* .task-name > input {
+    border: 0;
+    background: transparent;
+    min-width: 20px;
+    width: 300px;
+    font-size: 0.8em;
+} */
+
+.task-name > input {
+    border: 0;
+    background: transparent;
+    min-width: 20px;
+    /* width: 100%; */
+    padding: 2px;
+    /* width: 300px; */
+    font-size: 0.8em;
+    /* font-weight: 500; */
+}
+
+.task-name > input:active,
+.task-name > input:focus {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+
+/* .task-index-item > div {
+    font-size: inherit; */
+    /* width: 100%; */
+/* } */
+
+.task-row-container {
+}
+
+.task-row-container:hover {
+    background-color: #f6f8f9;
+    /* background-color: #edf8ff; */
+}
+
+.task-row {
+    display:flex;
+    align-content: center;
+}
+
+.task-row:hover .drag-handle {
+    /* display:block; */
+    color: black;
+}
+
+
+/* .task-row-container > div,
+.task-row-container > div > div,
+.task-row-container > div > div >div{
+    width: 100%;
+}
+
+.task-index-item {
+    width: 100%;
+} */

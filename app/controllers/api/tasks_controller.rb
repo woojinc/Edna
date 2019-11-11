@@ -1,6 +1,6 @@
 class Api::TasksController < ApplicationController
 def index
-        @tasks = current_user.sections.find(params[:section_id]).tasks
+        @tasks = Section.find(params[:section_id]).project.tasks
         render "api/tasks/index"
     end
 
@@ -19,6 +19,7 @@ def index
             end
             @tasks = Task.ordered_list(@task)
             render "api/tasks/index"
+            # render "api/tasks/show"
         else
             render json: @task.errors.full_messages, status: 400
         end
@@ -26,31 +27,49 @@ def index
 
     def update_tasks_order
         updated_order_list = params[:moveOpInfo][:updatedOrderedIds]
-        moving_id = params[:moveOpInfo][:movingtaskId]
+        moving_id = params[:moveOpInfo][:movingTaskId]
         moveto_idx = params[:moveOpInfo][:moveToIndex].to_i
+        moving_section_id = params[:moveOpInfo][:movingSectionId].to_i
+
+        # @moving = @moving_section.tasks.find(mvoing_id)
 
         @moving = Task.find(moving_id)
 
         tasks_will_be_updated = [@moving]
 
-        # Grab prev and next task for the moving task
-        if !@moving.prev_task_id.nil?
-            @moving_prev = Task.find(@moving.prev_task_id)
-            tasks_will_be_updated.push(@moving_prev)
-        end
-        if !@moving.next_task_id.nil?
-            @moving_next = Task.find(@moving.next_task_id)
-            tasks_will_be_updated.push(@moving_next)
+        if @moving.section_id == moving_section_id
+
+            # Grab prev and next task for the moving task
+            if !@moving.prev_task_id.nil?
+                @moving_prev = Task.find(@moving.prev_task_id)
+                tasks_will_be_updated.push(@moving_prev)
+            end
+            if !@moving.next_task_id.nil?
+                @moving_next = Task.find(@moving.next_task_id)
+                tasks_will_be_updated.push(@moving_next)
+            end
+
         end
 
-        # Grab prev and next task for the new position
-        if moveto_idx != 0
-            @moved_prev = Task.find(updated_order_list[moveto_idx - 1])
-            tasks_will_be_updated.push(@moved_prev)
-        end
-        if !updated_order_list[moveto_idx + 1].nil?
-            @moved_next = Task.find(updated_order_list[moveto_idx + 1])
-            tasks_will_be_updated.push(@moved_next)
+        if moveto_idx
+
+            debugger
+
+            if @moving.section_id != moving_section_id
+                @moving.section_id = moving_section_id
+            end
+
+            # Grab prev and next task for the new position
+            if moveto_idx != 0
+                @moved_prev = Task.find(updated_order_list[moveto_idx - 1])
+                tasks_will_be_updated.push(@moved_prev)
+            end
+
+            if !updated_order_list[moveto_idx + 1].nil?
+                @moved_next = Task.find(updated_order_list[moveto_idx + 1])
+                tasks_will_be_updated.push(@moved_next)
+            end
+
         end
 
         # Logic for updating the tasks inside tasks_will_be_updated
@@ -160,9 +179,38 @@ def index
     def destroy
         @task = Task.find(params[:id])
         if @task.destroy
-            @tasks = @task.tasks;
-            @tasks.task_id = @null_task.id
-            render "api/tasks/show" # should render workspace?
+            tasks_will_be_updated = [];
+            
+            # Grab prev and next task for the moving task
+            if !@task.prev_task_id.nil?
+                @task_prev = Task.find(@task.prev_task_id)
+                tasks_will_be_updated.push(@task_prev)
+            end
+            if !@task.next_task_id.nil?
+                @task_next = Task.find(@task.next_task_id)
+                tasks_will_be_updated.push(@task_next)
+            end
+
+            # Change the prev and next task of the moving task
+            if @task_prev 
+                @task_prev.next_task_id = @task.next_task_id 
+            end
+            if @task_next
+                @task_next.prev_task_id = @task.prev_task_id 
+            end
+
+            begin            
+                Task.transaction do 
+                    tasks_will_be_updated.each do |task|
+                        task.save!
+                    end
+                end
+                @tasks = Task.ordered_list(@task)
+                render "api/tasks/index"
+
+            rescue ActiveRecord::RecordInvalid
+                puts json: ["here we go!!!"]            
+            end
         else
             render json: @task.errors.full_messages, status: 400
         end        
