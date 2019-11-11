@@ -14,7 +14,7 @@ export default (state = {}, action) => {
         case GET_PROJECT:
         case GET_ALL_TASKS: {
             const tasks = action.tasks;
-            return merge({}, tasks);
+            return merge({}, state, tasks);
         }
         case GET_UPDATED_TASKS: {
             const tasks = action.tasks

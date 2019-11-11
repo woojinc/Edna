@@ -8,10 +8,11 @@ export const GET_UPDATED_TASKS = "GET_UPDATED_TASKS";
 export const GET_TASK = "GET_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
-export const getAllTasks = (tasks) => {
+export const getAllTasks = ({tasks, ordered_task_ids}) => {
     return {
         type: GET_ALL_TASKS,
-        tasks
+        tasks,
+        ordered_task_ids,
     }
 };
 
@@ -55,7 +56,7 @@ export const fetchTask = id => dispatch => (
 
 export const createTask = task => dispatch => (
     APITaskUtils.createTask(task)
-        .then(tasks => dispatch(getTask(tasks)))
+        .then(tasks => dispatch(getAllTasks(tasks)))
 );
 
 export const updateTask = task => dispatch => (

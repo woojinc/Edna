@@ -50,8 +50,9 @@ class SectionIndex extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.sections, this.props.sections) ||
-            !isEqual(prevProps.project.ordered_section_ids,
-                this.props.project.ordered_section_ids)) {
+            !isEqual(prevProps.project.ordered_section_ids, this.props.project.ordered_section_ids) ||
+            !isEqual(prevProps.tasks, this.props.tasks)
+            ) {
             this.props.fetchAllSections(this.props.projectId);
         }
     }
@@ -97,25 +98,29 @@ class SectionIndex extends React.Component {
         const { project, sections } = this.props;
         const projectId = project.id;
 
+        const startSectionId = parseInt(source.droppableId.split("section-")[1], 10);
+        const finishSectionId = parseInt(destination.droppableId.split("section-")[1], 10);
+        console.log("startSectionId", startSectionId);
+        console.log("finishSectionId", finishSectionId);
+
         // const moveToSectionId = project.ordered_section_ids[destination.index];
         // console.log(sections);
         // console.log(project.ordered_section_ids);
         // retrieve section id from index id and remove from original array
-        const movingSectionId = project.ordered_section_ids.splice(source.index, 1)[0];
         
         // retrieve section id from index id and add the destination section id in the right place
-        
 
         const moveToIndex = destination.index;
 
-
-
         if (type === 'section') {
+
+            const sectionDraggableId = parseInt(draggableId.split("section-")[1], 10);
             
-            project.ordered_section_ids.splice(destination.index, 0, draggableId);
+            const movingSectionId = project.ordered_section_ids.splice(source.index, 1)[0];
+
+            project.ordered_section_ids.splice(destination.index, 0, sectionDraggableId);
 
             const updatedOrderedIds = project.ordered_section_ids;
-
 
             const newPrevId = updatedOrderedIds[destination.index - 1];
             const newNextId = updatedOrderedIds[destination.index + 1];
@@ -128,31 +133,64 @@ class SectionIndex extends React.Component {
             }
 
             this.props.updateSectionOrder(moveOpInfo);
+
         } else if (type === 'task') {
-            const movingSection = sections[movingSectionId];
-            console.log("draggableId", draggableId)
 
-            movingSection.ordered_task_ids.splice(destination.index, 0, draggableId);
+            const taskDraggableId = parseInt(draggableId.split("task-")[1], 10);
 
-            const movingTaskId = movingSection.ordered_task_ids.splice(source.index, 1)[0];
-            console.log("movingTaskId", movingTaskId);
+            if (startSectionId === finishSectionId) {
 
-            const updatedOrderedIds = movingSection.ordered_task_ids;
+                const movingSectionId = startSectionId;
+                const movingSection = sections[startSectionId];
+                console.log("taskDraggableId", taskDraggableId)
 
-            const newPrevId = updatedOrderedIds[destination.index - 1];
-            const newNextId = updatedOrderedIds[destination.index + 1];
+                const movingTaskId = movingSection.ordered_task_ids.splice(source.index, 1)[0];
 
-            const moveOpInfo = {
-                projectId,
-                updatedOrderedIds,
-                movingSectionId,
-                movingTaskId,
-                moveToIndex
+                movingSection.ordered_task_ids.splice(destination.index, 0, taskDraggableId);
+
+                const updatedOrderedIds = movingSection.ordered_task_ids;
+
+                const newPrevId = updatedOrderedIds[destination.index - 1];
+                const newNextId = updatedOrderedIds[destination.index + 1];
+
+                const moveOpInfo = {
+                    updatedOrderedIds,
+                    movingSectionId,
+                    movingTaskId,
+                    moveToIndex
+                }
+                
+                console.log("moveOpInfo", moveOpInfo);
+
+                this.props.updateTaskOrder(moveOpInfo);
+                console.log("task was moved");
+            } else {
+                const startSection = sections[startSectionId];
+                const startSectionTaskIds = startSection.ordered_task_ids;
+                const finishSection = sections[finishSectionId];
+                const finishSectionTaskIds = finishSection.ordered_task_ids;
+
+                const movingTaskId = startSectionTaskIds.splice(source.index, 1)[0];
+                finishSectionTaskIds.splice(destination.index, 0, taskDraggableId);
+
+                const startSectionMoveOpInfo = {
+                    updatedOrderedIds: startSectionTaskIds,
+                    movingSectionId: startSectionId,
+                    movingTaskId,
+                    // moveToIndex
+                }
+                const finishSectionMoveOpInfo = {
+                    updatedOrderedIds: finishSectionTaskIds,
+                    movingSectionId: finishSectionId,
+                    movingTaskId,
+                    moveToIndex
+                }
+                console.log("startSectionMoveOpInfo", startSectionMoveOpInfo);
+                console.log("finishSectionMoveOpInfo", finishSectionMoveOpInfo);
+                this.props.updateTaskOrder(startSectionMoveOpInfo);
+                this.props.updateTaskOrder(finishSectionMoveOpInfo);
             }
-            // console.log("movingTaskId", movingTaskId);
-
-            this.props.updateTaskOrder(moveOpInfo);
-            console.log("task was moved");
+            
         }
 
 
@@ -302,14 +340,14 @@ class SectionIndex extends React.Component {
                                             // console.log(section.id);
                                             const section = sections[sectionIds];
                                             const tasks = section.ordered_task_ids.map(
-                                                taskId => this.state.tasks[taskId]
+                                                taskId => this.props.tasks[taskId]
                                             );
 
                                             return (
                                                 <Draggable
-                                                    draggableId={sectionIds}
+                                                    draggableId={"section-" + sectionIds}
                                                     index={index}
-                                                    key={sectionIds} 
+                                                    key={"section-" + sectionIds} 
                                                     >
                                                     {provided => {
                                                         const dragHandleProps = provided.dragHandleProps;
@@ -320,15 +358,15 @@ class SectionIndex extends React.Component {
                                                                 // {...provided.dragHandleProps}
                                                             >
                                                                 
-                                                                <Droppable 
+                                                                {/* <Droppable 
                                                                     droppableId={"section-" + sectionIds}
-                                                                    key={"section-" + sectionIds} >
+                                                                    >
                                                                     {(provided) => (
                                                                         <div
                                                                             ref={provided.innerRef}
                                                                             {...provided.droppableProps}
                                                                             // {...provided.dragHandleProps}
-                                                                            >
+                                                                            > */}
                                                                             <div
                                                                                 className="section-row-container"
                                                                                 // key={"section-" + sectionIds}
@@ -342,10 +380,10 @@ class SectionIndex extends React.Component {
                                                                                     createSectionItem={false} />
 
                                                                             </div>
-                                                                            {provided.placeholder}
+                                                                            {/* {provided.placeholder}
                                                                         </div>
                                                                     )}
-                                                                </Droppable>
+                                                                </Droppable> */}
                                                             </div>
                                                         )
                                                     }}

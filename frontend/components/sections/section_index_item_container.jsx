@@ -79,43 +79,11 @@ class SectionIndexItem extends React.Component {
     handleChangeName(e) {
         e.stopPropagation();
         if (this.props.section.name !== this.state.name) {
-            const updatedSection = this.props.section;
+            let updatedSection = this.props.section;
             updatedSection.name = this.state.name;
             this.props.updateSection(updatedSection);
         }
     }
-    // taskItems() {
-    //     const { project, tasks } = this.props;
-    //     // debugger
-    //     const taskItems = section.ordered_task_ids.map((taskIds, index) => {
-    //         // console.log(task.id);
-    //         return (
-    //             <Droppable
-    //                 droppableId={this.props.section.id}
-    //                 direction="vertical"
-    //                 type="task"
-    //             >
-    //                 {provided => {
-    //                     return (
-    //                         <div
-    //                             {...provided.droppableProps}
-    //                             ref={provided.innerRef}
-    //                         >
-    //                             {/* {this.sectionItems()} */}
-    //                             <TaskIndexContainer 
-    //                                 section={section[sectionIds]}
-    //                                 tasks={section[sectionIds].taskIds} />
-
-    //                             {provided.placeholder}
-    //                         </div>
-    //                     )
-    //                 }
-    //                 }
-    //             </Droppable>
-    //         )
-    //     });
-    //     return taskItems;
-    // }
 
     render() {
         debugger
@@ -167,23 +135,9 @@ class SectionIndexItem extends React.Component {
                         </div>
 
                         <div className="section-task-list">
-                            <Draggable
-                                draggableId={"tasks-" + this.props.tasks.id}
-                                index={this.props.index}
-                                key={"tasks-" + this.props.tasks.id} >
-
-                                {(provided) => (
-                                    <div
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        ref={provided.innerRef} >
-
-                                        <TaskIndexContainer
-                                            section={this.props.section}
-                                            tasks={this.props.tasks} />
-                                    </div>
-                                )}
-                            </Draggable>
+                            <TaskIndexContainer
+                                section={this.props.section}
+                                tasks={this.props.tasks} />
                         </div>
 
                     </div>

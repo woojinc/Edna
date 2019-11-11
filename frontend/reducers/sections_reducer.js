@@ -4,6 +4,12 @@ import {
     GET_SECTION,
     DELETE_SECTION
 } from '../actions/section_actions';
+import {
+    GET_ALL_TASKS,
+    GET_UPDATED_TASKS,
+    GET_TASK,
+    DELETE_TASK
+} from '../actions/task_actions';
 import { merge } from 'lodash';
 import { LOGOUT_CURRENT_USER } from '../actions/session_actions';
 import { GET_PROJECT } from '../actions/project_actions';
@@ -33,6 +39,17 @@ export default (state = {}, action) => {
             const newState = merge({}, state);
             delete newState[action.sectionId];
             return newState;
+        }
+        case GET_ALL_TASKS: {
+            const sectionId = Object.values(action.tasks)[0].section_id
+            const taskIds = Object.keys(action.tasks).map(Number);
+            return merge({}, state,
+                {
+                    [sectionId]: {
+                        task_ids: taskIds,
+                        ordered_task_ids: action.ordered_task_ids,
+                    }
+                })
         }
         case LOGOUT_CURRENT_USER: {
             return {};

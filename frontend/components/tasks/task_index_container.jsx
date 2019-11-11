@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
         // logout: () => dispatch(logout()),
         // openModal: (modal) => dispatch(openModal(modal)),
         createTask: (task) => dispatch(createTask(task)),
+        updateTask: (task) => dispatch(updateTask(task)),
         updateTaskOrder: (moveOpInfo) => dispatch(updateTaskOrder(moveOpInfo)),
         fetchAllTasks: (sectionId) => dispatch(fetchAllTasks(sectionId)),
     };

@@ -35,7 +35,7 @@ class ProjectIndex extends React.Component {
         const projectItems = projects.map(project => {
             return (
                 <ProjectIndexItemContainer
-                    key={project.id}
+                    key={"project-" + project.id}
                     project={project}
                     createProject={false} />
             );

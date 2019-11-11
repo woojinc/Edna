@@ -12,6 +12,7 @@ import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 
 import Modal from '../modal/modal';
+import TaskIndexItemContainer from './task_index_item_container';
 
 import { merge, isEqual } from 'lodash';
 
@@ -19,13 +20,22 @@ class TaskIndex extends React.Component {
     constructor(props) {
         super(props);
         // this.state = { loaded: false };
-        // this.state = this.props.task;
+        // this.state = this.props.tasks;
         this.taskItems = this.taskItems.bind(this);
 
         this.handleCreateTask = this.handleCreateTask.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
     }
+
+    // componentDidUpdate(prevProps) {
+    //     const {tasks, section, sectionId, fetchAllTasks } = this.props;
+    //     // console.log(prevProps)
+    //     if (!isEqual(prevProps.tasks, tasks) ||
+    //         !isEqual(prevProps.section.ordered_task_ids, section.ordered_task_ids)) {
+    //         fetchAllTasks(sectionId);
+    //     }
+    // }
 
     handleOpenSection() {
         //`/sections/${section.id}`
@@ -57,55 +67,45 @@ class TaskIndex extends React.Component {
         //     console.log("index", index);
         return (
             <Droppable
-                droppableId={"section-tasks-" + section.id}
+                droppableId={"section-" + section.id}
                 direction="vertical"
                 type="task"
+                // key = {"section-" + section.id}
             >
                 {provided => {
-                    const draggableTasks = section.ordered_task_ids.map((taskId, index) => {
-                        const task = tasks[taskId];
-                        if (task == undefined) {
-                            console.log("section", section)
-                        }
-                        return (
-                            <Draggable
-                                draggableId={taskId}
-                                index={index}
-                                key={"task-" + taskId}
-                            >
-                                {(provided, snapshot) => {
-                                    return (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                        // isDragging={snapshot.isDragging}
-                                        >
-                                            <div className="task-row">
-                                                <div className="drag-handle" {...provided.dragHandleProps}>
-                                                    <i className="fas fa-grip-vertical"></i>
-                                                </div>
-                                                {index}
-                                                <i className="far fa-check-circle"></i>
-                                                <div className="task-name">
-                                                    <input
-                                                        className="task-name-input"
-                                                        type="text"
-                                                        value={task.name}
-                                                        onChange={this.handleChangeNameState()}
-                                                        onBlur={this.handleChangeName} />
-                                                </div>
-                                            </div >
-                                        </div>
-                                    )
-                                }}
-                            </Draggable>
-                        )
-                    })
                     return (
                         <div
                             ref={provided.innerRef}
                             {...provided.droppableProps} >
-                            {draggableTasks}
+                            {section.ordered_task_ids.map((taskId, index) => {
+                                const task = tasks[taskId];
+                                if (task == undefined) {
+                                    console.log("section", section)
+                                }
+                                return (
+                                    <Draggable
+                                        draggableId={"task-" + taskId}
+                                        index={index}
+                                        key={"task-" + taskId}
+                                    >
+                                        {(provided, snapshot) => {
+                                            return (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                // isDragging={snapshot.isDragging}
+                                                >
+                                                    <TaskIndexItemContainer
+                                                        dragHandleProps={provided.dragHandleProps}
+                                                        task={task}
+                                                        index={index}
+                                                    />
+                                                </div>
+                                            )
+                                        }}
+                                    </Draggable>
+                                )
+                            })}
                             {provided.placeholder}
                         </div>
                     )
@@ -141,9 +141,9 @@ class TaskIndex extends React.Component {
         return (
             // <div className="task-index-title">
             //     <div className="task-index-items">
-            <div key={"section-task-" + sectionId}>
-                {this.taskItems()}
-            </div>
+            // <div key={"section-tasks-" + sectionId}>
+                this.taskItems()
+            // </div>
             //     </div>
             // </div>
         );

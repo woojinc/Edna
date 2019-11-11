@@ -5,6 +5,7 @@
     
     display: flex;
     min-width: 920px;
+    height: 100vh;
     flex: 1 1 auto;
     flex-direction: column;
     min-height: 1px;
@@ -12,8 +13,9 @@
 }
 
 .home-page-view-container {
-    margin: 15px 0;
+    margin: 15px 0 0 0;
     height: 100%;
+    overflow: scroll;
 }
 
 .home-page-view {
