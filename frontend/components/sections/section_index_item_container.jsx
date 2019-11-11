@@ -6,6 +6,7 @@ import {
     createSection,
     updateSection,
     fetchSection,
+    deleteSection,
 } from '../../actions/section_actions';
 import {
     fetchAllTasks,
@@ -28,6 +29,7 @@ class SectionIndexItem extends React.Component {
         this.handleOpenSection = this.handleOpenSection.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleDeleteSection = this.handleDeleteSection.bind(this);
         // Task
         this.handleCreateTask = this.handleCreateTask.bind(this);
     }
@@ -66,6 +68,11 @@ class SectionIndexItem extends React.Component {
         })
     }
 
+    handleDeleteSection(e) {
+        e.stopPropagation();
+        this.props.deleteSection(this.props.section.project_id, this.props.section.id);
+    }
+
     handleOpenSection() {
         //`/sections/${section.id}`
     }
@@ -88,6 +95,14 @@ class SectionIndexItem extends React.Component {
     render() {
         debugger
         const { section, projectId, createSectionItem } = this.props;
+
+        const deleteSectionButton = section.null_section ? (
+            ""
+        ) : (
+                <button onClick={this.handleDeleteSection}>
+                    <i className="fas fa-minus"></i> Delete Section
+                </button >
+        );
 
 
         // const sectionItem = section.name;
@@ -128,8 +143,9 @@ class SectionIndexItem extends React.Component {
                             <div className="add-task">
                                 <div className="add-task-row">
                                     <button onClick={this.handleCreateTask}>
-                                        <i className="fas fa-plus"></i>
+                                        <i className="fas fa-plus"></i> Create Task
                                     </button>
+                                    {deleteSectionButton}
                                 </div >
                             </div>
                         </div>
@@ -161,6 +177,7 @@ const mapDispatchToProps = dispatch => {
         createSection: (section) => dispatch(createSection(section)),
         updateSection: (section) => dispatch(updateSection(section)),
         fetchSection: (id) => dispatch(fetchSection(id)),
+        deleteSection: (projectId, id) => dispatch(deleteSection(projectId, id)),
         // Task
         createTask: (task) => dispatch(createTask(task)),
     }

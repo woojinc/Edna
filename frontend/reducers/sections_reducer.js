@@ -40,13 +40,27 @@ export default (state = {}, action) => {
             delete newState[action.sectionId];
             return newState;
         }
+        case DELETE_TASK: {
+            console.log("action", action);
+            const sectionId = action.sectionId;
+            // const sectionId = Object.values(action.tasks)[0].section_id;
+            // const taskIds = Object.keys(action.tasks).map(Number);
+            return Object.assign({}, state,
+                {
+                    [sectionId]: {
+                        // task_ids: taskIds,
+                        ordered_task_ids: action.ordered_task_ids,
+                    }
+                })
+
+        }
         case GET_ALL_TASKS: {
             const sectionId = Object.values(action.tasks)[0].section_id
-            const taskIds = Object.keys(action.tasks).map(Number);
+            // const taskIds = Object.keys(action.tasks).map(Number);
             return merge({}, state,
                 {
                     [sectionId]: {
-                        task_ids: taskIds,
+                        // task_ids: taskIds,
                         ordered_task_ids: action.ordered_task_ids,
                     }
                 })

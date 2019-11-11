@@ -37,12 +37,21 @@ export const getTask = (task) => {
     }
 };
 
-export const removeTask = (taskId) => {
+export const removeTask = (sectionId, taskId, { tasks, ordered_task_ids }) => {
     return {
         type: DELETE_TASK,
-        taskId
+        sectionId,
+        taskId,
+        tasks,
+        ordered_task_ids,
     }
 };
+// export const removeTask = (taskId) => {
+//     return {
+//         type: DELETE_TASK,
+//         taskId
+//     }
+// };
 
 export const fetchAllTasks = (sectionId) => dispatch => (
     APITaskUtils.getAllTasks(sectionId)
@@ -65,9 +74,10 @@ export const updateTask = task => dispatch => (
     // .then(() => dispatch(closeModal()))
 );
 
-export const deleteTask = id => dispatch => {
+export const deleteTask = (sectionId, id) => dispatch => {
     return APITaskUtils.deleteTask(id)
-        .then(task => dispatch(removeTask(id)))
+        // .then(tasks => dispatch(getAllTasks(tasks)))    
+        .then(tasks => dispatch(removeTask(sectionId, id, tasks)))
     // .then(() => dispatch(closeModal()))
 };
 

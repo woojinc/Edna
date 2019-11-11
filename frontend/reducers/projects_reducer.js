@@ -40,6 +40,20 @@ export default (state = {}, action) => {
                     }
             })
         }
+        case DELETE_SECTION: {
+            console.log("action", action);
+            const projectId = action.projectId;
+            // const sectionId = Object.values(action.tasks)[0].section_id;
+            // const taskIds = Object.keys(action.tasks).map(Number);
+            return Object.assign({}, state,
+                {
+                    [projectId]: {
+                        // task_ids: taskIds,
+                        ordered_section_ids: action.ordered_section_ids,
+                    }
+                })
+
+        }
         case LOGOUT_CURRENT_USER: {
             return {};
         }

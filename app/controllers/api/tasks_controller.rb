@@ -53,6 +53,8 @@ def index
 
         if moveto_idx
 
+            debugger
+
             if @moving.section_id != moving_section_id
                 @moving.section_id = moving_section_id
             end
@@ -62,6 +64,7 @@ def index
                 @moved_prev = Task.find(updated_order_list[moveto_idx - 1])
                 tasks_will_be_updated.push(@moved_prev)
             end
+
             if !updated_order_list[moveto_idx + 1].nil?
                 @moved_next = Task.find(updated_order_list[moveto_idx + 1])
                 tasks_will_be_updated.push(@moved_next)
@@ -176,9 +179,38 @@ def index
     def destroy
         @task = Task.find(params[:id])
         if @task.destroy
-            @tasks = @task.tasks;
-            @tasks.task_id = @null_task.id
-            render "api/tasks/show" # should render workspace?
+            tasks_will_be_updated = [];
+            
+            # Grab prev and next task for the moving task
+            if !@task.prev_task_id.nil?
+                @task_prev = Task.find(@task.prev_task_id)
+                tasks_will_be_updated.push(@task_prev)
+            end
+            if !@task.next_task_id.nil?
+                @task_next = Task.find(@task.next_task_id)
+                tasks_will_be_updated.push(@task_next)
+            end
+
+            # Change the prev and next task of the moving task
+            if @task_prev 
+                @task_prev.next_task_id = @task.next_task_id 
+            end
+            if @task_next
+                @task_next.prev_task_id = @task.prev_task_id 
+            end
+
+            begin            
+                Task.transaction do 
+                    tasks_will_be_updated.each do |task|
+                        task.save!
+                    end
+                end
+                @tasks = Task.ordered_list(@task)
+                render "api/tasks/index"
+
+            rescue ActiveRecord::RecordInvalid
+                puts json: ["here we go!!!"]            
+            end
         else
             render json: @task.errors.full_messages, status: 400
         end        

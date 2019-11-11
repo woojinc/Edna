@@ -166,10 +166,45 @@ class Api::SectionsController < ApplicationController
     def destroy
         @section = Section.find(params[:id])
         if @section.destroy
-            @null_section = Project.find(params[:project_id]).sections.find_by(null_section: true)
-            @tasks = @section.tasks;
-            @tasks.section_id = @null_section.id
-            render "api/sections/show" # should render workspace?
+
+            sections_will_be_updated = []
+
+            # Grab prev and next section for the moving section
+            if !@section.prev_section_id.nil?
+                @section_prev = Section.find(@section.prev_section_id)
+                sections_will_be_updated.push(@section_prev)
+            end
+            if !@section.next_section_id.nil?
+                @section_next = Section.find(@section.next_section_id)
+                sections_will_be_updated.push(@section_next)
+            end
+
+            # Change the prev and next section of the moving section
+            if @section_prev 
+                @section_prev.next_section_id = @section.next_section_id 
+            end
+            if @section_next
+                @section_next.prev_section_id = @section.prev_section_id 
+            end
+
+            begin            
+                Section.transaction do 
+                    sections_will_be_updated.each do |section|
+                        section.save!
+                    end
+                end
+                @sections = Section.ordered_list(@section)
+                # @project = Project.find(params[:moveOpInfo][:projectId])
+                render "api/sections/index"
+                # render "api/projects/show"
+            rescue ActiveRecord::RecordInvalid
+                puts json: ["here we go!!!"]            
+            end
+
+            #@null_section = Project.find(params[:project_id]).sections.find_by(null_section: true)
+            #@tasks = @section.tasks;
+            #@tasks.section_id = @null_section.id
+            #render "api/sections/show" # should render workspace?
         else
             render json: @section.errors.full_messages, status: 400
         end        

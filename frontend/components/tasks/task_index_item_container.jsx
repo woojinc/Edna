@@ -36,6 +36,7 @@ class TaskIndexItem extends React.Component {
         // this.handleCreateTask = this.handleCreateTask.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleDeleteTask = this.handleDeleteTask.bind(this);
     }
 
     handleChangeNameState() {
@@ -51,6 +52,11 @@ class TaskIndexItem extends React.Component {
             updatedTask.name = this.state.name;
             this.props.updateTask(updatedTask);
         }
+    }
+
+    handleDeleteTask(e) {
+        e.stopPropagation();
+        this.props.deleteTask(this.props.task.section_id, this.props.task.id);
     }
 
     render() {
@@ -77,8 +83,8 @@ class TaskIndexItem extends React.Component {
                         onChange={this.handleChangeNameState()}
                         onBlur={this.handleChangeName} />
                 </div>
-                <button>
-
+                <button onClick={this.handleDeleteTask}>
+                    <i className="fas fa-minus"></i>
                 </button>
             </div >
         );
@@ -100,6 +106,7 @@ const mapDispatchToProps = dispatch => {
         // fetchSection: (id) => dispatch(fetchSection(id)),
         // Task
         // createTask: (task) => dispatch(createTask(task)),
+        deleteTask: (sectionId, taskId) => dispatch(deleteTask(sectionId, taskId)),
         updateTask: (task) => dispatch(updateTask(task)),
     }
 }

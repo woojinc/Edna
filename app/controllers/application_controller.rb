@@ -110,15 +110,21 @@ class ApplicationController < ActionController::Base
         task_hash = {}
         head = nil
 
-        tasks.each do |task|
-            task_hash[task.id] = task 
-            head = task if task.prev_task_id == nil
-        end
-        
-        ordered_list_ids = [head.id]
+        ordered_list_ids = []
 
-        until task_hash[ordered_list_ids.last].next_task_id == nil do
-            ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
+        if tasks.length != 0
+
+            tasks.each do |task|
+                task_hash[task.id] = task 
+                head = task if task.prev_task_id == nil
+            end
+            
+            ordered_list_ids = [head.id]
+
+            until task_hash[ordered_list_ids.last].next_task_id == nil do
+                ordered_list_ids.push(task_hash[ordered_list_ids.last].next_task_id)
+            end
+
         end
         
         ordered_list_ids
