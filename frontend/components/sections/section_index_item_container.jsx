@@ -93,16 +93,16 @@ class SectionIndexItem extends React.Component {
     }
 
     render() {
-        debugger
+
         const { section, projectId, createSectionItem } = this.props;
 
         const deleteSectionButton = section.null_section ? (
             ""
         ) : (
-                <button onClick={this.handleDeleteSection}>
-                    <i className="fas fa-minus"></i> Delete Section
+                <button onClick={this.handleDeleteSection} title="Delete Section">
+                    <i className="fas fa-minus"></i>
                 </button >
-        );
+            );
 
 
         // const sectionItem = section.name;
@@ -118,10 +118,10 @@ class SectionIndexItem extends React.Component {
                 // sectionItem
                 <button onClick={this.handleCreateSection}>
                     <div className="section-index-item create-section" >
-                        <div className="section-row">
+                        <div className="create-section-row">
                             <i className="fas fa-plus"></i>
                         </div >
-                        <div className="section-name">
+                        <div className="create-section-name">
                             Add Section
                         </div>
                     </div >
@@ -133,6 +133,10 @@ class SectionIndexItem extends React.Component {
                                 <i className="fas fa-grip-vertical"></i>
                             </div>
 
+                            <button className="section-caret">
+                                <i className="fas fa-caret-down"></i>
+                            </button>
+
                             <div className="section-name">
                                 <input
                                     type="text"
@@ -140,13 +144,11 @@ class SectionIndexItem extends React.Component {
                                     onChange={this.handleChangeNameState()}
                                     onBlur={this.handleChangeName} />
                             </div>
-                            <div className="add-task">
-                                <div className="add-task-row">
-                                    <button onClick={this.handleCreateTask}>
-                                        <i className="fas fa-plus"></i> Create Task
-                                    </button>
-                                    {deleteSectionButton}
-                                </div >
+                            <div className="section-operation" title="Add Task">
+                                <button onClick={this.handleCreateTask}>
+                                    <i className="fas fa-plus"></i>
+                                </button>
+                                {deleteSectionButton}
                             </div>
                         </div>
 

@@ -53,8 +53,6 @@ def index
 
         if moveto_idx
 
-            debugger
-
             if @moving.section_id != moving_section_id
                 @moving.section_id = moving_section_id
             end

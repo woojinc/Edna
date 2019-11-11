@@ -58,9 +58,10 @@
 }
 
 .task-row > i {
-    margin: 0 20px;
+    color: #6F7782;
+    margin: 0 10px;
     transition: color 0.2s;
-    cursor: auto;
+    cursor: pointer;
     line-height: inherit;
 }
 
@@ -80,30 +81,23 @@
     font-size: 0.8em;
 } */
 
+.task-name {
+    display: flex;
+    align-items: center;
+}
+
 .task-name > input {
-    border: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
     background: transparent;
     min-width: 20px;
-    /* width: 100%; */
-    padding: 2px;
-    /* width: 300px; */
+    padding: 4px;
     font-size: 0.8em;
-    /* font-weight: 500; */
 }
 
 .task-name > input:active,
 .task-name > input:focus {
-    border: 1px solid black;
-    border-radius: 2px;
-}
-
-
-/* .task-index-item > div {
-    font-size: inherit; */
-    /* width: 100%; */
-/* } */
-
-.task-row-container {
+    border-color: black;
 }
 
 .task-row-container:hover {
@@ -116,9 +110,30 @@
     align-content: center;
 }
 
-.task-row:hover .drag-handle {
+.task-row:hover .drag-handle,
+.task-row:hover .task-operation > button > i {
     /* display:block; */
     color: black;
+}
+
+.task-operation > button {
+    background: transparent;
+}
+
+.task-operation > button > i {
+    color: transparent;
+    margin: 0 5px;
+    box-sizing: border-box;
+    background: transparent;
+    cursor: pointer;
+}
+
+.task-row:hover .task-name > input {
+    border-color: black;
+}
+
+.task-index {
+    width: 15px;
 }
 
 

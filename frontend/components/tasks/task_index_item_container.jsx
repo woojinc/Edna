@@ -73,7 +73,9 @@ class TaskIndexItem extends React.Component {
                 <div className="drag-handle" { ...dragHandleProps }>
                     <i className="fas fa-grip-vertical"></i>
                 </div>
-                {index}
+                <div className="task-index">
+                    {index + 1}
+                </div>
                 <i className="far fa-check-circle"></i>
                 <div className="task-name">
                     <input
@@ -83,9 +85,11 @@ class TaskIndexItem extends React.Component {
                         onChange={this.handleChangeNameState()}
                         onBlur={this.handleChangeName} />
                 </div>
-                <button onClick={this.handleDeleteTask}>
-                    <i className="fas fa-minus"></i>
-                </button>
+                <div className="task-operation">
+                    <button onClick={this.handleDeleteTask}>
+                        <i className="fas fa-minus"></i>
+                    </button>
+                </div>
             </div >
         );
     };

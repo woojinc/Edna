@@ -59,8 +59,6 @@ class TaskIndex extends React.Component {
     taskItems() {
         const { section, tasks } = this.props;
 
-        debugger
-
         // const taskItems = section.ordered_task_ids.map((taskId, index) => {
         //     const task = tasks[taskId];
         //     console.log("taskId", taskId);
@@ -134,7 +132,6 @@ class TaskIndex extends React.Component {
 
         // Should I check if tasks are fully populated?
         if (tasks === undefined || Object.keys(tasks).length === 0) {
-            debugger
             return null;
         }
 
