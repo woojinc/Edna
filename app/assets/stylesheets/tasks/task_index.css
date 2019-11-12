@@ -181,7 +181,7 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    background-image: linear-gradient(to right, #ff5263, #f2a100, #ffe01b, #25e8c8, #14aaf5, #796eff, #fff);
+    background-image: linear-gradient(to right, #ff5263, #f2a100, #ffe01b, #25e8c8, #14aaf5, #796eff, #f6f8f9);
     transform: translateX(-100%);
 }
 

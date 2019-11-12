@@ -68,17 +68,21 @@
 }
 
 .footer {
-    position: absolute;
-    bottom: 0px;
+    /* position: absolute;
+    bottom: 0px; */
     width: 100%;
+    height: 15%;
     font-size: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .footer-links {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 68px;
+    min-height: 68px;
     padding: 0 30px;
 }
 
@@ -91,9 +95,27 @@
     margin: auto 0;
 }
 
+.fa-angellist {
+    background-color: #cbd4db;
+    color: #151b26;
+    border-radius: 3px;
+    padding: 4px 4px 2px 4px;
+    font-size: 0.7em;
+}
+
 .footer-links > a {
     display: flex;
     align-items: center;
+}
+
+.footer-links > a:hover .fa-angellist,
+.footer-links > a:hover .footer-logo-img {
+    background-color: #f6f8f9;
+}
+
+.footer-links > a:hover .fa-github-square, 
+.footer-links > a:hover .fa-linkedin {
+    color: #f6f8f9;
 }
 
 

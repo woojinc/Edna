@@ -68,7 +68,7 @@ class TaskIndex extends React.Component {
                 droppableId={"section-" + section.id}
                 direction="vertical"
                 type="task"
-                // key = {"section-" + section.id}
+            // key = {"section-" + section.id}
             >
                 {provided => {
                     return (
@@ -78,9 +78,8 @@ class TaskIndex extends React.Component {
                             {...provided.droppableProps} >
                             {section.ordered_task_ids.map((taskId, index) => {
                                 const task = tasks[taskId];
-                                if (task == undefined) {
-                                    console.log("section", section)
-                                }
+                                // if (!task.completed) {
+
                                 return (
                                     <Draggable
                                         draggableId={"task-" + taskId}
@@ -104,6 +103,7 @@ class TaskIndex extends React.Component {
                                         }}
                                     </Draggable>
                                 )
+                                // }
                             })}
                             {provided.placeholder}
                         </div>
@@ -140,7 +140,7 @@ class TaskIndex extends React.Component {
             // <div className="task-index-title">
             //     <div className="task-index-items">
             // <div key={"section-tasks-" + sectionId}>
-                this.taskItems()
+            this.taskItems()
             // </div>
             //     </div>
             // </div>

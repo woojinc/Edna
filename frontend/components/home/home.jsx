@@ -67,6 +67,9 @@ class Home extends React.Component {
                                 {/* <i className="fas fa-chalkboard"></i> */}
                                 <img className="footer-logo-img" src={window.wjLogo} alt="logo" />
                             </a>
+                            <a href="https://angel.co/woojin-chae" target="_blank">
+                                <i className="fab fa-angellist"></i>
+                            </a>
                             <a href="https://www.linkedin.com/in/woojin-chae/" target="_blank">
                                 <i className="fab fa-linkedin"></i>
                             </a>
