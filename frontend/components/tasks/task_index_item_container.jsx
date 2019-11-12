@@ -57,18 +57,31 @@ class TaskIndexItem extends React.Component {
 
     handleCompleteTask(e) {
         e.stopPropagation();
-        if (e.target.classList[1] === "fa-check-circle") {
-            console.log(e.target);
 
-            let currentTarget = e.currentTarget;
+        let currentTarget = e.currentTarget;
+        console.log(!currentTarget.children[3].classList[1]);
+
+        if (e.target.classList[1] === "fa-check" &&
+            !currentTarget.children[3].classList[1]) {
 
             setTimeout(() => {
                 currentTarget.children[0].classList.add("task-rainbow-transform")
-            }, 750);
+            }, 250);
+
+            setTimeout(() => {
+                currentTarget.children[3].classList.add("task-completed")
+                currentTarget.children[0].classList.add("task-rainbow-fadeout")
+            }, 1500);
 
             setTimeout(() => {
                 currentTarget.children[0].classList.remove("task-rainbow-transform")
-            }, 1500);
+                currentTarget.children[0].classList.remove("task-rainbow-fadeout")
+            }, 2250);
+        }
+
+        if (e.target.classList[1] === "fa-check" &&
+            !!currentTarget.children[3].classList[1]) {
+            currentTarget.children[3].classList.remove("task-completed")
         }
     }
 
@@ -86,18 +99,26 @@ class TaskIndexItem extends React.Component {
         //     return null;
         // }
 
+        const taskCompleted = task.completed ? (
+                <button className="task-complete task-completed">
+                    <i className="fas fa-check"></i>
+                </button>
+            ) : (
+                <button className="task-complete">
+                    <i className="fas fa-check"></i>
+                </button >
+            );
+
         return (
             <div className="task-row" onClick={this.handleCompleteTask}>
                 <div className="task-rainbow"></div>
-                <div className="drag-handle" { ...dragHandleProps }>
+                <div className="drag-handle" {...dragHandleProps}>
                     <i className="fas fa-grip-vertical"></i>
                 </div>
                 <div className="task-index">
                     {index + 1}
                 </div>
-                <button className="task-complete">
-                    <i className="far fa-check-circle"></i>
-                </button>
+                {taskCompleted}
                 <div className="task-name">
                     <input
                         className="task-name-input"
