@@ -56,6 +56,22 @@ class Home extends React.Component {
                         <div className="side-bar-teamlists coming-soon">side-bar-teamlists</div>
                         <div className="side-bar-invite coming-soon">side-bar-invite</div>
                     </div>
+
+                    <footer className="footer">
+
+                        <div className="footer-links">
+                            <a href="https://github.com/woojinc/" target="_blank">
+                                <i className="fab fa-github-square"></i>
+                            </a>
+                            <a href="https://woojinchae.com/" target="_blank">
+                                {/* <i className="fas fa-chalkboard"></i> */}
+                                <img className="footer-logo-img" src={window.wjLogo} alt="logo" />
+                            </a>
+                            <a href="https://www.linkedin.com/in/woojin-chae/" target="_blank">
+                                <i className="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </footer>
                 </div>
 
                 <div className="home-view">

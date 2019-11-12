@@ -66,6 +66,8 @@
     height: 1em;
     width: 1em;
     font-size: 1em;
+    padding-right: 20px;
+    background: transparent;
 }
 
 .create-section-row {

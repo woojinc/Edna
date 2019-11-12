@@ -36,6 +36,7 @@ class TaskIndexItem extends React.Component {
         // this.handleCreateTask = this.handleCreateTask.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleCompleteTask = this.handleCompleteTask.bind(this);
         this.handleDeleteTask = this.handleDeleteTask.bind(this);
     }
 
@@ -54,6 +55,23 @@ class TaskIndexItem extends React.Component {
         }
     }
 
+    handleCompleteTask(e) {
+        e.stopPropagation();
+        if (e.target.classList[1] === "fa-check-circle") {
+            console.log(e.target);
+
+            let currentTarget = e.currentTarget;
+
+            setTimeout(() => {
+                currentTarget.children[0].classList.add("task-rainbow-transform")
+            }, 750);
+
+            setTimeout(() => {
+                currentTarget.children[0].classList.remove("task-rainbow-transform")
+            }, 1500);
+        }
+    }
+
     handleDeleteTask(e) {
         e.stopPropagation();
         this.props.deleteTask(this.props.task.section_id, this.props.task.id);
@@ -69,14 +87,17 @@ class TaskIndexItem extends React.Component {
         // }
 
         return (
-            <div className="task-row">
+            <div className="task-row" onClick={this.handleCompleteTask}>
+                <div className="task-rainbow"></div>
                 <div className="drag-handle" { ...dragHandleProps }>
                     <i className="fas fa-grip-vertical"></i>
                 </div>
                 <div className="task-index">
                     {index + 1}
                 </div>
-                <i className="far fa-check-circle"></i>
+                <button className="task-complete">
+                    <i className="far fa-check-circle"></i>
+                </button>
                 <div className="task-name">
                     <input
                         className="task-name-input"
