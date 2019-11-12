@@ -41,11 +41,14 @@ export default (state = {}, action) => {
             return newState;
         }
         case DELETE_TASK: {
+            const newState = merge({}, state);
             console.log("action", action);
             const sectionId = action.sectionId;
+
+            delete newState[sectionId].ordered_task_ids;
             // const sectionId = Object.values(action.tasks)[0].section_id;
             // const taskIds = Object.keys(action.tasks).map(Number);
-            return Object.assign({}, state,
+            return merge({}, newState,
                 {
                     [sectionId]: {
                         // task_ids: taskIds,

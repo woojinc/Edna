@@ -33,6 +33,9 @@ class TaskIndexItem extends React.Component {
         // this.state = { loaded: false };
         this.state = this.props.task;
 
+        this.myInput = React.createRef();
+        this.mySpanInput = React.createRef();
+
         // this.handleCreateTask = this.handleCreateTask.bind(this);
         this.handleChangeNameState = this.handleChangeNameState.bind(this);
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -40,8 +43,17 @@ class TaskIndexItem extends React.Component {
         this.handleDeleteTask = this.handleDeleteTask.bind(this);
     }
 
+    componentDidMount() {
+        const input = this.myInput.current;
+        const span = this.mySpanInput.current;
+        input.style.width = span.offsetWidth + 7 + "px";
+    }
+
     handleChangeNameState() {
         return e => {
+            const input = this.myInput.current;
+            const span = this.mySpanInput.current;
+            e.target.style.width = span.offsetWidth + 7 + "px";
             this.setState({ name: e.target.value })
         };
     }
@@ -64,6 +76,10 @@ class TaskIndexItem extends React.Component {
         if (e.target.classList[1] === "fa-check" &&
             !currentTarget.children[3].classList[1]) {
 
+            let updatedTask = this.props.task;
+            updatedTask.completed = true;
+            this.props.updateTask(updatedTask);
+
             setTimeout(() => {
                 currentTarget.children[0].classList.add("task-rainbow-transform")
             }, 250);
@@ -81,7 +97,12 @@ class TaskIndexItem extends React.Component {
 
         if (e.target.classList[1] === "fa-check" &&
             !!currentTarget.children[3].classList[1]) {
-            currentTarget.children[3].classList.remove("task-completed")
+
+            let updatedTask = this.props.task;
+            updatedTask.completed = false;
+            this.props.updateTask(updatedTask);
+
+            currentTarget.children[3].classList.remove("task-completed");
         }
     }
 
@@ -120,7 +141,13 @@ class TaskIndexItem extends React.Component {
                 </div>
                 {taskCompleted}
                 <div className="task-name">
+                    <span 
+                        className="task-name-input-span" 
+                        ref={this.mySpanInput}>
+                            {this.state.name}
+                    </span>
                     <input
+                        ref={this.myInput}
                         className="task-name-input"
                         type="text"
                         value={this.state.name}

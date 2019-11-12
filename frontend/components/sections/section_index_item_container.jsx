@@ -24,6 +24,10 @@ class SectionIndexItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.section;
+
+        this.input = React.createRef();
+        this.spanInput = React.createRef();
+        
         // Section
         this.handleCreateSection = this.handleCreateSection.bind(this);
         this.handleOpenSection = this.handleOpenSection.bind(this);
@@ -32,6 +36,15 @@ class SectionIndexItem extends React.Component {
         this.handleDeleteSection = this.handleDeleteSection.bind(this);
         // Task
         this.handleCreateTask = this.handleCreateTask.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(this.input);
+        const input = this.input.current;
+        const span = this.spanInput.current;
+        if (input) {
+            input.style.width = span.offsetWidth + 12 + "px";
+        }
     }
 
     handleCreateSection(e) {
@@ -79,6 +92,9 @@ class SectionIndexItem extends React.Component {
 
     handleChangeNameState() {
         return e => {
+            const input = this.input.current;
+            const span = this.spanInput.current;
+            e.target.style.width = span.offsetWidth + 12 + "px";
             this.setState({ name: e.target.value })
         };
     }
@@ -138,7 +154,13 @@ class SectionIndexItem extends React.Component {
                             </button>
 
                             <div className="section-name">
+                                <span
+                                    className="section-name-input-span"
+                                    ref={this.spanInput}>
+                                    {this.state.name}
+                                </span>
                                 <input
+                                    ref={this.input}
                                     type="text"
                                     value={this.state.name}
                                     onChange={this.handleChangeNameState()}

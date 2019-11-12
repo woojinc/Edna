@@ -73,6 +73,7 @@ class TaskIndex extends React.Component {
                 {provided => {
                     return (
                         <div
+                            className="task-index-row"
                             ref={provided.innerRef}
                             {...provided.droppableProps} >
                             {section.ordered_task_ids.map((taskId, index) => {
